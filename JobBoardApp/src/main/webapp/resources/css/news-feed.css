@@ -1,0 +1,76 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 17, 2021, 3:00:36 AM
+    Author     : Admin
+*/
+.nav-item:hover{
+    border-bottom: 1px solid tomato;
+}
+.body{
+    background-color: white;
+    padding: 15px;
+}
+/*.body-left{
+    border: 1px solid #FFD21E;
+}
+.body-right{
+    border: 1px solid #FFD21E;
+}*/
+.body-right-title{
+    padding: 15px;
+}
+.body-card{
+    background-color: white;
+}
+.card-sub-item {
+    display: inline-block;
+}
+.card-img{
+    width: 200px;
+    height: 200px;
+}
+
+.subcard-img{
+    width: 22px;
+    height: 22px;
+}
+#fulltimeArea, #parttimeArea, #internArea{
+    display: none;
+}
+.btn-nut{
+    margin-top: 15px;
+}
+
+.btn-nut-search{
+    margin-top: 15px;
+}
+.form-group{
+    padding: 10px 20px 10px 10px;
+}
+.border-jobs-search{
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.card-text a{
+    margin-bottom: 1rem;
+    color: #212529;
+}
+.card-text a:hover{
+    text-decoration: none;
+    color: #212529;
+}
+
+a.card-body-name{
+    color: #212529;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.card-body > a:hover{
+    text-decoration: none;
+    color: #FFD21E;
+}
