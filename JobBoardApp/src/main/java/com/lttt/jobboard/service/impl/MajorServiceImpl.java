@@ -11,6 +11,7 @@ import com.lttt.jobboard.service.MajorService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,8 +24,9 @@ public class MajorServiceImpl implements MajorService {
     private MajorRepository majorRepository;
 
     @Override
-    public List<Major> getMajors(String kw) {
-        return this.majorRepository.getMajors(kw);
+    @Transactional(readOnly = true)
+    public List<Major> getMajors() {
+        return this.majorRepository.getMajors();
     }
 
 }

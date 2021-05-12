@@ -5,6 +5,9 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <link href="<c:url value="/resources/css/employee-update-info.css"/>" rel="stylesheet"/>
 
@@ -17,19 +20,19 @@
                         <div class="navbar-collapse no-padding">
                             <ul class="menu_short_profile">
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/employer-info/"/>">
+                                    <a href="<spring:url value="/employer-info/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fa fa-user"></i>
                                         Profile
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/employer-update-info/"/>">
+                                    <a href="<spring:url value="/EmployerUpdateInfo/${pageContext.request.userPrincipal.name}" /> ">
                                         <i class="fas fa-edit"></i>
                                         Cập nhật thông tin
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/list-post/"/>">
+                                    <a href="<spring:url value="/ListPost/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fas fa-file-alt"></i>
                                         Danh sách bài post
                                     </a>
@@ -112,33 +115,35 @@
                 </form>
                 <div class="search-applers" style="margin-top: 20px;">
                     <div class="row">
-                        <div class="col-12 list-item">
-                            <article class="apllyer-item">
-                                <div class="applyers">
-                                    <div class="left-applyer">
-                                        <div class="flex-middle">
-                                            <div class="employers-icon">
-                                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        <c:forEach items="${employees}" var="e">
+                            <div class="col-12 list-item">
+                                <article class="apllyer-item">
+                                    <div class="applyers">
+                                        <div class="left-applyer">
+                                            <div class="flex-middle">
+                                                <div class="employers-icon">
+                                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                                </div>
+                                                <h2 class="employers-name">${e.lastName} ${e.firstName}</h2>
                                             </div>
-                                            <h2 class="employers-name">Võ Hoàng Yến</h2>
+                                        </div>
+                                        <div class="applyer-email">
+                                            <!--<i class="fas fa-envelope" aria-hidden="true"></i>-->
+                                            <h2>${e.major.name}</h2>
+                                        </div>
+                                        <div class="employer-salary">
+                                            <!--<i class="fas fa-file" aria-hidden="true"></i>-->
+                                            <!--<a href="<c:url value="/resources/images/English.docx" />" download>-->
+                                            <h2><fmt:formatNumber type="number" value="${e.salary}" /> VNĐ</h2>
+                                            </a>                                
+                                        </div>
+                                        <div class="applyer-see">
+                                            <a href="<spring:url value="/info-applyers/${e.id}" />" class="btn btn-see">Xem Chi tiết</a>                                
                                         </div>
                                     </div>
-                                    <div class="applyer-email">
-                                        <i class="fas fa-envelope" aria-hidden="true"></i>
-                                        <h2>1751010185yen@ou.edu.vn</h2>
-                                    </div>
-                                    <div class="applyer-cv">
-                                        <i class="fas fa-file" aria-hidden="true"></i>
-                                        <a href="<c:url value="/resources/images/English.docx" />" download>
-                                            vohoangyen.docx
-                                        </a>                                
-                                    </div>
-                                    <div class="applyer-see">
-                                        <a href="<c:url value="/info-applyer/" />" class="btn btn-see">Xem Chi tiết</a>                                
-                                    </div>
-                                </div>
-                            </article>
-                        </div> 
+                                </article>
+                            </div> 
+                        </c:forEach>
                     </div>
                 </div>
             </div>

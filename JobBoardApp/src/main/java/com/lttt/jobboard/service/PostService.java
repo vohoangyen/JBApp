@@ -5,6 +5,7 @@
  */
 package com.lttt.jobboard.service;
 
+import com.lttt.jobboard.pojo.Employer;
 import com.lttt.jobboard.pojo.Post;
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,7 +16,15 @@ import java.util.List;
  */
 public interface PostService {
     List<Post> getPosts(String kw);
+    List<Post> getPostsArea(String kw, int areaId);
     List<Post> getPostsBySalaryKw(String kw,BigDecimal fromSalary, BigDecimal toSalary);
     List<Post> getPostsBySalary(BigDecimal fromSalary, BigDecimal toSalary);
     Post getPostId(int id);
+    
+    void addPost(Post post);
+    
+    List<Object[]> getAllPosts(String kw,BigDecimal fromSalary, BigDecimal toSalary);
+    List<Object[]> getPostsKw(String kw);
+    List<Object[]> getPostsSalary(BigDecimal fromSalary, BigDecimal toSalary);
+    List<Object[]> getPost();
 }

@@ -60,5 +60,11 @@ public class UserServiceImpl implements UserService{
     public User getUserByUsername(String username) {
         return userRepository.getUsers(username).get(0);
     }
+
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<User> getUsers(String username) {
+//        return userRepository.getUsers(username);
+//    }
     
 }

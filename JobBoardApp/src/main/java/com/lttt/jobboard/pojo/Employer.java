@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -32,6 +34,9 @@ public class Employer implements Serializable{
     
     @Column(name = "logo")
     private String logo;
+    
+    @Transient
+    private MultipartFile logoFile;
     
     @Column(name = "description")
     private String description;
@@ -194,5 +199,19 @@ public class Employer implements Serializable{
      */
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    /**
+     * @return the logoFile
+     */
+    public MultipartFile getLogoFile() {
+        return logoFile;
+    }
+
+    /**
+     * @param logoFile the logoFile to set
+     */
+    public void setLogoFile(MultipartFile logoFile) {
+        this.logoFile = logoFile;
     }
 }

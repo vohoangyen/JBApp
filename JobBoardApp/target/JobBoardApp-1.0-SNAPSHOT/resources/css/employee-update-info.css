@@ -186,7 +186,7 @@ input[type="text"],input[type="email"],input[type="file"],input[type="number"],i
     border-bottom: 1px solid #eaeff5;
     
     position: relative;
-    z-index: 1;
+    /*z-index: 1;*/
     transition: all 0.35s ease-in-out 0s;
     background: #fff;
     padding: 20px 0;

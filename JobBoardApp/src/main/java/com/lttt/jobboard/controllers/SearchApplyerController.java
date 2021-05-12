@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Dy
  */
 @Controller
-@RequestMapping("/search-applyer")
+//@RequestMapping("/search-applyer")
 public class SearchApplyerController {
-    @RequestMapping("/")
-    public String SearchApplyer(){
-        return "search-applyer";
-    }
+//    @RequestMapping("/")
+//    public String SearchApplyer(){
+//        return "search-applyer";
+//    }
 }

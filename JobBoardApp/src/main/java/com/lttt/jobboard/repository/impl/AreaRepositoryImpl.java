@@ -6,6 +6,7 @@
 package com.lttt.jobboard.repository.impl;
 
 import com.lttt.jobboard.pojo.Area;
+import com.lttt.jobboard.pojo.Post;
 import com.lttt.jobboard.repository.AreaRepository;
 import java.util.List;
 import javax.persistence.Query;
@@ -13,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class AreaRepositoryImpl implements AreaRepository{
     
     @Override
     @Transactional
-    public List<Area> getAreas(String kw) {
+    public List<Area> getAreas() {
         List<Area> areas;
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -39,12 +41,25 @@ public class AreaRepositoryImpl implements AreaRepository{
         Root<Area> root = cr.from(Area.class);
 
         CriteriaQuery query = cr.select(root);
-        if (!kw.isEmpty())
-            query = query.where(builder.like(root.get("name").as(String.class),  
-                    "%" + kw + "%"));
+//        if(!kw.isEmpty())
+//            query = query.where(builder.like(root.get("name").as(String.class),  
+//                    "%" + kw + "%"));
 
         areas = session.createQuery(query).getResultList();        
         return areas;
+    }
+
+    @Override
+    public List<Post> getPostsByArea(int areaId) {
+        List<Post> posts = null;
+        Session session = sessionFactory.getCurrentSession(); 
+        
+        Area areas = session.get(Area.class, areaId);
+        if (areas != null) {
+            Hibernate.initialize(areas.getPosts());
+            posts = areas.getPosts();
+        }
+        return posts;
     }
     
 }

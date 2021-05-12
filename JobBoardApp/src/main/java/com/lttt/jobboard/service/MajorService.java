@@ -13,5 +13,5 @@ import java.util.List;
  * @author Admin
  */
 public interface MajorService {
-    List<Major> getMajors(String kw);
+    List<Major> getMajors();
 }

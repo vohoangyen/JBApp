@@ -31,7 +31,7 @@
                         <sec:authorize access="isAuthenticated()">   
                             <sec:authorize access="hasRole('ROLE_EMPLOYER')">
                                 <li id="elm-post" class="nav-item">
-                                    <a class="nav-link" href="<c:url value="/post/"/>">POST</a>
+                                    <a class="nav-link" href="<spring:url value="/post/${pageContext.request.userPrincipal.name}" />">POST</a>
                                 </li>      
                             </sec:authorize>
                             <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
@@ -68,7 +68,7 @@
                     <sec:authorize access="hasRole('ROLE_EMPLOYER')">
                         <div class="elm-sign" style="padding-left: 30px; float: right;">
                             <div class="elm-sign-in">
-                                <a href="<c:url value="/employer-info/"/>" style="color: black;font-weight: 400;">
+                                <a href="<spring:url value="/employer-info/${pageContext.request.userPrincipal.name}" />" style="color: black;font-weight: 400;">
                                     <i class="fa fa-user" style="margin-right: 10px;"></i>
                                     <spring:message code="message.welcome" />, 
                                     <sec:authentication property="principal.username" />                                     
@@ -79,7 +79,7 @@
                     <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                         <div class="elm-sign" style="padding-left: 30px; float: right;">
                             <div class="elm-sign-in">
-                                <a href="<c:url value="/employee-info/"/>" style="color: black;font-weight: 400;">
+                                <a href="<spring:url value="/EmployeeInfo/${pageContext.request.userPrincipal.name}" />" style="color: black;font-weight: 400;">
                                     <i class="fa fa-user" style="margin-right: 10px;"></i>
                                     <spring:message code="message.welcome" />, 
                                     <sec:authentication property="principal.username" /> 

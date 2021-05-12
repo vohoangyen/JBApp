@@ -5,6 +5,8 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <link href="<c:url value="/resources/css/employee-update-info.css"/>" rel="stylesheet"/>
 
@@ -17,19 +19,40 @@
                         <div class="navbar-collapse no-padding">
                             <ul class="menu_short_profile">
                                 <li class="active aligned-left">
-                                    <a href="<c:url value="/employer-info/"/>">
+                                    <a href="<spring:url value="/employer-info/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fa fa-user"></i>
                                         Profile
                                     </a>
                                 </li>
+
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/employer-update-info/"/>">
+                                    <c:choose>
+                                        <c:when test="${not empty employers}">
+                                            <c:forEach items="${employers}" var="e">
+                                                <a href="<spring:url value="/EmployerUpdateInfo/${e[0]}" />">
+                                                    <i class="fas fa-edit"></i>
+                                                    Cập nhật thông tin
+                                                </a>
+                                            </c:forEach>
+                                        </c:when>                                        
+                                        <c:when test="${empty employers}">
+                                            <c:forEach items="${employers}" var="e">
+                                                <a href="<spring:url value="/add-info-employer/${pageContext.request.userPrincipal.name}" />">
+                                                    <i class="fas fa-edit"></i>
+                                                    Cập nhật thông tin
+                                                </a>
+                                            </c:forEach>
+                                        </c:when>
+                                    </c:choose>
+                                </li>
+<!--                                <li class="aligned-left">
+                                    <a href="<spring:url value="/EmployerUpdateInfo/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fas fa-edit"></i>
                                         Cập nhật thông tin
                                     </a>
-                                </li>
+                                </li>-->
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/list-post/"/>">
+                                    <a href="<spring:url value="/ListPost/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fas fa-file-alt"></i>
                                         Danh sách bài post
                                     </a>
@@ -58,71 +81,75 @@
                     </div>
                     <div class="widget-infomation-contents">
                         <form method="POST">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Logo công ty/doanh nghiệp</label>
-                                    </div>
-                                    <div class="cmb-td image-logo">
-                                        <img src="<c:url value="/resources/images/e1.jpg"/>" alt="">
-                                        <!--<input type="text" class="form-control" value="Redesign Co" readonly="true">-->
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Tên công ty/doanh nghiệp</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="text" class="form-control" value="Redesign Co" readonly="true">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Email</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="email" class="form-control" value="abc@gmail.com" readonly="true">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Số điện thoại</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="number" class="form-control" value="0987654321" readonly="true">
-                                    </div>
-                                </div> 
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Quy mô</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="text" class="form-control" value="Từ 1-100 người" readonly="true">
-                                    </div>
-                                </div>  
-                                <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Địa chỉ</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="text" class="form-control" value="123 Nguyễn Kiệm, P3, Quận Gò Vấp" readonly="true">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Mô tả công ty/ doanh nghiệp</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <textarea class="form-control" value="123 Nguyễn Kiệm, P3, Quận Gò Vấp" rows="10" readonly="true">
-Far much that one rank beheld bluebird after outside ignobly allegedly
-more when oh arrogantly vehement irresistibly fussy penguin insect
-additionally wow absolutely crud meretriciously hastily dalmatian a
-glowered inset one echidna cassowary some parrot and much as goodness
-some froze the sullen much connected bat wonderfully on instantaneously
-eel valiantly petted this along across highhandedly much.</textarea>
-                                    </div>
-                                </div>                           
-                            </div>
+                            <c:choose>
+                                <c:when test="${not empty employers}">
+                                    <c:forEach items="${employers}" var="e"> 
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                   
+                                                    <label>Logo công ty/doanh nghiệp</label>
+                                                </div>
+                                                <div class="cmb-td image-logo">
+                                                    <img src="<spring:url value="${e[2]}" />" alt="">
+                                                    <!--<input type="text" class="form-control" value="Redesign Co" readonly="true">-->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Tên công ty/doanh nghiệp</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[1]}" readonly="true">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="email" class="form-control" value="${e[6]}" readonly="true">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Số điện thoại</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[5]}" readonly="true">
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Quy mô</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[4]} nhân viên" readonly="true">
+                                                </div>
+                                            </div>  
+                                            <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Địa chỉ</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[7]}, ${e[8]}" readonly="true">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Mô tả công ty/ doanh nghiệp</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <textarea class="form-control" rows="10" readonly="true"> ${e[3]} </textarea> 
+                                                </div>
+                                            </div>                           
+                                        </div>                                                                                                                          
+                                    </c:forEach>
+                                </c:when>
+                                <c:when test="${empty employees}">
+                                    <p style="color: red;font-weight: 400;"><strong>*</strong> Công ty / Doanh ngiệp chưa có thông tin. Hãy <a href="<spring:url value="/add-info-employer/${pageContext.request.userPrincipal.name}" />">thêm thông tin</a>!</p>
+                                </c:when>                               
+                            </c:choose>
                         </form>
                     </div>
                 </div>

@@ -46,5 +46,37 @@ public class PostServiceImpl implements PostService{
     public List<Post> getPostsBySalaryKw(String kw, BigDecimal fromSalary, BigDecimal toSalary) {
         return postRepository.getPostsBySalaryKw(kw,fromSalary,toSalary);
     }
+
+    @Override
+    public List<Post> getPostsArea(String kw, int id) {
+        return postRepository.getPostsArea(kw,id);
+    }
+
+    
+    @Override
+    public List<Object[]> getAllPosts(String kw, BigDecimal fromSalary, BigDecimal toSalary) {
+        return postRepository.getAllPosts(kw,fromSalary,toSalary);
+    }
+
+    @Override
+    public List<Object[]> getPostsKw(String kw) {
+        return postRepository.getPostsKw(kw);
+    }
+
+    @Override
+    public List<Object[]> getPostsSalary(BigDecimal fromSalary, BigDecimal toSalary) {
+        return postRepository.getPostsSalary(fromSalary,toSalary);
+    }
+
+    @Override
+    public List<Object[]> getPost() {
+        return postRepository.getPost();
+    }
+
+    @Override
+    @Transactional
+    public void addPost(Post post) {
+        postRepository.addPost(post);
+    }
     
 }

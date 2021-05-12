@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
 
 <!DOCTYPE html>
 <html>
@@ -67,7 +68,8 @@
                                         <h4>Khái quát</h4>
                                     </div>
                                     <div class="detail-wrapper-body">
-                                        <p>${post.description}</p>
+                                        <c:set var="s1" value="${post.description}"/>  
+                                        <p>${fn:replace(s1, ".", "<br>")}</p>
                                     </div>
                                 </div>
                                 <div class="detail-wrapper">
@@ -76,12 +78,8 @@
                                     </div>
                                     <div class="detail-wrapper-body">
                                         <ul class="detail-list">
-                                            <!--                                           <li>Proven work experienceas a web designer</li>
-                                                                                       <li>Proven work experienceas a web designer</li>
-                                                                                       <li>Proven work experienceas a web designer</li>
-                                                                                       <li>Proven work experienceas a web designer</li>-->
-
-                                            ${post.requirements}
+                                            <c:set var="s2" value="${post.requirements}"/>  
+                                            <p>${fn:replace(s2, ".", "<br>")}</p>
                                         </ul>
 
                                     </div>
@@ -221,13 +219,13 @@
                                 </div>
                                 <span style="color: red"><strong>*</strong> Please login to apply !</span>                                                     
                             </sec:authorize>
-<!--                            <div class="widget-apply">
-                                <div class="widget-container-apply">
-                                    <a href="<c:url value="/post-detail/apply/"/>" role="button" class="widget-container-apply-button">                                     
-                                        <span>Ứng tuyển</span>
-                                    </a>
-                                </div>           
-                            </div>-->
+                            <!--                            <div class="widget-apply">
+                                                            <div class="widget-container-apply">
+                                                                <a href="<c:url value="/post-detail/apply/"/>" role="button" class="widget-container-apply-button">                                     
+                                                                    <span>Ứng tuyển</span>
+                                                                </a>
+                                                            </div>           
+                                                        </div>-->
                         </div>
                     </div>
                 </div>              

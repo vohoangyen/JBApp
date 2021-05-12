@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -68,5 +69,11 @@ public class UserRepositoryImpl implements UserRepository{
 //
 //        return users;
     }
+
+//    @Override
+//    @Transactional
+//    public List<Object[]> getAllUsers(String username) {
+//
+//    }
     
 }

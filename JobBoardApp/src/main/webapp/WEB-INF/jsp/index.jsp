@@ -13,7 +13,7 @@
     <section class="element-slide height-lg-full">
         <div class="elementor-widget-container container">
             <h2>We offer <strong style="color: gold;">500+</strong> job vacancies right now!</h2>
-            <h4>Find your desire one in a minute</h4>
+            <h4>Find your desire one in a minute</h4>           
             <div class="find-container" style="padding-top: 130px;">
                 <form class="form-search layout1" method="POST">
                     <div class="flex-middle-sm search">
@@ -23,7 +23,7 @@
                                 <input name="kw" value="${kw}" type="text" class="form-control form-search" placeholder="Skill or Keywords">
                             </div>
                         </div>
-                        <div class="form-group form-group-location">
+<!--                        <div class="form-group form-group-location">
                             <div class="form-group-inner inner">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                                 <select class="form-control form-search" placeholder="Location">
@@ -32,16 +32,9 @@
                                     </c:forEach>                                      
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group form-group-salary-from">
                             <div class="form-group-inner inner">
-                                <!--  <i class="fas fa-dollar-sign"></i>
-                                    <select class="form-control form-search">
-                                        <option value="TP. Hồ Chí Minh" class="text-dark" name="option">Dưới 10 triệu</option>
-                                        <option value="TP. Hồ Chí Minh" class="text-dark" name="option">Từ 10 - 20 triệu</option>
-                                        <option value="TP. Hồ Chí Minh" class="text-dark" name="option">Từ 20 - 30 triệu</option>
-                                        <option value="TP. Hồ Chí Minh" class="text-dark" name="option">Trên 30 triệu</option>
-                                    </select>-->
                                 <input name="fromSalary" value="${fromSalary}" type="number" min="0" class="form-control form-search" placeholder="Salary From">
                             </div>
                         </div>
@@ -77,46 +70,46 @@
     <div id="parttimeArea">
         <div class="mb-4">
             <div class="row no-gutters">
-                <c:forEach items="${posts}" var="post">
+               <c:forEach items="${posts}" var="post">
                     <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix elmemts-card">     
                         <article class="elm-card-body" style="min-height: 255px;">
                             <div class="elm-card-titles flex-middle">
                                 <div class="elm-logo">
                                     <div class="elememts-logo">
-                                        <a href="<spring:url value="/posts/${post.id}" />">
-                                            <img src="<spring:url value="${post.employer.logo}" />" alt="alt" class="card-img"/>
+                                        <a href="<spring:url value="/posts/${post[0]}" />">
+                                            <img src="<spring:url value="${post[3]}" />" alt="alt" class="card-img"/>
                                         </a>
                                     </div>                                       
                                 </div>
                                 <div class="elm-logo-title">
                                     <h5>
-                                        <a href="<spring:url value="/posts/${post.id}" />">${post.employer.companyName}</a>
+                                        <a href="<spring:url value="/posts/${post[0]}" />">${post[2]}</a>
                                     </h5>
                                     <h6>
-                                        <a href="<spring:url value="/posts/${post.id}" />">${post.position.name}</a>                                            
+                                        <a href="<spring:url value="/posts/${post[0]}" />">${post[7]}</a>                                            
                                     </h6>
                                 </div>
                             </div>
                             <div class="elm-jobs-middle">
                                 <div class="elm-jobs-location">
                                     <i class="fa fa-map-marker"></i>
-                                    <p>${post.employer.address}, ${post.area.name}</p>
+                                    <p>${post[4]}, ${post[5]}</p>
                                 </div>
                                 <div class="elm-jobs-salary">
                                     <i class="fas fa-dollar-sign"></i>
-                                    <p><fmt:formatNumber type="number" value="${post.salary}" /> VNĐ</p>
+                                    <p><fmt:formatNumber type="number" value="${post[1]}" /> VNĐ</p>
                                 </div>
                             </div>
                             <div class="elm-job-type">
                                 <div class="job-types">
                                     <div>
-                                        <a class="types-jobs">${post.jobTypes.name}</a>
+                                        <a class="types-jobs">${post[6]}</a>
                                     </div>
                                 </div>
                             </div>
                         </article>
                     </div> 
-                </c:forEach> 
+                </c:forEach>
             </div>                     
         </div>
     </div>  

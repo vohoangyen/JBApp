@@ -6,6 +6,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="<c:url value="/resources/css/employee-update-info.css"/>" rel="stylesheet"/>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div class="container-infomation" style="padding-top: 70px;">
     <div class="site-main-content" style="min-height: 80vh;">
@@ -16,13 +19,13 @@
                         <div class="navbar-collapse no-padding">
                             <ul class="menu_short_profile">
                                 <li class="active aligned-left">
-                                    <a href="<c:url value="/employee-info/"/>">
+                                    <a href="<spring:url value="/EmployeeInfo/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fa fa-user"></i>
                                         Profile
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/employee-update-info/"/>">
+                                    <a href="<spring:url value="/EmployeeUpdateInfo/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fas fa-edit"></i>
                                         Cập nhật thông tin
                                     </a>
@@ -45,71 +48,114 @@
                     </div>
                     <div class="widget-infomation-contents">
                         <form method="POST">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-td image-icon">
-                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>                                       
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Họ</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="text" class="form-control" value="Võ Hoàng" readonly="true">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Tên</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="text" class="form-control" value="Yến" readonly="true">
-                                    </div>
-                                </div> 
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Năm sinh</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="text" class="form-control" value="01/01/1999" readonly="true">
-                                    </div>
-                                </div>  
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Email</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="email" class="form-control" value="abc@gmail.com" readonly="true">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Số điện thoại</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="number" class="form-control" value="0987654321" readonly="true">
-                                    </div>
-                                </div> 
-                                <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>File CV</label>
-                                    </div>
-                                    <div class="cmb-td-cv">
-                                        <div class="widget-cv">
-                                            <a href="<c:url value="/resources/images/English.docx" />" download>vohoangyen.docx</a>
-                                        </div>                                       
-                                    </div>
-                                </div>  
-                                <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
-                                    <div class="cmb-th">
-                                        <label>Địa chỉ</label>
-                                    </div>
-                                    <div class="cmb-td">
-                                        <input type="text" class="form-control" value="123 Nguyễn Kiệm, P3, Quận Gò Vấp" readonly="true">
-                                    </div>
-                                </div>                                                   
-                            </div>
+                            <c:choose>
+                                <c:when test="${not empty employees}">
+                                    <c:forEach items="${employees}" var="e"> 
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-td image-icon">
+                                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>                                       
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Họ</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[2]}" readonly="true">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Tên</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[1]}" readonly="true">
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Năm sinh</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <!--<input type="text" class="form-control" value="${e[3]}" name="date" readonly="true">-->
+                                                    <input type="text" class="form-control" value="<fmt:formatDate value="${e[3]}" pattern = "dd-MM-yyyy"/>" readonly="true">
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Giới tính</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[4]}" readonly="true">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="email" class="form-control" value="${e[7]}" readonly="true">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Số điện thoại</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="number" class="form-control" value="${e[6]}" readonly="true">
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>File CV</label>
+                                                </div>
+                                                <div class="cmb-td-cv">
+                                                    <div class="widget-cv">
+                                                        <a href="<c:url value="${e[5]}" />" download>${e[5]}</a>
+                                                    </div>                                       
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Ngành học</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[14]}" readonly="true">
+                                                </div>
+                                            </div> 
+
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Lương</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="<fmt:formatNumber type="number" value="${e[10]}" /> VNĐ" readonly="true">
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Kinh nghiệm</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[9]}" readonly="true">
+                                                </div>
+                                            </div> 
+                                            <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
+                                                <div class="cmb-th">
+                                                    <label>Địa chỉ</label>
+                                                </div>
+                                                <div class="cmb-td">
+                                                    <input type="text" class="form-control" value="${e[8]}, ${e[11]}" readonly="true">
+                                                </div>
+                                            </div>                                                   
+                                        </div>
+                                    </c:forEach>
+                                </c:when>
+                                <c:when test="${empty employees}">
+                                    <p style="color: red;font-weight: 400;"><strong>*</strong> Bạn chưa có thông tin. Hãy thông tin.</p>
+                                </c:when>                               
+                            </c:choose>
                         </form>
                     </div>
                 </div>
@@ -117,3 +163,4 @@
         </div>
     </div>
 </div>
+

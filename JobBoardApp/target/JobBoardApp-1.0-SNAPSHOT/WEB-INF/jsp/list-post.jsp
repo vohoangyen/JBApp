@@ -5,6 +5,8 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <link href="<c:url value="/resources/css/employee-update-info.css"/>" rel="stylesheet"/>
 
@@ -17,19 +19,19 @@
                         <div class="navbar-collapse no-padding">
                             <ul class="menu_short_profile">
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/employer-info/"/>">
+                                    <a href="<spring:url value="/employer-info/${pageContext.request.userPrincipal.name}"/>">
                                         <i class="fa fa-user"></i>
                                         Profile
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/employer-update-info/"/>">
+                                    <a href="<spring:url value="/EmployerUpdateInfo/${pageContext.request.userPrincipal.name}"/> ">
                                         <i class="fas fa-edit"></i>
                                         Cập nhật thông tin
                                     </a>
                                 </li>
                                 <li class="active aligned-left">
-                                    <a href="<c:url value="/list-post/"/>">
+                                    <a href="<spring:url value="/ListPost/${pageContext.request.userPrincipal.name}"/>">
                                         <i class="fas fa-file-alt"></i>
                                         Danh sách bài post
                                     </a>
@@ -58,53 +60,64 @@
                     </div>
                     <div class="widget-content" style="padding-top: 10px;">
                         <div class="row">
-                            <div class="col-12 list-item">
-                                <article class="apllyer-item">
-                                    <div class="applyers">
-                                        <div class="left-applyer">
-                                            <div class="flex-middle">
-                                                <div class="employers-icon">
-                                                    <img src="<c:url value="/resources/images/e1.jpg"/>" alt="alt" class="card-img"/>
+                            <c:choose>
+                                <c:when test="${not empty listpost}">
+                                    <c:forEach items="${listpost}" var="post"> 
+                                        <div class="col-12 list-item">
+                                            <article class="apllyer-item">
+                                                <div class="applyers">
+                                                    <div class="left-applyer">
+                                                        <div class="flex-middle">
+                                                            <div class="employers-icon">
+                                                                <img src="<spring:url value="${post[1]}" />" alt="alt" class="card-img"/>
+                                                            </div>
+                                                            <h2 class="employers-name">${post[5]}</h2>
+                                                        </div>
+                                                    </div>
+                                                    <div class="employer-position">
+                                                        <h2>${post[2]}</h2>
+                                                    </div>
+                                                    <div class="employer-salary">
+                                                        <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                                                        <h2><fmt:formatNumber type="number" value="${post[3]}" /> VNĐ</h2>
+                                                    </div>
+                                                    <div class="employer-kv">
+                                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                        <h2>${post[4]}</h2>                              
+                                                    </div>
+                                                    <div class="applyer-see">                                                    
+                                                        <span class="btn-group">
+                                                            <button type="button" class="btn-update btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa fa-pencil-square-o"></i>
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu btn_drop" style="z-index: 9999;">
+                                                                <li class="btn-choose">
+                                                                    <a href="<spring:url value="/listApplyers/${post[6]}" />" class="edit_action">
+                                                                        <i class="fa fa-pencil-square-o"></i>
+                                                                        Xem chi tiết
+                                                                    </a>
+                                                                </li>
+                                                                <li class="btn-choose">
+                                                                    <a href="3" class="edit_action" onclick="return confirm('Are You Sure To Delete ?')">
+                                                                        <i class="fa fa-trash" style="padding-right: 5px;"></i>
+                                                                        Xóa dữ liệu
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                                <h2 class="employers-name">Product Design</h2>
-                                            </div>
-                                        </div>
-                                        <div class="employer-position">
-                                            <h2>Internship</h2>
-                                        </div>
-                                        <div class="employer-salary">
-                                            <i class="fas fa-dollar-sign" aria-hidden="true"></i>
-                                            <h2>7.000.000 VNĐ/tháng</h2>
-                                        </div>
-                                        <div class="employer-kv">
-                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            <h2>TP. Hồ Chí Minh</h2>                              
-                                        </div>
-                                        <div class="applyer-see">                                                    
-                                            <span class="btn-group">
-                                                <button type="button" class="btn-update btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa fa-pencil-square-o"></i>
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu btn_drop" style="z-index: 9999;">
-                                                    <li class="btn-choose">
-                                                        <a href="<c:url value="/list-applyer/" />" class="edit_action">
-                                                            <i class="fa fa-pencil-square-o"></i>
-                                                            Xem chi tiết
-                                                        </a>
-                                                    </li>
-                                                    <li class="btn-choose">
-                                                        <a href="3" class="edit_action" onclick="return confirm('Are You Sure To Delete ?')">
-                                                            <i class="fa fa-trash" style="padding-right: 5px;"></i>
-                                                            Xóa dữ liệu
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </span>
-                                        </div>
+                                            </article>
+                                        </div> 
+                                    </c:forEach>
+                                </c:when>
+                                <c:when test="${empty listpost}">
+                                    <div class="col-12">
+                                        <h6 style="color: black; font-weight: bold;"><i>Chưa có bài post.</i></h6>
                                     </div>
-                                </article>
-                            </div> 
+                                </c:when>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -112,4 +125,5 @@
         </div>
     </div>
 </div>
+
 

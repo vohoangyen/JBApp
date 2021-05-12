@@ -6,11 +6,13 @@
 package com.lttt.jobboard.service.impl;
 
 import com.lttt.jobboard.pojo.Area;
+import com.lttt.jobboard.pojo.Post;
 import com.lttt.jobboard.repository.AreaRepository;
 import com.lttt.jobboard.service.AreaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,8 +25,15 @@ public class AreaServiceImpl implements AreaService{
     private AreaRepository areaRepository;
     
     @Override
-    public List<Area> getAreas(String kw) {
-        return this.areaRepository.getAreas(kw);
+    @Transactional(readOnly = true)
+    public List<Area> getAreas() {
+        return this.areaRepository.getAreas();
     }
+
+    @Override
+    public List<Post> getPostsByArea(int id) {
+        return this.areaRepository.getPostsByArea(id);
+    }
+    
     
 }

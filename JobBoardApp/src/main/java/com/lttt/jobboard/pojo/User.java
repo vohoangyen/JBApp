@@ -25,7 +25,7 @@ import javax.validation.constraints.Size;
 @Table(name = "user")
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 3L;
+//    private static final long serialVersionUID = 3L;
 
     @Id
     @Column(name = "id")
@@ -33,11 +33,11 @@ public class User implements Serializable {
     private int id;
 
     @Column(name = "username")
-    @Size(min = 1, max = 45, message = "{user.username.error.sizeMsg}")
+//    @Size(min = 1, max = 45, message = "{user.username.error.sizeMsg}")
     private String username;
 
     @Column(name = "password")
-    @NotEmpty(message = "{user.password.error.sizeMsg}")
+//    @NotEmpty(message = "{user.password.error.sizeMsg}")
     private String password;
 
     @Column(name = "role")

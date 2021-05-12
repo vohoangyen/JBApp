@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Dy
  */
 @Controller
-@RequestMapping("/employee-info")
+//@RequestMapping("/employee-info")
 public class EmployeeInfoController {
-    @RequestMapping("/")
-    public String EmployeeInfo(){
-        return "employee-info";
-    }
+//    @RequestMapping("/")
+//    public String EmployeeInfo(){
+//        return "employee-info";
+//    }
 }

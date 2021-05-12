@@ -5,6 +5,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="widget-info" style="padding-top: 70px;font-weight: 400;">
     <div class="container info-applyers">
@@ -17,7 +18,7 @@
                     <label>Họ và tên</label>
                 </div>
                 <div class="cmb-td">
-                    <input type="text" class="form-control" value="Võ Hoàng Yến" readonly="true">
+                    <input type="text" class="form-control" value="${employee.lastName} ${employee.firstName}" readonly="true">
                 </div>
             </div>
 
@@ -26,7 +27,7 @@
                     <label>Ngày sinh</label>
                 </div>
                 <div class="cmb-td">
-                    <input type="text" class="form-control" value="01/01/1999" readonly="true">
+                    <input type="text" class="form-control" value="<fmt:formatDate value="${employee.birthday}" pattern = "dd-MM-yyyy"/>" readonly="true">
                 </div>
             </div>
 
@@ -35,7 +36,7 @@
                     <label>Số điện thoại</label>
                 </div>
                 <div class="cmb-td">
-                    <input type="text" class="form-control" value="0987654321" readonly="true">
+                    <input type="text" class="form-control" value="${employee.phone}" readonly="true">
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
@@ -43,7 +44,7 @@
                     <label>Giới tính</label>
                 </div>
                 <div class="cmb-td">
-                    <input type="text" class="form-control" value="Nữ" readonly="true">
+                    <input type="text" class="form-control" value="${employee.gender}" readonly="true">
                 </div>
             </div> 
             <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
@@ -51,7 +52,7 @@
                     <label>Email</label>
                 </div>
                 <div class="cmb-td">
-                    <input type="text" class="form-control" value="1751010185yen@ou.edu.vn" readonly="true">
+                    <input type="text" class="form-control" value="${employee.email}" readonly="true">
                 </div>
             </div> 
             <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
@@ -59,7 +60,7 @@
                     <label>Địa chỉ</label>
                 </div>
                 <div class="cmb-td">
-                    <input type="text" class="form-control" value="123 Nguyễn Kiệm, P3, Quận Gò Vấp" readonly="true">
+                    <input type="text" class="form-control" value="${employee.address}, ${employee.area.name}" readonly="true">
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
@@ -67,7 +68,7 @@
                     <label>Ngành nghề</label>
                 </div>
                 <div class="cmb-td">
-                    <input type="text" class="form-control" value="Computer science / IT" readonly="true">
+                    <input type="text" class="form-control" value="${employee.major.name}" readonly="true">
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
@@ -75,7 +76,7 @@
                     <label>Lương</label>
                 </div>
                 <div class="cmb-td">
-                    <input type="text" class="form-control" value="7.000.000 VNĐ" readonly="true">
+                    <input type="text" class="form-control" value="<fmt:formatNumber type="number" value="${employee.salary}" /> VNĐ" readonly="true">
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
@@ -83,7 +84,7 @@
                     <label>Kinh nghiệm</label>
                 </div>
                 <div class="cmb-td">
-                    <input type="text" class="form-control" value="No experience" readonly="true">
+                    <input type="text" class="form-control" value="${employee.experience}" readonly="true">
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
@@ -92,7 +93,7 @@
                 </div>
                 <div class="cmb-td-cv">
                     <div class="widget-cv">
-                        <a href="<c:url value="/resources/images/English.docx" />" download>vohoangyen.docx</a>
+                        <a href="<c:url value="/resources/images/English.docx" />" download>${employee.cv}</a>
                     </div>                                       
                 </div>
             </div>

@@ -6,6 +6,7 @@
 package com.lttt.jobboard.service;
 
 import com.lttt.jobboard.pojo.User;
+import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -14,5 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 public interface UserService extends UserDetailsService {
     void addUser(User user);
+//    List<User> getUsers(String username);
     User getUserByUsername(String username);
 }

@@ -28,7 +28,7 @@ public class MajorRepositoryImpl implements MajorRepository{
     
     @Override
     @Transactional
-    public List<Major> getMajors(String kw) {
+    public List<Major> getMajors() {
         List<Major> majors;
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -36,9 +36,9 @@ public class MajorRepositoryImpl implements MajorRepository{
         Root<Major> root = cr.from(Major.class);
 
         CriteriaQuery query = cr.select(root);
-        if (!kw.isEmpty())
-            query = query.where(builder.like(root.get("name").as(String.class),  
-                    "%" + kw + "%"));
+//        if (!kw.isEmpty())
+//            query = query.where(builder.like(root.get("name").as(String.class),  
+//                    "%" + kw + "%"));
 
         majors = session.createQuery(query).getResultList();        
         return majors;

@@ -16,6 +16,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -36,6 +41,8 @@ public class Employee implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name = "birthday")
     private Date birthday;
 
@@ -44,6 +51,9 @@ public class Employee implements Serializable {
 
     @Column(name = "cv")
     private String cv;
+    
+    @Transient
+    private MultipartFile cvFile;   
 
     @Column(name = "phone")
     private String phone;
@@ -266,5 +276,19 @@ public class Employee implements Serializable {
      */
     public void setArea(Area area) {
         this.area = area;
+    }
+
+    /**
+     * @return the cvFile
+     */
+    public MultipartFile getCvFile() {
+        return cvFile;
+    }
+
+    /**
+     * @param cvFile the cvFile to set
+     */
+    public void setCvFile(MultipartFile cvFile) {
+        this.cvFile = cvFile;
     }
 }

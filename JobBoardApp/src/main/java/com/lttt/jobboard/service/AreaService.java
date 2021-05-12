@@ -6,6 +6,7 @@
 package com.lttt.jobboard.service;
 
 import com.lttt.jobboard.pojo.Area;
+import com.lttt.jobboard.pojo.Post;
 import java.util.List;
 
 /**
@@ -13,5 +14,6 @@ import java.util.List;
  * @author Admin
  */
 public interface AreaService {
-    List<Area> getAreas(String kw);
+    List<Area> getAreas();
+    List<Post> getPostsByArea(int areaId);
 }

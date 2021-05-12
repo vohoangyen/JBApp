@@ -8,6 +8,7 @@
 <%@ taglib prefix="form"
            uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
 <html class="container-fluid">
@@ -20,70 +21,107 @@
     <body style="padding-top: 70px;">
         <div class="post-area" style="margin-left: 0; padding-left: 30px">
             <h2 class="text-center text-warning" style="position: relative">Post Information</h2><hr/>
-
-            <form method="post" class="post-form">
+            <%--<c:forEach items="${employers}" var="e">--%>
+            <!--<p></p>-->
+            <%--</c:forEach>--%>
+            <spring:url value="/post/${pageContext.request.userPrincipal.name}" var="action" />
+            <form:form action="${action}" modelAttribute="addPost" method="post" class="post-form" enctype="multipart/form-data">
+                <form:errors path="*" cssClass="alert alert-danger" element="div" />
                 <div class="row">
                     <div class="col-md-3 text-center" style="border-right: 1px solid rgba(0,0,0,.125);">
-                        <img src="<c:url value="/resources/images/logoInstagram01.png"/>"  width="200" height="200" alt="Logo"/>
-                        </br><br/>
-                        <a class="text-center text-warning" href="#"><h4>Instagram</h4></a>
+                        <c:forEach items="${employers}" var="e">
+                            <img src="<spring:url value="${e[2]}" />"  width="200" height="200" alt="Logo"/>
+                            </br><br/>
+                            <a class="text-center text-warning" href="#"><h4>${e[1]}</h4></a>
+                            <div style="display: none;">
+                                <form:input path="employer.id" type="number" min="0" step="1" value="${e[0]}"/> 
+                            </div>
+                            
+                                </c:forEach>
+
                     </div>
                     <div class="col-md-9 right-post-area">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Lĩnh vực</label>
-                                <select class="form-control border border-warning " required="true">
-                                    <option>CNTT</option>
-                                    <option>KTKT</option>
-                                    <option>TCNH</option>
-                                </select>
+
+                                <form:select path="major.id" class="form-control border border-warning " required="true">
+                                    <form:options items="${majors}"  
+                                                  itemLabel="name"
+                                                  itemValue="id" />
+
+                                </form:select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Vị trí tuyển</label>
-                                <input class="form-control border border-warning " 
-                                       type="text" maxlength="255" placeholder="IT Support (End user support )" min="0"
-                                       required="true"
-                                       oninvalid="this.setCustomValidity('Vui lòng vị trí cần tuyển!')"
-                                       oninput="setCustomValidity('')"/>
+                                <form:select path="position.id" class="form-control border border-warning " required="true">
+                                    <form:options items="${positions}"  
+                                                  itemLabel="name"
+                                                  itemValue="id" />
+
+                                </form:select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Ngày bắt đầu tuyển</label>
+                                <form:input class="form-control border border-warning " 
+                                            type="date" required="true"                                                       
+                                            oninvalid="this.setCustomValidity('Vui lòng chọn năm sinh!')"
+                                            oninput="setCustomValidity('')"
+                                            path="createPost"/>
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Hạn chót ứng tuyển</label>
+                                <form:input class="form-control border border-warning " 
+                                            type="date" required="true"                                                       
+                                            oninvalid="this.setCustomValidity('Vui lòng chọn năm sinh!')"
+                                            oninput="setCustomValidity('')"
+                                            path="finishPost"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>Hình thức</label>
-                                <select class="form-control border border-warning " required="true">
-                                    <option>Full time</option>
-                                    <option>Part time</option>
-                                    <option>Intern</option>
-                                </select>
+                                <form:select path="jobTypes.id" class="form-control border border-warning " required="true">
+                                    <form:options items="${jobtypes}"  
+                                                  itemLabel="name"
+                                                  itemValue="id" />
+
+                                </form:select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Số lượng tuyển</label>
-                                <input class="form-control border border-warning " 
-                                       type="number" maxlength="25" placeholder="3" min="0"
-                                       required="true"
-                                       oninvalid="this.setCustomValidity('Vui lòng nhập số lượng!')"
-                                       oninput="setCustomValidity('')"/>
+                                <form:input class="form-control border border-warning " 
+                                            type="number" maxlength="25" placeholder="3" min="0"
+                                            required="true"
+                                            oninvalid="this.setCustomValidity('Vui lòng nhập số lượng!')"
+                                            oninput="setCustomValidity('')"
+                                            path="quantity"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label>Kinh nghiệm yêu cầu</label>
-                                <input class="form-control border border-warning " 
-                                       type="text" maxlength="50" placeholder="1 năm"
-                                       required="true"
-                                       oninvalid="this.setCustomValidity('Vui lòng nhập kinh nghiệm yêu cầu!')"
-                                       oninput="setCustomValidity('')"/>
+                                <label>Khu vực</label>
+                                <form:select path="area.id" class="form-control border border-warning " required="true">
+                                    <form:options items="${areas}"  
+                                                  itemLabel="name"
+                                                  itemValue="id" />
+
+                                </form:select>
                             </div>                      
                             <div class=" col-md-6">
                                 <div class="row">
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <label>Lương</label>
-                                            <input class="form-control border border-warning " 
-                                                   type="number"  placeholder="10000000" min="0"
-                                                   required="true"
-                                                   oninvalid="this.setCustomValidity('Vui lòng nhập mức lương!')"
-                                                   oninput="setCustomValidity('')"/>
+                                            <form:input class="form-control border border-warning " 
+                                                        type="number"  placeholder="10000000" min="0"
+                                                        required="true"
+                                                        oninvalid="this.setCustomValidity('Vui lòng nhập mức lương!')"
+                                                        oninput="setCustomValidity('')"
+                                                        path="salary"/>
                                         </div>     
                                     </div>
                                     <div class="col-md-3"> 
@@ -98,29 +136,19 @@
                         </div>
                         <div class="form-group">
                             <label>Thông tin khái quát về vị trí cần tuyển</label>
-                            <textarea id="id" name="name" rows="5" cols="10"
-                                      class="form-control border border-warning"
-                                      required="true"
-                                      oninvalid="this.setCustomValidity('Vui lòng nhập thông tin!')"
-                                      oninput="setCustomValidity('')"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Yêu cầu công việc</label>
-                            <div id="myDIV" class="row form-group" >
-                                <div class="col-md-10">
-                                    <input type="text" id="myInput"
-                                           class="form-control border border-warning "
-                                           placeholder="Title..."
+                            <form:textarea id="id" name="name" rows="5" cols="10"
+                                           class="form-control border border-warning"
                                            required="true"
-                                           oninvalid="this.setCustomValidity('Vui lòng nhập yêu cầu công việc!')"
-                                           oninput="setCustomValidity('')">
-                                    <ol id="myUL" class="list-req">    
-                                    </ol>
-                                </div>
-                                <div class="col-md-2" style=" padding-left: 10px">
-                                    <span onclick="newElement()" style="width: 135px;"
-                                          class="btn btn-warning">Thêm yêu cầu</span>
-                                </div>
+                                           oninvalid="this.setCustomValidity('Vui lòng nhập thông tin!')"
+                                           oninput="setCustomValidity('')" path="description"></form:textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Yêu cầu công việc</label>
+                            <form:textarea id="id" name="name" rows="5" cols="10"
+                                           class="form-control border border-warning"
+                                           required="true"
+                                           oninvalid="this.setCustomValidity('Vui lòng nhập thông tin!')"
+                                           oninput="setCustomValidity('')" path="requirements"></form:textarea>
                             </div>
                         </div>
                         <div class="text-right">
@@ -128,69 +156,9 @@
                         </div>                      
                     </div>
                 </div>
-            </form>
-        </div>
-
-
-        <script>
-            // Create a "close" button and append it to each list item
-            var myNodelist = document.getElementsByClassName("lit");
-            var i;
-            for (i = 0; i < myNodelist.length; i++) {
-                var span = document.createElement("SPAN");
-                var txt = document.createTextNode("\u00D7");
-                span.className = "close";
-                span.appendChild(txt);
-                myNodelist[i].appendChild(span);
-            }
-
-            // Click on a close button to hide the current list item
-            var close = document.getElementsByClassName("close");
-            var i;
-            for (i = 0; i < close.length; i++) {
-                close[i].onclick = function () {
-                    var div = this.parentElement;
-                    div.style.display = "none";
-                };
-            }
-
-            // Add a "checked" symbol when clicking on a list item
-            var list = document.querySelector('ol');
-            list.addEventListener('click', function (ev) {
-                if (ev.target.tagName === 'LI') {
-                    ev.target.classList.toggle('checked');
-                }
-            }, false);
-
-            // Create a new list item when clicking on the "Add" button
-            function newElement() {
-                var li = document.createElement("li");
-                var inputValue = document.getElementById("myInput").value;
-                var t = document.createTextNode(inputValue);
-                li.appendChild(t);
-                if (inputValue === '') {
-                    alert("You must write something!");
-                } else {
-                    document.getElementById("myUL").appendChild(li);
-                }
-                document.getElementById("myInput").value = "";
-
-                var span = document.createElement("SPAN");
-                var txt = document.createTextNode("\u00D7");
-                span.className = "close";
-                span.appendChild(txt);
-                li.appendChild(span);
-
-                for (i = 0; i < close.length; i++) {
-                    close[i].onclick = function () {
-                        var div = this.parentElement;
-                        div.style.display = "none";
-                    };
-                }
-            }
-        </script>
-
-    </body>
+        </form:form>
+    </div>
+</body>
 </html>
 
 
