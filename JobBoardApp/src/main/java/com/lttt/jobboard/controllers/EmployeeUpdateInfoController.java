@@ -6,6 +6,7 @@
 package com.lttt.jobboard.controllers;
 
 import com.lttt.jobboard.pojo.Employee;
+import com.lttt.jobboard.pojo.Employer;
 import com.lttt.jobboard.pojo.User;
 import com.lttt.jobboard.service.AreaService;
 import com.lttt.jobboard.service.EmployeeService;
@@ -57,22 +58,55 @@ public class EmployeeUpdateInfoController {
         return view;
     }
 
-    @GetMapping(value = "/EmployeeUpdateInfo/{employee_name}")
-    public ModelAndView EmployeeUpdateInfo(@PathVariable(value = "employee_name") String employeeName,
-            @RequestParam(value = "kw", defaultValue = "") String kw) {
+     @GetMapping(value = "/add-info-employee/{username}")
+    public ModelAndView employeeAddInfo(@PathVariable(value = "username") String username) {
         ModelAndView view = new ModelAndView();
-        view.setViewName("employee-update-info");
-        view.addObject("employeess", userService.getUserByUsername(employeeName));
-        view.addObject("employees", employeeService.getAllEmployee(employeeName));
+        view.setViewName("add-info-employee");
+        view.addObject("employeess", userService.getUserByUsername(username));
+        view.addObject("employees", employeeService.getAllEmployee(username));
         view.addObject("majors", majorService.getMajors());
         view.addObject("areas", areaService.getAreas());
-        view.addObject("addEmployee", new Employee());         
+        view.addObject("addEmployee", new Employee()); 
+
         return view;
     }
 
-    @PostMapping(value = "/EmployeeUpdateInfo/{employee_name}")
-    public String addEmployeeProcess(Model model,
+    @PostMapping(value = "/add-info-employee/{username}")
+    public String addEmployerProcess(Model model,
             @ModelAttribute(value = "addEmployee") @Valid Employee addEmployee,
+            BindingResult result, HttpServletRequest request) {
+        if (result.hasErrors()) {
+            model.addAttribute("majors", majorService.getMajors());
+            model.addAttribute("areas", areaService.getAreas());
+            return "add-info-employee";
+        }
+        String rootDir = request.getSession()
+                .getServletContext().getRealPath("/");
+
+        employeeService.addEmployee(addEmployee, rootDir);
+        return "redirect:/EmployeeInfo/{username}";
+    }
+    
+    @GetMapping(value = "/EmployeeUpdateInfo/{employeeId}")
+    public ModelAndView EmployeeUpdateInfo(@PathVariable(value = "employeeId") int employeeId,
+            @RequestParam(value = "kw", defaultValue = "") String kw) {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("employee-update-info");
+//        view.addObject("employeess", userService.getUserByUsername(employeeName));
+//        view.addObject("employees", employeeService.getAllEmployee(employeeName));
+        view.addObject("majors", majorService.getMajors());
+        view.addObject("areas", areaService.getAreas());
+        if(employeeId > 0){
+            view.addObject("employees",this.employeeService.getEmployeeId(employeeId));  
+        }
+        
+//        view.addObject("addEmployee", new Employee());         
+        return view;
+    }
+    
+    @PostMapping(value = "/EmployeeUpdateInfo/{employeeId}")
+    public String addEmployeeProcess(Model model,
+            @ModelAttribute(value = "employees") @Valid Employee addEmployee,
             BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
             model.addAttribute("majors", majorService.getMajors());
@@ -83,7 +117,7 @@ public class EmployeeUpdateInfoController {
                 .getServletContext().getRealPath("/");
         
         
-        employeeService.addEmployee(addEmployee,rootDir);
+        employeeService.updateEmployee(addEmployee,rootDir);
         return "redirect:/";
     }
 

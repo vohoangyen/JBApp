@@ -169,9 +169,15 @@ public class EmployerRepositoryImpl implements EmployerRepository{
 //    }  
 
     @Override
-    public void updateEmployer(Employer employer) {
-        Session session = sessionFactorys.getCurrentSession();
-        session.update(employer);
+    public void AddOrUpdateEmployer(Employer employer) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+//        Session session = sessionFactorys.getCurrentSession();
+        if (employer.getId() > 0) {
+            session.update(employer);
+        } else if (employer.getId() == 0) {
+            session.save(employer);
+        }
+//        session.update(employer);
     }
 
     @Override

@@ -202,7 +202,7 @@
                                 <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
                                     <div class="widget-apply">
                                         <div class="widget-container-apply">
-                                            <a href="<c:url value="/post-detail/apply/"/>" role="button" class="widget-container-apply-button">                                     
+                                            <a href="<spring:url value="/posts/${post.id}/${pageContext.request.userPrincipal.name}" />" role="button" class="widget-container-apply-button">                                     
                                                 <span>Ứng tuyển</span>
                                             </a>
                                         </div>           

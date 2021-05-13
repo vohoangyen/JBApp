@@ -6,6 +6,7 @@
 package com.lttt.jobboard.repository;
 
 import com.lttt.jobboard.pojo.Employee;
+import com.lttt.jobboard.pojo.Employer;
 import java.util.List;
 
 /**
@@ -14,10 +15,13 @@ import java.util.List;
  */
 public interface EmployeeRepository {
     boolean addOrUpdateEmployee(Employee e);
-    void addEmployee(Employee employee);
+    
     List<Object[]> getAllEmployee(String username);
     List<Employee> getEmployee();
     
     Employee getEmployeeId(int id);
+    
+    void updateEmployee(Employee employee);
+    void addEmployee(Employee employee);
     
 }

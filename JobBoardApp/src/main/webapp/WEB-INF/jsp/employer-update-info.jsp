@@ -25,7 +25,7 @@ btn-add-info<%--
                                     </a>
                                 </li>
                                 <li class="active aligned-left">
-                                    <a href="<spring:url value="/EmployerUpdateInfo/${pageContext.request.userPrincipal.name}" />">
+                                    <a href="<spring:url value="#" />">
                                         <i class="fas fa-edit"></i>
                                         Cập nhật thông tin
                                     </a>
@@ -37,7 +37,7 @@ btn-add-info<%--
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/search-applyer/"/>">
+                                    <a href="<spring:url value="/search-applyer/${pageContext.request.userPrincipal.name}" /> ">
                                         <i class="fas fa-search"></i>
                                         Tìm kiếm ứng viên
                                     </a>
@@ -62,7 +62,9 @@ btn-add-info<%--
                         <%--<c:choose>--%>
                         <%--<c:when test="${not empty employers}">--%>
                         <spring:url value="/EmployerUpdateInfo/${employers.id}" var="action" />
-                        <form:form action="${action}" modelAttribute="employers" method="post">
+                        <form:form action="${action}" modelAttribute="employers" method="post" enctype="multipart/form-data">
+                            <form:errors path="*" element="div" 
+                 cssClass="alert alert-danger" />
                             <%--<c:forEach items="${employer}" var="e">--%> 
                                 <%--<c:if test="${e.user.id == employerss.id}">--%>
                                     <div class="row" style="display: flex;">
@@ -70,7 +72,7 @@ btn-add-info<%--
                                             <div class=form-group">
                                                 <label>Tên công ty/doanh nghiệp của bạn</label>
                                                 <form:input class="form-control border border-warning " 
-                                                            type="text" maxlength="25"
+                                                            type="text" 
                                                             required="true"
                                                             oninvalid="this.setCustomValidity('Vui lòng nhập tên công ty của bạn!')"
                                                             oninput="setCustomValidity('')"
@@ -130,7 +132,7 @@ btn-add-info<%--
                                         <div class="col-md-3 ">
                                             <div class="form-group">
                                                 <label>Thành phố</label>
-                                                <form:select path="area" class="form-control border border-warning">
+                                                <form:select path="area.id" class="form-control border border-warning">
                                                     <c:forEach items="${areas}" var="a">
                                                         <c:if test="${a.id == employers.area.id}">
                                                             <option selected value="${a.id}">${a.name}</option>
@@ -152,7 +154,7 @@ btn-add-info<%--
                                         </div>
                                         <div style="display: none;">
                                             <form:hidden path="id" />
-                                            <form:hidden path="user" />
+                                            <form:hidden path="user.id" />
                                             <!--<input type="number" value="${employerss.id}" name="">-->                                     
                                         </div>
                                     </div>

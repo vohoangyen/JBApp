@@ -9,6 +9,7 @@ import com.lttt.jobboard.pojo.Post;
 import com.lttt.jobboard.repository.PostRepository;
 import com.lttt.jobboard.service.PostService;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,8 +60,8 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<Object[]> getPostsKw(String kw) {
-        return postRepository.getPostsKw(kw);
+    public List<Object[]> getPostsArea(int areaId) {
+        return postRepository.getPostsArea(areaId);
     }
 
     @Override
@@ -77,6 +78,16 @@ public class PostServiceImpl implements PostService{
     @Transactional
     public void addPost(Post post) {
         postRepository.addPost(post);
+    }
+
+    @Override
+    public boolean deletePost(int PostId) {
+        return this.postRepository.deletePost(PostId);
+    }
+
+    @Override
+    public List<Object[]> getPostDate(Date fromDate, Date toDate) {
+        return this.postRepository.getPostDate(fromDate, toDate);
     }
     
 }

@@ -20,6 +20,6 @@ public interface EmployerService {
     Employer getEmployerId(int id);
     
     void addEmployer(Employer employer,String rootDir);
-    void updateEmployer(Employer employer,String rootDir);
+    void AddOrUpdateEmployer(Employer employer,String rootDir);
 //    boolean addOrUpdateEmployee(Employer employer,String rootDir);
 }

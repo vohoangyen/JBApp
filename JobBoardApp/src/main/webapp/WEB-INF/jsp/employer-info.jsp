@@ -36,21 +36,13 @@
                                             </c:forEach>
                                         </c:when>                                        
                                         <c:when test="${empty employers}">
-                                            <c:forEach items="${employers}" var="e">
-                                                <a href="<spring:url value="/add-info-employer/${pageContext.request.userPrincipal.name}" />">
-                                                    <i class="fas fa-edit"></i>
-                                                    Cập nhật thông tin
-                                                </a>
-                                            </c:forEach>
+                                            <a href="<spring:url value="/add-info-employer/${pageContext.request.userPrincipal.name}" />">
+                                                <i class="fas fa-edit"></i>
+                                                Cập nhật thông tin
+                                            </a>
                                         </c:when>
                                     </c:choose>
                                 </li>
-<!--                                <li class="aligned-left">
-                                    <a href="<spring:url value="/EmployerUpdateInfo/${pageContext.request.userPrincipal.name}" />">
-                                        <i class="fas fa-edit"></i>
-                                        Cập nhật thông tin
-                                    </a>
-                                </li>-->
                                 <li class="aligned-left">
                                     <a href="<spring:url value="/ListPost/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fas fa-file-alt"></i>
@@ -58,7 +50,7 @@
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/search-applyer/"/>">
+                                    <a href="<spring:url value="/search-applyer/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fas fa-search"></i>
                                         Tìm kiếm ứng viên
                                     </a>
@@ -87,7 +79,7 @@
                                         <div class="row">
                                             <div class="col-md-12 col-sm-12 col-xs-12 md-clearfix sm-clearfix fullname">
                                                 <div class="cmb-th">
-                                                   
+
                                                     <label>Logo công ty/doanh nghiệp</label>
                                                 </div>
                                                 <div class="cmb-td image-logo">
@@ -146,7 +138,7 @@
                                         </div>                                                                                                                          
                                     </c:forEach>
                                 </c:when>
-                                <c:when test="${empty employees}">
+                                <c:when test="${empty employers}">
                                     <p style="color: red;font-weight: 400;"><strong>*</strong> Công ty / Doanh ngiệp chưa có thông tin. Hãy <a href="<spring:url value="/add-info-employer/${pageContext.request.userPrincipal.name}" />">thêm thông tin</a>!</p>
                                 </c:when>                               
                             </c:choose>

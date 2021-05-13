@@ -65,6 +65,11 @@
         <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/add-info-employer.jsp" />
     </definition>
+    <definition name="add-info-employee" extends="baseLayout">
+        <put-attribute name="title" value="Add Info Employee" />
+        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/add-info-employee.jsp" />
+    </definition>
     <definition name="list-post" extends="baseLayout">
         <put-attribute name="title" value="List Post" />
         <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />

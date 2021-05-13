@@ -70,5 +70,20 @@ public class EmployeeServiceImpl implements EmployeeService{
     public Employee getEmployeeId(int id) {
         return employeeRepository.getEmployeeId(id);
     }
+
+    @Override
+    @Transactional
+    public void updateEmployee(Employee employee, String rootDir) {
+        MultipartFile cv = employee.getCvFile();
+        if (cv != null && !cv.isEmpty()) {
+            employee.setCv(cv.getOriginalFilename());
+            try {
+                cv.transferTo(new File(rootDir + employee.getCv()));
+                employeeRepository.updateEmployee(employee);
+            } catch (IOException | IllegalStateException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+    }
     
 }

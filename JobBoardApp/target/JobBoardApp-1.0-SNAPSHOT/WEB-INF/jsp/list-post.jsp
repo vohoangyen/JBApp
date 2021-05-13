@@ -25,10 +25,22 @@
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<spring:url value="/EmployerUpdateInfo/${pageContext.request.userPrincipal.name}"/> ">
-                                        <i class="fas fa-edit"></i>
-                                        Cập nhật thông tin
-                                    </a>
+                                    <c:choose>
+                                        <c:when test="${not empty employers}">
+                                            <c:forEach items="${employers}" var="e">
+                                                <a href="<spring:url value="/EmployerUpdateInfo/${e[0]}" />">
+                                                    <i class="fas fa-edit"></i>
+                                                    Cập nhật thông tin
+                                                </a>
+                                            </c:forEach>
+                                        </c:when>                                        
+                                        <c:when test="${empty employers}">
+                                            <a href="<spring:url value="/add-info-employer/${pageContext.request.userPrincipal.name}" />">
+                                                <i class="fas fa-edit"></i>
+                                                Cập nhật thông tin
+                                            </a>
+                                        </c:when>
+                                    </c:choose>
                                 </li>
                                 <li class="active aligned-left">
                                     <a href="<spring:url value="/ListPost/${pageContext.request.userPrincipal.name}"/>">
@@ -37,7 +49,7 @@
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/search-applyer/"/>">
+                                    <a href="<spring:url value="/search-applyer/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fas fa-search"></i>
                                         Tìm kiếm ứng viên
                                     </a>
@@ -99,10 +111,10 @@
                                                                     </a>
                                                                 </li>
                                                                 <li class="btn-choose">
-                                                                    <a href="3" class="edit_action" onclick="return confirm('Are You Sure To Delete ?')">
+                                                                    <a href="<spring:url value="/delete/${post[6]}" />" onclick="return confirm('Bạn có chắc muốn xóa bài post này?')" class="edit_action">
                                                                         <i class="fa fa-trash" style="padding-right: 5px;"></i>
                                                                         Xóa dữ liệu
-                                                                    </a>
+                                                                    </a> 
                                                                 </li>
                                                             </ul>
                                                         </span>

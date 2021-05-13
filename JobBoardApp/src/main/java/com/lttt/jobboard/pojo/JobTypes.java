@@ -6,10 +6,12 @@
 package com.lttt.jobboard.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +25,9 @@ public class JobTypes implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    
+    @OneToMany(mappedBy = "jobTypes")
+    private List<Post> posts;
 
     /**
      * @return the id
@@ -50,5 +55,19 @@ public class JobTypes implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the posts
+     */
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    /**
+     * @param posts the posts to set
+     */
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

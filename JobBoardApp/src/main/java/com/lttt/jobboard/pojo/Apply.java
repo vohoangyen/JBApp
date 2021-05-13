@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -30,6 +32,15 @@ public class Apply implements Serializable{
     
     @Column(name = "apply_date")
     private Date appyDate;
+    
+    @Column(name = "cv")
+    private String cv;
+    
+    @Transient
+    private MultipartFile cvFile; 
+    {
+        appyDate = new Date();
+    }
     
     @ManyToOne
     @JoinColumn(name = "post_id")
@@ -75,5 +86,33 @@ public class Apply implements Serializable{
      */
     public void setPostId(Post postId) {
         this.postId = postId;
+    }
+
+    /**
+     * @return the cv
+     */
+    public String getCv() {
+        return cv;
+    }
+
+    /**
+     * @param cv the cv to set
+     */
+    public void setCv(String cv) {
+        this.cv = cv;
+    }
+
+    /**
+     * @return the cvFile
+     */
+    public MultipartFile getCvFile() {
+        return cvFile;
+    }
+
+    /**
+     * @param cvFile the cvFile to set
+     */
+    public void setCvFile(MultipartFile cvFile) {
+        this.cvFile = cvFile;
     }
 }

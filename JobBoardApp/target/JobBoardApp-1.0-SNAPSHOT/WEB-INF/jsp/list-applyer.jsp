@@ -147,143 +147,44 @@
         </div>
         <div class="widget-content ">
             <div class="row">
-                <div class="col-12 list-item">
-                    <article class="apllyer-item">
-                        <div class="applyers">
-                            <div class="left-applyer">
-                                <div class="flex-middle">
-                                    <div class="employers-icon">
-                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <c:choose>
+                    <c:when test="${not empty applyers}">
+                        <c:forEach items="${applyers}" var="app">
+                            <div class="col-12 list-item">
+                                <article class="apllyer-item">
+                                    <div class="applyers">
+                                        <div class="left-applyer">
+                                            <div class="flex-middle">
+                                                <div class="employers-icon">
+                                                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                                </div>
+                                                <h2 class="employers-name">${app[2]} ${app[1]}</h2>
+                                            </div>
+                                        </div>
+                                        <div class="applyer-cv">
+                                            <i class="fas fa-file" aria-hidden="true"></i>
+                                            <a href="<spring:url value="${app[4]}" />" download>
+                                                ${app[4]}
+                                            </a>                                
+                                        </div>
+                                        <div class="applyer-email">
+                                            <!--<i class="fas fa-envelope" aria-hidden="true"></i>-->
+                                            <h2><fmt:formatDate value="${app[5]}" pattern = "dd/MM/yyyy"/></h2>
+                                        </div>                               
+                                        <div class="applyer-see">
+                                            <a href="<spring:url value="/info-applyers/${app[6]}" />" class="btn btn-see">Xem Chi tiết</a>                                
+                                        </div>
                                     </div>
-                                    <h2 class="employers-name">Võ Hoàng Yến</h2>
-                                </div>
-                            </div>
-                            <div class="applyer-email">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <h2>1751010185yen@ou.edu.vn</h2>
-                            </div>
-                            <div class="applyer-cv">
-                                <i class="fas fa-file" aria-hidden="true"></i>
-                                <a href="<c:url value="/resources/images/English.docx" />" download>
-                                    vohoangyen.docx
-                                </a>                                
-                            </div>
-                            <div class="applyer-see">
-                                <a href="<c:url value="/info-applyer/" />" class="btn btn-see">Xem Chi tiết</a>                                
-                            </div>
+                                </article>
+                            </div>  
+                        </c:forEach>   
+                    </c:when>
+                    <c:when test="${empty applyers}">
+                        <div class="text-center">
+                            <h6 style="font-weight: bold;"><i>Chưa có ứng viên nào apply!</i></h6>
                         </div>
-                    </article>
-                </div>                            
-                <div class="col-12 list-item">
-                    <article class="apllyer-item">
-                        <div class="applyers">
-                            <div class="left-applyer">
-                                <div class="flex-middle">
-                                    <div class="employers-icon">
-                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                    </div>
-                                    <h2 class="employers-name">Võ Hoàng Yến</h2>
-                                </div>
-                            </div>
-                            <div class="applyer-email">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <h2>1751010185yen@ou.edu.vn</h2>
-                            </div>
-                            <div class="applyer-cv">
-                                <i class="fas fa-file" aria-hidden="true"></i>
-                                <a href="<c:url value="/resources/images/English.docx" />" download>
-                                    vohoangyen.docx
-                                </a>                                
-                            </div>
-                            <div class="applyer-see">
-                                <a href="<c:url value="/info-applyer/" />" class="btn btn-see">Xem Chi tiết</a>                                
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="col-12 list-item">
-                    <article class="apllyer-item">
-                        <div class="applyers">
-                            <div class="left-applyer">
-                                <div class="flex-middle">
-                                    <div class="employers-icon">
-                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                    </div>
-                                    <h2 class="employers-name">Võ Hoàng Yến</h2>
-                                </div>
-                            </div>
-                            <div class="applyer-email">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <h2>1751010185yen@ou.edu.vn</h2>
-                            </div>
-                            <div class="applyer-cv">
-                                <i class="fas fa-file" aria-hidden="true"></i>
-                                <a href="<c:url value="/resources/images/English.docx" />" download>
-                                    vohoangyen.docx
-                                </a>                                
-                            </div>
-                            <div class="applyer-see">
-                                <a href="<c:url value="/info-applyer/" />" class="btn btn-see">Xem Chi tiết</a>                                
-                            </div>
-                        </div>
-                    </article>
-                </div>                            
-                <div class="col-12 list-item">
-                    <article class="apllyer-item">
-                        <div class="applyers">
-                            <div class="left-applyer">
-                                <div class="flex-middle">
-                                    <div class="employers-icon">
-                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                    </div>
-                                    <h2 class="employers-name">Võ Hoàng Yến</h2>
-                                </div>
-                            </div>
-                            <div class="applyer-email">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <h2>1751010185yen@ou.edu.vn</h2>
-                            </div>
-                            <div class="applyer-cv">
-                                <i class="fas fa-file" aria-hidden="true"></i>
-                                <a href="<c:url value="/resources/images/English.docx" />" download>
-                                    vohoangyen.docx
-                                </a>                                
-                            </div>
-                            <div class="applyer-see">
-                                <a href="<c:url value="/info-applyer/" />" class="btn btn-see">Xem Chi tiết</a>                                
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="col-12 list-item">
-                    <article class="apllyer-item">
-                        <div class="applyers">
-                            <div class="left-applyer">
-                                <div class="flex-middle">
-                                    <div class="employers-icon">
-                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                    </div>
-                                    <h2 class="employers-name">Võ Hoàng Yến</h2>
-                                </div>
-                            </div>
-                            <div class="applyer-email">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                <h2>1751010185yen@ou.edu.vn</h2>
-                            </div>
-                            <div class="applyer-cv">
-                                <i class="fas fa-file" aria-hidden="true"></i>
-                                <a href="<c:url value="/resources/images/English.docx" />" download>
-                                    vohoangyen.docx
-                                </a>                                
-                            </div>
-                            <div class="applyer-see">
-                                <a href="<c:url value="/info-applyer/" />" class="btn btn-see">Xem Chi tiết</a>                                
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                    </c:when>                   
+                </c:choose>                            
             </div>
         </div>
     </div>

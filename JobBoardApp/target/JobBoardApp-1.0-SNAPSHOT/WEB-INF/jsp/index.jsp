@@ -19,20 +19,24 @@
                     <div class="flex-middle-sm search">
                         <div class="form-group form-group-title">
                             <div class="form-group-inner inner">
+
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                                 <input name="kw" value="${kw}" type="text" class="form-control form-search" placeholder="Skill or Keywords">
                             </div>
                         </div>
-<!--                        <div class="form-group form-group-location">
+                        <div class="form-group form-group-location">
                             <div class="form-group-inner inner">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                <select class="form-control form-search" placeholder="Location">
+                                <select class="form-control form-search" id="mySelect" onchange="myFunction()">
                                     <c:forEach items="${areas}" var="area">
                                         <option value="${area.id}" class="text-dark">${area.name}</option>  
                                     </c:forEach>                                      
                                 </select>
+<!--                                <div style="display: block;">
+                                    <input id="demo" value="${areaId}" name="areaId" type="text">
+                                </div>                               -->
                             </div>
-                        </div>-->
+                        </div>
                         <div class="form-group form-group-salary-from">
                             <div class="form-group-inner inner">
                                 <input name="fromSalary" value="${fromSalary}" type="number" min="0" class="form-control form-search" placeholder="Salary From">
@@ -70,7 +74,7 @@
     <div id="parttimeArea">
         <div class="mb-4">
             <div class="row no-gutters">
-               <c:forEach items="${posts}" var="post">
+                <c:forEach items="${posts}" var="post">
                     <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix elmemts-card">     
                         <article class="elm-card-body" style="min-height: 255px;">
                             <div class="elm-card-titles flex-middle">
@@ -126,3 +130,9 @@
 </div>
 
 <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet"/>
+<script>
+function myFunction() {
+  var x = document.getElementById("mySelect").value;
+  document.getElementById("demo").value = x;
+}
+</script>

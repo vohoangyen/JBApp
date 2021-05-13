@@ -54,13 +54,14 @@ public class EmployerServiceImpl implements EmployerService{
     }
 
     @Override
-    public void updateEmployer(Employer employer, String rootDir) {
+    @Transactional
+    public void AddOrUpdateEmployer(Employer employer, String rootDir) {
          MultipartFile img = employer.getLogoFile();
         if (img != null && !img.isEmpty()) {
             employer.setLogo("/images/imgFile/" + img.getOriginalFilename());
             try {
                 img.transferTo(new File(rootDir + "resources" + employer.getLogo()));
-                employerRepository.updateEmployer(employer);
+                employerRepository.AddOrUpdateEmployer(employer);
             } catch (IOException | IllegalStateException ex) {
                 System.err.println(ex.getMessage());
             }

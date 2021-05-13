@@ -300,6 +300,8 @@ ul.btn_drop a{
 }*/
 .applyer-see{
     width: 6%;
+    display: flex;
+    align-items: center;
 }
 
 /*SEARCH-APPLER*/

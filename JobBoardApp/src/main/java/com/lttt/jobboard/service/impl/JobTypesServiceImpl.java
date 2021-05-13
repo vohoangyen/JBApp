@@ -25,5 +25,9 @@ public class JobTypesServiceImpl implements JobTypesService{
     public List<JobTypes> getJobTypes(String kw) {
         return this.jobTypesRepository.getJobTypes(kw);
     }
-    
+
+    @Override
+    public List<Object[]> getPostsByJobtypeId(int jobtypeId) {
+           return this.jobTypesRepository.getPostsByJobtypeId(jobtypeId);
+    }
 }

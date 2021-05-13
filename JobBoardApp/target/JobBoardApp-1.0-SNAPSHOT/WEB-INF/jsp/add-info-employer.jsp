@@ -25,7 +25,7 @@
                                     </a>
                                 </li>
                                 <li class="active aligned-left">
-                                    <a href="<spring:url value="/EmployerUpdateInfo/${pageContext.request.userPrincipal.name}" />">
+                                    <a href="<spring:url value="#" />">
                                         <i class="fas fa-edit"></i>
                                         Cập nhật thông tin
                                     </a>
@@ -37,7 +37,7 @@
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<c:url value="/search-applyer/"/>">
+                                    <a href="<spring:url value="/search-applyer/${pageContext.request.userPrincipal.name}" />">
                                         <i class="fas fa-search"></i>
                                         Tìm kiếm ứng viên
                                     </a>

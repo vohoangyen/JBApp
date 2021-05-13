@@ -20,5 +20,5 @@ public interface EmployerRepository {
     Employer getEmployerId(int id);
     
     void addEmployer(Employer employer);
-    void updateEmployer(Employer employer);
+    void AddOrUpdateEmployer(Employer employer);
 }

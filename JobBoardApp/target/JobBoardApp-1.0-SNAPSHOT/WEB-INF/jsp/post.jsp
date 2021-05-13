@@ -36,8 +36,8 @@
                             <div style="display: none;">
                                 <form:input path="employer.id" type="number" min="0" step="1" value="${e[0]}"/> 
                             </div>
-                            
-                                </c:forEach>
+
+                        </c:forEach>
 
                     </div>
                     <div class="col-md-9 right-post-area">
@@ -150,10 +150,11 @@
                                            oninvalid="this.setCustomValidity('Vui lòng nhập thông tin!')"
                                            oninput="setCustomValidity('')" path="requirements"></form:textarea>
                             </div>
+                            <div class="text-right">
+                                <input type="submit" class="btn btn-warning"  value="Post" />
+                            </div>   
                         </div>
-                        <div class="text-right">
-                            <input type="submit" class="btn btn-warning"  value="Post" />
-                        </div>                      
+
                     </div>
                 </div>
         </form:form>

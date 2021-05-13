@@ -25,10 +25,23 @@
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<spring:url value="/EmployeeUpdateInfo/${pageContext.request.userPrincipal.name}" />">
-                                        <i class="fas fa-edit"></i>
-                                        Cập nhật thông tin
-                                    </a>
+                                    <c:choose>
+                                        <c:when test="${not empty employees}">
+                                            <c:forEach items="${employees}" var="e"> 
+                                                <a href="<spring:url value="/EmployeeUpdateInfo/${e[0]}" />">
+                                                    <i class="fas fa-edit"></i>
+                                                    Cập nhật thông tin
+                                                </a>
+                                            </c:forEach>
+                                        </c:when>
+                                        <c:when test="${empty employees}">
+                                            <a href="<spring:url value="/add-info-employee/${pageContext.request.userPrincipal.name}" />">
+                                                    <i class="fas fa-edit"></i>
+                                                    Cập nhật thông tin
+                                                </a>
+                                        </c:when>
+                                    </c:choose>
+
                                 </li>                                
                                 <li class="aligned-left">
                                     <a href="<c:url value="/logout"/>">
@@ -153,7 +166,7 @@
                                     </c:forEach>
                                 </c:when>
                                 <c:when test="${empty employees}">
-                                    <p style="color: red;font-weight: 400;"><strong>*</strong> Bạn chưa có thông tin. Hãy thông tin.</p>
+                                    <p style="color: red;font-weight: 400;"><strong>*</strong> Bạn chưa có thông tin. Hãy <a href="<spring:url value="/add-info-employee/${pageContext.request.userPrincipal.name}" />">thêm thông tin</a>.</p>
                                 </c:when>                               
                             </c:choose>
                         </form>

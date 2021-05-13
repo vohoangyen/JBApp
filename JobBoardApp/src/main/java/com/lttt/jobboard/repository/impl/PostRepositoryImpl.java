@@ -13,6 +13,7 @@ import com.lttt.jobboard.pojo.Position;
 import com.lttt.jobboard.pojo.Post;
 import com.lttt.jobboard.repository.PostRepository;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,6 +22,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -201,7 +203,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     @Transactional
-    public List<Object[]> getPostsKw(String kw) {
+    public List<Object[]> getPostsArea(int areaId) {
         Session session = this.sessionsFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
@@ -213,9 +215,7 @@ public class PostRepositoryImpl implements PostRepository{
         Root employerRoot = query.from(Employer.class);
         Root postRoot = query.from(Post.class);
                       
-        if (!kw.isEmpty() && kw != null) {
-            String pattern = String.format("%%%s%%", kw);
-            
+        if (areaId > 0) {            
             query = query.where(builder.and(
                 builder.equal(areaRoot.get("id"),postRoot.get("area")),
                 builder.equal(jobTypesRoot.get("id"),postRoot.get("jobTypes")),
@@ -223,11 +223,7 @@ public class PostRepositoryImpl implements PostRepository{
                 builder.equal(majorRoot.get("id"),postRoot.get("major")),
                 builder.equal(employerRoot.get("id"),postRoot.get("employer")),
                     
-                builder.like(employerRoot.get("companyName").as(String.class), pattern), 
-                builder.like(positionRoot.get("name").as(String.class), pattern),
-                builder.like(majorRoot.get("name").as(String.class), pattern),
-                builder.like(areaRoot.get("name").as(String.class), pattern)
-
+                builder.equal(postRoot.get("area"), areaId)
                 ));
             query.multiselect(postRoot.get("id"),
                     postRoot.get("salary").as(BigDecimal.class),                    
@@ -258,7 +254,7 @@ public class PostRepositoryImpl implements PostRepository{
     @Override
     @Transactional
     public List<Object[]> getPostsSalary(BigDecimal fromSalary, BigDecimal toSalary) {
-       Session session = this.sessionsFactory.getObject().getCurrentSession();
+        Session session = this.sessionsFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
         
@@ -356,6 +352,71 @@ public class PostRepositoryImpl implements PostRepository{
     public void addPost(Post post) {
         Session session = sessionFactory.getCurrentSession();
         session.save(post);
+    }
+
+    @Override
+    @Transactional
+    public boolean deletePost(int PostId) {
+        try {
+            Session session = this.sessionsFactory.getObject().getCurrentSession();
+            session.delete(session.get(Post.class, PostId));
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+        }    
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public List<Object[]> getPostDate(Date fromDate, Date toDate) {
+         Session session = this.sessionsFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        
+        Root areaRoot = query.from(Area.class);
+        Root jobTypesRoot = query.from(JobTypes.class);
+        Root positionRoot = query.from(Position.class);        
+        Root majorRoot = query.from(Major.class);
+        Root employerRoot = query.from(Employer.class);
+        Root postRoot = query.from(Post.class);
+        
+        query.where(builder.and(
+                builder.equal(areaRoot.get("id"),postRoot.get("area")),
+                builder.equal(jobTypesRoot.get("id"),postRoot.get("jobTypes")),
+                builder.equal(positionRoot.get("id"),postRoot.get("position")),
+                builder.equal(majorRoot.get("id"),postRoot.get("major")),
+                builder.equal(employerRoot.get("id"),postRoot.get("employer"))
+                ));
+        
+        query.multiselect(postRoot.get("id"),
+                postRoot.get("salary").as(BigDecimal.class),                    
+                employerRoot.get("companyName").as(String.class),
+                employerRoot.get("logo").as(String.class),
+                employerRoot.get("address").as(String.class),
+                areaRoot.get("name").as(String.class),
+                jobTypesRoot.get("name").as(String.class),
+                positionRoot.get("name").as(String.class)
+        );
+
+        query.groupBy(postRoot.get("id"),
+                postRoot.get("salary").as(BigDecimal.class),                    
+                employerRoot.get("companyName").as(String.class),
+                employerRoot.get("logo").as(String.class),
+                employerRoot.get("address").as(String.class),
+                areaRoot.get("name").as(String.class),
+                jobTypesRoot.get("name").as(String.class),
+                positionRoot.get("name").as(String.class)
+        );
+                      
+        if (fromDate != null && toDate != null) {           
+            Predicate p1 = builder.greaterThanOrEqualTo(postRoot.get("createdDate").as(Date.class), fromDate);
+            Predicate p2 = builder.lessThanOrEqualTo(postRoot.get("createdDate").as(Date.class), toDate);
+            query = query.having(p1, p2);
+        }
+        
+        Query q = session.createQuery(query);
+        return q.getResultList();
     }
       
 }
