@@ -49,7 +49,7 @@
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<spring:url value="/search-applyer/${pageContext.request.userPrincipal.name}" />">
+                                    <a href="<spring:url value="/search-applyer" />">
                                         <i class="fas fa-search"></i>
                                         Tìm kiếm ứng viên
                                     </a>

@@ -30,7 +30,7 @@
                     <li class="nav-item">
                         <a id="nav-recent" class="nav-link text-warning" 
                            href="<spring:url value="/news-feed/" />">
-                            <h5 class="text-warning text-center" >RECENT</h5></a>
+                            <h5 class="text-warning text-center" >ALL POSTS</h5></a>
                     </li>
                     <c:forEach items="${jobtypes}" var="jobtypes">
                         <li class="nav-item">
@@ -63,7 +63,7 @@
                                         </a>                 
                                         <div class="card-text" style="padding-top: 10px;">
                                             <img class="card-sub-item subcard-img" src="<c:url value="/resources/images/iconPosition01.png"/>" alt="alt"/>
-                                            <a href="<spring:url value="/posts/${post[0]}"/>" class="card-sub-item">${post[7]}</a>
+                                            <a href="<spring:url value="/posts/${post[0]}"/>" class="card-sub-item">${post[7]} - ${post[6]}</a>
                                         </div>
                                         <div class="card-text">
                                             <img class="card-sub-item subcard-img" src="<c:url value="/resources/images/iconAddress03.png"/>" alt="alt"/>
@@ -93,30 +93,30 @@
                     <div class="row form-group">
                         <label class="col-md-3">Khu vực</label>
                         <select 
-                            name="area"
+                            name="areaId"
                             class="col-md-9 form-control border border-warning " >
                             <c:forEach items="${areas}" var="area">
-                                <option value="${area.id}">${area.name}</option>
+                                <option selected value="${area.id}">${area.name}</option>
                             </c:forEach>
                         </select>
                     </div>
                     <div class="row form-group">
                         <label class="col-md-3">Lĩnh vực</label>
-                        <select name="major" class="col-md-9 form-control border border-warning " >
+                        <select name="majorId" class="col-md-9 form-control border border-warning " >
                             <c:forEach items="${majors}" var="major">
-                                <option value="${major.id}">${major.name}</option>
+                                <option selected value="${major.id}">${major.name}</option>
                             </c:forEach>
                         </select>
                     </div>
-                    <div class="row form-group">
+<!--                    <div class="row form-group">
                         <label class="col-md-3">Tên công ty</label>
                         <input name="companyName" value="${companyName}" class="col-md-9 form-control border border-warning" placeholder="Ngân hàng ABC"/>
-                    </div>
+                    </div>-->
                     <div class="row form-group">
-                        <label class="col-md-3">Thời gian làm việc</label>
-                        <select name="jobtype" class="col-md-9 form-control border border-warning " >
+                        <label class="col-md-3">Hình thức</label>
+                        <select name="jobtypeId" class="col-md-9 form-control border border-warning " >
                             <c:forEach items="${jobtypes}" var="jt">
-                                <option value="${jt.id}">${jt.name}</option>
+                                <option selected value="${jt.id}">${jt.name}</option>
                             </c:forEach>
                         </select>
                     </div>

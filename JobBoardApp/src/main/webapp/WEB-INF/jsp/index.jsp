@@ -17,28 +17,35 @@
             <div class="find-container" style="padding-top: 130px;">
                 <form class="form-search layout1" method="POST">
                     <div class="flex-middle-sm search">
-                        <div class="form-group form-group-title">
+                        <!--                        <div class="form-group form-group-title">
+                                                    <div class="form-group-inner inner">
+                                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                        <input name="kw" value="${kw}" type="text" class="form-control form-search" placeholder="Skill or Keywords">
+                                                    </div>
+                                                </div>-->
+                        <div class="form-group form-group-location">
                             <div class="form-group-inner inner">
-
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                <input name="kw" value="${kw}" type="text" class="form-control form-search" placeholder="Skill or Keywords">
-                            </div>
-                        </div>
+                                <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                <select class="form-control form-search" name="majorId">
+                                    <c:forEach items="${majors}" var="m">
+                                        <option selected value="${m.id}" class="text-dark">${m.name}</option>  
+                                    </c:forEach>                                      
+                                </select>
+                            </div>      
+                        </div>     
                         <div class="form-group form-group-location">
                             <div class="form-group-inner inner">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                <select class="form-control form-search" id="mySelect" onchange="myFunction()">
+                                <select class="form-control form-search" name="areaId">
                                     <c:forEach items="${areas}" var="area">
-                                        <option value="${area.id}" class="text-dark">${area.name}</option>  
+                                        <option selected value="${area.id}" class="text-dark">${area.name}</option>  
                                     </c:forEach>                                      
                                 </select>
-<!--                                <div style="display: block;">
-                                    <input id="demo" value="${areaId}" name="areaId" type="text">
-                                </div>                               -->
-                            </div>
-                        </div>
+                            </div>      
+                        </div>                   
                         <div class="form-group form-group-salary-from">
                             <div class="form-group-inner inner">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
                                 <input name="fromSalary" value="${fromSalary}" type="number" min="0" class="form-control form-search" placeholder="Salary From">
                             </div>
                         </div>
@@ -62,9 +69,11 @@
                         </div>
                     </div>
                 </form>
-            </div>                  
-        </div>
-    </section>
+
+            </div>
+        </div>                  
+</div>
+</section>
 </div>
 <div class="el-header container-fluid" style="padding-top: 50px;padding-bottom: 30px;">
     <div class="elm-card">
@@ -130,9 +139,9 @@
 </div>
 
 <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet"/>
-<script>
+<!--<script>
 function myFunction() {
   var x = document.getElementById("mySelect").value;
   document.getElementById("demo").value = x;
 }
-</script>
+</script>-->

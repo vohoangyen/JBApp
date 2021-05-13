@@ -1,4 +1,4 @@
-btn-add-info<%-- 
+<%-- 
     Document   : employer-info
     Created on : Apr 25, 2021, 11:32:01 PM
     Author     : Admin
@@ -37,7 +37,7 @@ btn-add-info<%--
                                     </a>
                                 </li>
                                 <li class="aligned-left">
-                                    <a href="<spring:url value="/search-applyer/${pageContext.request.userPrincipal.name}" /> ">
+                                    <a href="<spring:url value="/search-applyer" /> ">
                                         <i class="fas fa-search"></i>
                                         Tìm kiếm ứng viên
                                     </a>
@@ -85,6 +85,7 @@ btn-add-info<%--
                                                 <form:input class="form-control border border-warning " 
                                                             type="file" required="true"
                                                             style="padding: 3px"
+                                                            accept=".png, .jpg, .gif"
                                                             oninvalid="this.setCustomValidity('Vui lòng chọn logo cho công ty của bạn!')"
                                                             oninput="setCustomValidity('')" path="logoFile"/>
                                             </div>

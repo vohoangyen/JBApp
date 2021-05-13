@@ -11,6 +11,7 @@ import com.lttt.jobboard.service.JobTypesService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -27,6 +28,7 @@ public class JobTypesServiceImpl implements JobTypesService{
     }
 
     @Override
+    @Transactional
     public List<Object[]> getPostsByJobtypeId(int jobtypeId) {
            return this.jobTypesRepository.getPostsByJobtypeId(jobtypeId);
     }

@@ -103,6 +103,7 @@
                                     <form:input class="form-control border border-warning " 
                                                 type="file" required="true" 
                                                 path="cvFile"
+                                                accept=".pdf,.doc,.docx"
                                                 style="padding: 3px"
                                                 oninvalid="this.setCustomValidity('Vui lòng chọn file CV của bạn!')"
                                                 oninput="setCustomValidity('')"/>

@@ -143,7 +143,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     @Transactional
-    public List<Object[]> getAllPosts(String kw, BigDecimal fromSalary, BigDecimal toSalary) {
+    public List<Object[]> getAllPosts(int areaId, int majorId, BigDecimal fromSalary, BigDecimal toSalary) {
         Session session = this.sessionsFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
@@ -157,9 +157,7 @@ public class PostRepositoryImpl implements PostRepository{
         
        
         
-        if (!kw.isEmpty() && kw != null && fromSalary != null && toSalary != null) {
-            String pattern = String.format("%%%s%%", kw);
-            
+        if (areaId > 0 && majorId > 0 && fromSalary != null && toSalary != null) {           
             query = query.where(builder.and(
                 builder.equal(areaRoot.get("id"),postRoot.get("area")),
                 builder.equal(jobTypesRoot.get("id"),postRoot.get("jobTypes")),
@@ -167,10 +165,8 @@ public class PostRepositoryImpl implements PostRepository{
                 builder.equal(majorRoot.get("id"),postRoot.get("major")),
                 builder.equal(employerRoot.get("id"),postRoot.get("employer")),
                     
-                builder.like(employerRoot.get("companyName").as(String.class), pattern), 
-                builder.like(positionRoot.get("name").as(String.class), pattern),
-                builder.like(majorRoot.get("name").as(String.class), pattern),
-                builder.like(areaRoot.get("name").as(String.class), pattern),
+                builder.equal(postRoot.get("area"), areaId),
+                builder.equal(postRoot.get("major"), majorId),
                 
                 builder.greaterThanOrEqualTo(postRoot.get("salary").as(BigDecimal.class), fromSalary),
                 builder.lessThanOrEqualTo(postRoot.get("salary").as(BigDecimal.class), toSalary)
@@ -203,7 +199,7 @@ public class PostRepositoryImpl implements PostRepository{
 
     @Override
     @Transactional
-    public List<Object[]> getPostsArea(int areaId) {
+    public List<Object[]> getPostsAreaMajor(int areaId, int majorId) {
         Session session = this.sessionsFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
@@ -215,7 +211,7 @@ public class PostRepositoryImpl implements PostRepository{
         Root employerRoot = query.from(Employer.class);
         Root postRoot = query.from(Post.class);
                       
-        if (areaId > 0) {            
+        if (areaId > 0 && majorId > 0) {            
             query = query.where(builder.and(
                 builder.equal(areaRoot.get("id"),postRoot.get("area")),
                 builder.equal(jobTypesRoot.get("id"),postRoot.get("jobTypes")),
@@ -223,7 +219,8 @@ public class PostRepositoryImpl implements PostRepository{
                 builder.equal(majorRoot.get("id"),postRoot.get("major")),
                 builder.equal(employerRoot.get("id"),postRoot.get("employer")),
                     
-                builder.equal(postRoot.get("area"), areaId)
+                builder.equal(postRoot.get("area"), areaId),
+                builder.equal(postRoot.get("major"), majorId)
                 ));
             query.multiselect(postRoot.get("id"),
                     postRoot.get("salary").as(BigDecimal.class),                    
@@ -413,6 +410,113 @@ public class PostRepositoryImpl implements PostRepository{
             Predicate p1 = builder.greaterThanOrEqualTo(postRoot.get("createdDate").as(Date.class), fromDate);
             Predicate p2 = builder.lessThanOrEqualTo(postRoot.get("createdDate").as(Date.class), toDate);
             query = query.having(p1, p2);
+        }
+        
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<Object[]> getPostsByAny(int areaId, int majorId, int s_jobtypeId, BigDecimal fromSalary, BigDecimal toSalary) {
+        Session session = this.sessionsFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        
+        Root areaRoot = query.from(Area.class);
+        Root jobTypesRoot = query.from(JobTypes.class);
+        Root positionRoot = query.from(Position.class);        
+        Root majorRoot = query.from(Major.class);
+        Root employerRoot = query.from(Employer.class);
+        Root postRoot = query.from(Post.class);
+                      
+        if (areaId > 0 && majorId > 0 && s_jobtypeId > 0 && fromSalary != null && toSalary != null) {            
+            query = query.where(builder.and(
+                builder.equal(areaRoot.get("id"),postRoot.get("area")),
+                builder.equal(jobTypesRoot.get("id"),postRoot.get("jobTypes")),
+                builder.equal(positionRoot.get("id"),postRoot.get("position")),
+                builder.equal(majorRoot.get("id"),postRoot.get("major")),
+                builder.equal(employerRoot.get("id"),postRoot.get("employer")),
+                    
+                builder.equal(postRoot.get("area"), areaId),
+                builder.equal(postRoot.get("major"), majorId),
+                builder.equal(postRoot.get("jobTypes"), s_jobtypeId),
+                builder.greaterThanOrEqualTo(postRoot.get("salary").as(BigDecimal.class), fromSalary),
+                builder.lessThanOrEqualTo(postRoot.get("salary").as(BigDecimal.class), toSalary)
+                ));
+            query.multiselect(postRoot.get("id"),
+                    postRoot.get("salary").as(BigDecimal.class),                    
+                    employerRoot.get("companyName").as(String.class),
+                    employerRoot.get("logo").as(String.class),
+                    employerRoot.get("address").as(String.class),
+                    areaRoot.get("name").as(String.class),
+                    jobTypesRoot.get("name").as(String.class),
+                    positionRoot.get("name").as(String.class)
+            );
+
+            query.groupBy(postRoot.get("id"),
+                    postRoot.get("salary").as(BigDecimal.class),                    
+                    employerRoot.get("companyName").as(String.class),
+                    employerRoot.get("logo").as(String.class),
+                    employerRoot.get("address").as(String.class),
+                    areaRoot.get("name").as(String.class),
+                    jobTypesRoot.get("name").as(String.class),
+                    positionRoot.get("name").as(String.class)
+            );
+
+        }
+        
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<Object[]> getPostsBySelected(int areaId, int majorId, int s_jobtypeId) {
+         Session session = this.sessionsFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        
+        Root areaRoot = query.from(Area.class);
+        Root jobTypesRoot = query.from(JobTypes.class);
+        Root positionRoot = query.from(Position.class);        
+        Root majorRoot = query.from(Major.class);
+        Root employerRoot = query.from(Employer.class);
+        Root postRoot = query.from(Post.class);
+                      
+        if (areaId > 0 && majorId > 0 && s_jobtypeId > 0 ) {            
+            query = query.where(builder.and(
+                builder.equal(areaRoot.get("id"),postRoot.get("area")),
+                builder.equal(jobTypesRoot.get("id"),postRoot.get("jobTypes")),
+                builder.equal(positionRoot.get("id"),postRoot.get("position")),
+                builder.equal(majorRoot.get("id"),postRoot.get("major")),
+                builder.equal(employerRoot.get("id"),postRoot.get("employer")),
+                    
+                builder.equal(postRoot.get("area"), areaId),
+                builder.equal(postRoot.get("major"), majorId),
+                builder.equal(postRoot.get("jobTypes"), s_jobtypeId)
+ 
+                ));
+            query.multiselect(postRoot.get("id"),
+                    postRoot.get("salary").as(BigDecimal.class),                    
+                    employerRoot.get("companyName").as(String.class),
+                    employerRoot.get("logo").as(String.class),
+                    employerRoot.get("address").as(String.class),
+                    areaRoot.get("name").as(String.class),
+                    jobTypesRoot.get("name").as(String.class),
+                    positionRoot.get("name").as(String.class)
+            );
+
+            query.groupBy(postRoot.get("id"),
+                    postRoot.get("salary").as(BigDecimal.class),                    
+                    employerRoot.get("companyName").as(String.class),
+                    employerRoot.get("logo").as(String.class),
+                    employerRoot.get("address").as(String.class),
+                    areaRoot.get("name").as(String.class),
+                    jobTypesRoot.get("name").as(String.class),
+                    positionRoot.get("name").as(String.class)
+            );
+
         }
         
         Query q = session.createQuery(query);

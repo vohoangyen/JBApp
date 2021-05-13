@@ -85,5 +85,17 @@ public class EmployeeServiceImpl implements EmployeeService{
             }
         }
     }
+
+    @Override
+    @Transactional
+    public List<Object[]> getEmployeeAreaMajor(int areaId, int majorId) {
+        return employeeRepository.getEmployeeAreaMajor(areaId,majorId);
+    }
+
+    @Override
+    @Transactional
+    public List<Object[]> getAllEmployee() {
+         return employeeRepository.getAllEmployee();
+    }
     
 }

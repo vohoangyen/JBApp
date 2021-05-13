@@ -25,7 +25,7 @@
                                         Profile
                                     </a>
                                 </li>
-                                 <li class="aligned-left">
+                                <li class="aligned-left">
                                     <c:choose>
                                         <c:when test="${not empty employers}">
                                             <c:forEach items="${employers}" var="e">
@@ -50,7 +50,7 @@
                                     </a>
                                 </li>
                                 <li class="active aligned-left">
-                                    <a href="<spring:url value="/search-applyer/${pageContext.request.userPrincipal.name}" />">
+                                    <a href="<spring:url value="/search-applyer" />">
                                         <i class="fas fa-search"></i>
                                         Tìm kiếm ứng viên
                                     </a>
@@ -75,11 +75,10 @@
                                     <div class="form-group form-group-appler">
                                         <div class="form-group-inner inner">
                                             <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            <select class="form-control form-search" placeholder="Location">
-                                                <option value="TP. Hồ Chí Minh" class="text-dark" name="option">TP. Hồ Chí Minh</option>
-                                                <option value="TP. Hồ Chí Minh" class="text-dark" name="option">Hà Nội</option>
-                                                <option value="TP. Hồ Chí Minh" class="text-dark" name="option">Hải Phòng</option>
-                                                <option value="TP. Hồ Chí Minh" class="text-dark" name="option">Đà Nẵng</option>
+                                            <select class="form-control form-search" name="areaId">
+                                                <c:forEach items="${areas}" var="area">
+                                                    <option selected value="${area.id}" class="text-dark">${area.name}</option>  
+                                                </c:forEach>     
                                             </select>
                                         </div>
                                     </div>
@@ -87,29 +86,15 @@
                                 <div class="col-md-3">
                                     <div class="form-group form-group-appler">
                                         <div class="form-group-inner inner">
-                                            <i class="fas fa-dollar-sign"></i>
-                                            <select class="form-control form-search">
-                                                <option value="CNTT" class="text-dark" name="option">Công nghệ thông tin</option>
-                                                <option value="TC-NH" class="text-dark" name="option">TC-NH</option>
-                                                <option value="KT-KT" class="text-dark" name="option">KT-KT</option>
-                                                <option value="QTNL" class="text-dark" name="option">QTNL</option>
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            <select class="form-control form-search" name="majorId">
+                                                <c:forEach items="${majors}" var="m">
+                                                    <option selected value="${m.id}" class="text-dark">${m.name}</option>  
+                                                </c:forEach>  
                                             </select>                                    
                                         </div>
                                     </div>
-                                </div>   
-                                <div class="col-md-3">
-                                    <div class="form-group form-group-appler">
-                                        <div class="form-group-inner inner">
-                                            <i class="fas fa-dollar-sign"></i>
-                                            <select class="form-control form-search">
-                                                <option value="Dưới 10 triệu" class="text-dark" name="option">Dưới 10 triệu</option>
-                                                <option value="Từ 10 - 20 triệu" class="text-dark" name="option">Từ 10 - 20 triệu</option>
-                                                <option value="Từ 20 - 30 triệu" class="text-dark" name="option">Từ 20 - 30 triệu</option>
-                                                <option value="Trên 30 triệu" class="text-dark" name="option">Trên 30 triệu</option>
-                                            </select>                                    
-                                        </div>
-                                    </div>
-                                </div>  
+                                </div>                                  
                                 <div class="col-md-1">
                                     <div class="form-group form-group-appler">
                                         <div class="form-group-inner inner">
@@ -136,21 +121,24 @@
                                                 <div class="employers-icon">
                                                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                                 </div>
-                                                <h2 class="employers-name">${e.lastName} ${e.firstName}</h2>
+                                                <h2 class="employers-name">${e[1]} ${e[2]}</h2>
                                             </div>
                                         </div>
                                         <div class="applyer-email">
                                             <!--<i class="fas fa-envelope" aria-hidden="true"></i>-->
-                                            <h2>${e.major.name}</h2>
+                                            <h2>${e[4]}</h2>
                                         </div>
                                         <div class="employer-salary">
+                                            <h2>${e[3]}</h2>
                                             <!--<i class="fas fa-file" aria-hidden="true"></i>-->
                                             <!--<a href="<c:url value="/resources/images/English.docx" />" download>-->
-                                            <h2><fmt:formatNumber type="number" value="${e.salary}" /> VNĐ</h2>
+                                            <!--<h2>
+                                            <%--<fmt:formatNumber type="number" value="${e.salary}" />--%> 
+                                            VNĐ</h2>-->
                                             </a>                                
                                         </div>
                                         <div class="applyer-see">
-                                            <a href="<spring:url value="/info-applyers/${e.id}" />" class="btn btn-see">Xem Chi tiết</a>                                
+                                            <a href="<spring:url value="/info-applyers/${e[0]}" />" class="btn btn-see">Xem Chi tiết</a>                                
                                         </div>
                                     </div>
                                 </article>

@@ -44,32 +44,38 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    @Transactional
     public List<Post> getPostsBySalaryKw(String kw, BigDecimal fromSalary, BigDecimal toSalary) {
         return postRepository.getPostsBySalaryKw(kw,fromSalary,toSalary);
     }
 
     @Override
+    @Transactional
     public List<Post> getPostsArea(String kw, int id) {
         return postRepository.getPostsArea(kw,id);
     }
 
     
     @Override
-    public List<Object[]> getAllPosts(String kw, BigDecimal fromSalary, BigDecimal toSalary) {
-        return postRepository.getAllPosts(kw,fromSalary,toSalary);
+    @Transactional
+    public List<Object[]> getAllPosts(int areaId, int majorId, BigDecimal fromSalary, BigDecimal toSalary) {
+        return postRepository.getAllPosts(areaId,majorId,fromSalary,toSalary);
     }
 
     @Override
-    public List<Object[]> getPostsArea(int areaId) {
-        return postRepository.getPostsArea(areaId);
+    @Transactional
+    public List<Object[]> getPostsAreaMajor(int areaId, int majorId) {
+        return postRepository.getPostsAreaMajor(areaId,majorId);
     }
 
     @Override
+    @Transactional
     public List<Object[]> getPostsSalary(BigDecimal fromSalary, BigDecimal toSalary) {
         return postRepository.getPostsSalary(fromSalary,toSalary);
     }
 
     @Override
+    @Transactional
     public List<Object[]> getPost() {
         return postRepository.getPost();
     }
@@ -81,13 +87,27 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
+    @Transactional
     public boolean deletePost(int PostId) {
         return this.postRepository.deletePost(PostId);
     }
 
     @Override
+    @Transactional
     public List<Object[]> getPostDate(Date fromDate, Date toDate) {
         return this.postRepository.getPostDate(fromDate, toDate);
+    }
+
+    @Override
+    @Transactional
+    public List<Object[]> getPostsByAny(int areaId, int majorId, int s_jobtypeId, BigDecimal fromSalary, BigDecimal toSalary) {
+        return this.postRepository.getPostsByAny(areaId, majorId, s_jobtypeId, fromSalary, toSalary);
+    }
+
+    @Override
+    @Transactional
+    public List<Object[]> getPostsBySelected(int areaId, int majorId, int s_jobtypeId) {
+        return this.postRepository.getPostsBySelected(areaId, majorId, s_jobtypeId);
     }
     
 }

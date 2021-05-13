@@ -152,15 +152,37 @@ public class EmployerInfoController {
             return view;
         }
 
-        @GetMapping(value = "/search-applyer/{username}")
-        public ModelAndView searchApplyers(@PathVariable(value = "username") String username, 
-                @RequestParam(value = "kw", defaultValue = "")String kw,           
-                @RequestParam(value = "fromSalary", defaultValue = "") BigDecimal fromSalary,
-                @RequestParam(value = "toSalary", defaultValue = "") BigDecimal toSalary) {
+//        @GetMapping(value = "/search-applyer/{username}")
+//        public ModelAndView searchApplyers(@PathVariable(value = "username") String username, 
+//                @RequestParam(value = "areaId", defaultValue = "") String areaId,           
+//                @RequestParam(value = "majorId", defaultValue = "") String majorId) {
+//        ModelAndView view = new ModelAndView();
+//            view.setViewName("search-applyer");
+//            view.addObject("employees", employeeService.getAllEmployee());
+//            view.addObject("majors", majorService.getMajors());
+//            view.addObject("areas", areaService.getAreas());
+////            view.addObject("employees", employeeService.getEmployee());
+//            view.addObject("employers", employerService.getAllEmployer(username));
+//            if(!areaId.isEmpty() && !majorId.isEmpty()){
+//                view.addObject("employees", employeeService.getEmployeeAreaMajor(Integer.parseInt(areaId),Integer.parseInt(majorId)));
+//            }
+//
+//            return view;
+//        }
+        
+        @RequestMapping(value = "/search-applyer")
+        public ModelAndView searchApplyers(@RequestParam(value = "areaId", defaultValue = "") String areaId,           
+            @RequestParam(value = "majorId", defaultValue = "") String majorId) {
         ModelAndView view = new ModelAndView();
             view.setViewName("search-applyer");
-            view.addObject("employees", employeeService.getEmployee());
-            view.addObject("employers", employerService.getAllEmployer(username));
+            view.addObject("employees", employeeService.getAllEmployee());
+            view.addObject("majors", majorService.getMajors());
+            view.addObject("areas", areaService.getAreas());
+//            view.addObject("employees", employeeService.getEmployee());
+//            view.addObject("employers", employerService.getAllEmployer(username));
+            if(!areaId.isEmpty() && !majorId.isEmpty()){
+                view.addObject("employees", employeeService.getEmployeeAreaMajor(Integer.parseInt(areaId),Integer.parseInt(majorId)));
+            }
 
             return view;
         }
@@ -168,9 +190,7 @@ public class EmployerInfoController {
         @GetMapping(value = "/info-applyers/{employee_id}")
         public ModelAndView infoApplyers
         (@PathVariable(value = "employee_id")
-        int employeeId
-        
-            ) {
+        int employeeId) {
         ModelAndView view = new ModelAndView();
             view.setViewName("info-applyer");
             view.addObject("employee", employeeService.getEmployeeId(employeeId));
@@ -178,11 +198,7 @@ public class EmployerInfoController {
         }
 
         @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-        public String deletePost
-        (@PathVariable("id")
-        int id
-        
-            ) {
+        public String deletePost(@PathVariable("id")int id) {
             postService.deletePost(id);
             return "list-post";
         }

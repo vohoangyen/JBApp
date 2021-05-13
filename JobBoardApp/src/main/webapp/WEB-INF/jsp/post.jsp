@@ -154,7 +154,6 @@
                                 <input type="submit" class="btn btn-warning"  value="Post" />
                             </div>   
                         </div>
-
                     </div>
                 </div>
         </form:form>

@@ -7,7 +7,10 @@ package com.lttt.jobboard.repository.impl;
 
 import com.lttt.jobboard.pojo.Area;
 import com.lttt.jobboard.pojo.Employee;
+import com.lttt.jobboard.pojo.Employer;
+import com.lttt.jobboard.pojo.JobTypes;
 import com.lttt.jobboard.pojo.Major;
+import com.lttt.jobboard.pojo.Position;
 import com.lttt.jobboard.pojo.Post;
 import com.lttt.jobboard.pojo.User;
 import com.lttt.jobboard.repository.EmployeeRepository;
@@ -152,5 +155,84 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
     public void updateEmployee(Employee employee) {
         Session session = sessionFactorys.getCurrentSession();
         session.update(employee);
+    }
+
+    @Override
+     @Transactional
+    public List<Object[]> getEmployeeAreaMajor(int areaId, int majorId) {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        
+        Root areaRoot = query.from(Area.class);
+        Root usersRoot = query.from(User.class);  
+        Root majorRoot = query.from(Major.class);
+        Root employeeRoot = query.from(Employee.class);
+                      
+        if (areaId > 0 && majorId > 0) {            
+            query = query.where(builder.and(
+                builder.equal(areaRoot.get("id"),employeeRoot.get("area")),
+                builder.equal(usersRoot.get("id"),employeeRoot.get("user")),
+                builder.equal(majorRoot.get("id"),employeeRoot.get("major")),
+                    
+                builder.equal(employeeRoot.get("area"), areaId),
+                builder.equal(employeeRoot.get("major"), majorId)
+                ));
+            query.multiselect(employeeRoot.get("id"),
+                    employeeRoot.get("firstName").as(String.class),                    
+                    employeeRoot.get("lastName").as(String.class),
+                    areaRoot.get("name").as(String.class),
+                    majorRoot.get("name").as(String.class)
+
+            );
+
+            query.groupBy(employeeRoot.get("id"),
+                    employeeRoot.get("firstName").as(String.class),                    
+                    employeeRoot.get("lastName").as(String.class),     
+                    areaRoot.get("name").as(String.class),
+                    majorRoot.get("name").as(String.class)
+            );
+
+        }
+        
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public List<Object[]> getAllEmployee() {
+        Session session = this.sessionFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+        
+        Root areaRoot = query.from(Area.class);
+        Root usersRoot = query.from(User.class);  
+        Root majorRoot = query.from(Major.class);
+        Root employeeRoot = query.from(Employee.class);
+        
+        query = query.where(builder.and(
+            builder.equal(areaRoot.get("id"),employeeRoot.get("area")),
+            builder.equal(usersRoot.get("id"),employeeRoot.get("user")),
+            builder.equal(majorRoot.get("id"),employeeRoot.get("major"))
+
+            ));
+        query.multiselect(employeeRoot.get("id"),
+                employeeRoot.get("firstName").as(String.class),                    
+                employeeRoot.get("lastName").as(String.class),
+                areaRoot.get("name").as(String.class),
+                majorRoot.get("name").as(String.class)
+
+        );
+
+        query.groupBy(employeeRoot.get("id"),
+                employeeRoot.get("firstName").as(String.class),                    
+                employeeRoot.get("lastName").as(String.class),
+                areaRoot.get("name").as(String.class),
+                majorRoot.get("name").as(String.class)
+        );
+            
+        Query q = session.createQuery(query);
+        return q.getResultList();
     }
 }

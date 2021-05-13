@@ -14,14 +14,20 @@ import java.util.List;
  * @author Dy
  */
 public interface EmployeeRepository {
+
     boolean addOrUpdateEmployee(Employee e);
-    
+
     List<Object[]> getAllEmployee(String username);
+
     List<Employee> getEmployee();
-    
+
     Employee getEmployeeId(int id);
-    
+
     void updateEmployee(Employee employee);
+
     void addEmployee(Employee employee);
     
+    List<Object[]> getEmployeeAreaMajor(int areaId, int majorId);
+    List<Object[]> getAllEmployee();
+
 }

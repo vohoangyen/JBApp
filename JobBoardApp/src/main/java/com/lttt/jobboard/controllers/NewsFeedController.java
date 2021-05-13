@@ -39,10 +39,9 @@ public class NewsFeedController {
     @RequestMapping(value = "/news-feed")
     public ModelAndView NewsFeed(
             @RequestParam(value = "jobtype_id", defaultValue = "") String jobtypeId,
-            @RequestParam(value = "area", defaultValue = "") String area,
-            @RequestParam(value = "major", defaultValue = "") String major,
-            @RequestParam(value = "companyName", defaultValue = "") String companyName,
-            @RequestParam(value = "jobtype", defaultValue = "") String jobtype,
+            @RequestParam(value = "areaId", defaultValue = "") String areaId,
+            @RequestParam(value = "majorId", defaultValue = "") String majorId,
+            @RequestParam(value = "jobtypeId", defaultValue = "") String s_jobtypeId,
             @RequestParam(value = "fromSalary", defaultValue = "") BigDecimal fromSalary,
             @RequestParam(value = "toSalary", defaultValue = "") BigDecimal toSalary) {
 
@@ -58,7 +57,20 @@ public class NewsFeedController {
         } else {
             view.addObject("posts", jobTypesService.getPostsByJobtypeId(Integer.parseInt(jobtypeId)));
         }
+        
+        if (!areaId.isEmpty() && !majorId.isEmpty() && !s_jobtypeId.isEmpty() && fromSalary != null && toSalary != null) {
+            view.addObject("posts", postService.getPostsByAny(
+                    Integer.parseInt(areaId),
+                    Integer.parseInt(majorId),
+                    Integer.parseInt(s_jobtypeId),
+                    fromSalary, toSalary));
+        }else if(!areaId.isEmpty() && !majorId.isEmpty() && !s_jobtypeId.isEmpty() && fromSalary == null && toSalary == null){
+            view.addObject("posts", postService.getPostsBySelected( 
+                    Integer.parseInt(areaId),
+                    Integer.parseInt(majorId),
+                    Integer.parseInt(s_jobtypeId)));
 
+        }
         return view;
     }
 }

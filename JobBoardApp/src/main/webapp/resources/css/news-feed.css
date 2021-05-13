@@ -53,15 +53,21 @@ and open the template in the editor.
 }
 .border-jobs-search{
     border: 1px solid rgba(0,0,0,.125);
+    margin-top: 18px;
 }
 
 .card-text a{
     margin-bottom: 1rem;
     color: #212529;
+    padding-left: 10px;
 }
 .card-text a:hover{
     text-decoration: none;
     color: #212529;
+}
+
+.card-text p{
+    padding-left: 10px;
 }
 
 a.card-body-name{
@@ -73,4 +79,7 @@ a.card-body-name{
 .card-body > a:hover{
     text-decoration: none;
     color: #FFD21E;
+}
+.card-text{
+    display: flex;
 }

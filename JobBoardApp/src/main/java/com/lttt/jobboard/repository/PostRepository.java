@@ -17,22 +17,31 @@ import java.util.List;
 public interface PostRepository {
 
     List<Post> getPosts(String kw);
-    
+
     List<Post> getPostsArea(String kw, int areaId);
-    
-    List<Post> getPostsBySalaryKw(String kw,BigDecimal fromSalary, BigDecimal toSalary);
+
+    List<Post> getPostsBySalaryKw(String kw, BigDecimal fromSalary, BigDecimal toSalary);
 
     List<Post> getPostsBySalary(BigDecimal fromSalary, BigDecimal toSalary);
-    
+
     Post getPostId(int id);
-    
+
     void addPost(Post post);
+
     boolean deletePost(int PostId);
-    
-    List<Object[]> getAllPosts(String kw,BigDecimal fromSalary, BigDecimal toSalary);   
-    List<Object[]> getPostsArea(int areaId);
+
+    List<Object[]> getAllPosts(int areaId, int majorId, BigDecimal fromSalary, BigDecimal toSalary);
+
+    List<Object[]> getPostsAreaMajor(int areaId, int majorId);
+
     List<Object[]> getPostsSalary(BigDecimal fromSalary, BigDecimal toSalary);
+
     List<Object[]> getPost();
+
     List<Object[]> getPostDate(Date fromDate, Date toDate);
     
+    List<Object[]> getPostsByAny(int areaId, int majorId, int s_jobtypeId, BigDecimal fromSalary, BigDecimal toSalary);
+    
+    List<Object[]> getPostsBySelected(int areaId, int majorId, int s_jobtypeId);
+
 }

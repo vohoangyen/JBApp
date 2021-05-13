@@ -85,55 +85,56 @@ public class HomeController {
 //    }
         
         
-            @RequestMapping(value = "/")
-    public ModelAndView index(@RequestParam(value = "kw", defaultValue = "") String kw,
-            @RequestParam(value = "keyw", defaultValue = "") String keyw,
-            @RequestParam(value = "fromSalary", defaultValue = "") BigDecimal fromSalary,
-            @RequestParam(value = "toSalary", defaultValue = "") BigDecimal toSalary,
-            @RequestParam(name = "areaid", defaultValue = "") String areaId) {
-        ModelAndView view = new ModelAndView();
-        view.setViewName("index");  
-        view.addObject("areas", areaService.getAreas()); 
-//        view.addObject("posts", postService.getPosts(kw));
-        view.addObject("posts", postService.getPost());
-        
-//        if(!kw.isEmpty() && fromSalary == null && toSalary == null){
-//            view.addObject("posts", postService.getPostsKw(kw));
-//        }else if(kw.isEmpty() && fromSalary != null && toSalary != null){
-//            view.addObject("posts", postService.getPostsSalary(fromSalary,toSalary)); 
-//        }else if(!kw.isEmpty() && fromSalary != null && toSalary != null){            
-//            view.addObject("posts", postService.getAllPosts(kw,fromSalary,toSalary)); 
-//        }
-        return view;
-    }
-    
-        
-//    
 //    @RequestMapping(value = "/")
-//    public ModelAndView index(@RequestParam(value = "areaId",defaultValue = "") String areaId,
+//    public ModelAndView index(@RequestParam(value = "kw", defaultValue = "") String kw,
 //            @RequestParam(value = "keyw", defaultValue = "") String keyw,
 //            @RequestParam(value = "fromSalary", defaultValue = "") BigDecimal fromSalary,
-//            @RequestParam(value = "toSalary", defaultValue = "") BigDecimal toSalary) {
+//            @RequestParam(value = "toSalary", defaultValue = "") BigDecimal toSalary,
+//            @RequestParam(name = "areaid", defaultValue = "") String areaId) {
 //        ModelAndView view = new ModelAndView();
 //        view.setViewName("index");  
 //        view.addObject("areas", areaService.getAreas()); 
 ////        view.addObject("posts", postService.getPosts(kw));
 //        view.addObject("posts", postService.getPost());
-//
-////            view.addObject("areas", postService.getPostsArea(0));
-//            if(!areaId.isEmpty()){
-//                view.addObject("posts", postService.getPostsArea(Integer.parseInt(areaId)));
-//            }
-//                
-//
-////        if(areaId > 0 && fromSalary == null && toSalary == null){
-////            
-////        }
-////        else if(Integer.parseInt(areaId) > 0 && fromSalary != null && toSalary != null){            
+//        
+////        if(!kw.isEmpty() && fromSalary == null && toSalary == null){
+////            view.addObject("posts", postService.getPostsKw(kw));
+////        }else if(kw.isEmpty() && fromSalary != null && toSalary != null){
+////            view.addObject("posts", postService.getPostsSalary(fromSalary,toSalary)); 
+////        }else if(!kw.isEmpty() && fromSalary != null && toSalary != null){            
 ////            view.addObject("posts", postService.getAllPosts(kw,fromSalary,toSalary)); 
 ////        }
 //        return view;
 //    }
+    
+        
+    
+    @RequestMapping(value = "/")
+    public ModelAndView index(@RequestParam(value = "areaId",defaultValue = "") String areaId,
+            @RequestParam(value = "majorId", defaultValue = "") String majorId,
+            @RequestParam(value = "fromSalary", defaultValue = "") BigDecimal fromSalary,
+            @RequestParam(value = "toSalary", defaultValue = "") BigDecimal toSalary) {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("index");  
+        view.addObject("areas", areaService.getAreas()); 
+        view.addObject("posts", postService.getPost());
+        view.addObject("majors", majorService.getMajors());
+
+        if(!areaId.isEmpty() && !majorId.isEmpty() && fromSalary == null && toSalary == null){
+            view.addObject("posts", postService.getPostsAreaMajor(Integer.parseInt(areaId),Integer.parseInt(majorId)));
+        }else if(!areaId.isEmpty() && !majorId.isEmpty() && fromSalary != null && toSalary != null){
+            view.addObject("posts", postService.getAllPosts(Integer.parseInt(areaId),Integer.parseInt(majorId),fromSalary,toSalary));
+        }
+                
+
+//        if(areaId > 0 && fromSalary == null && toSalary == null){
+//            
+//        }
+//        else if(Integer.parseInt(areaId) > 0 && fromSalary != null && toSalary != null){            
+//            view.addObject("posts", postService.getAllPosts(kw,fromSalary,toSalary)); 
+//        }
+        return view;
+    }
 
 
     @GetMapping(value = "/posts/{post_id}")
