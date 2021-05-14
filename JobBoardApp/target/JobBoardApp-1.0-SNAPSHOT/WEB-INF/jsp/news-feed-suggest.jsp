@@ -36,7 +36,7 @@
                     <li class="nav-item">
                         <a id="nav-recent" class="nav-link text-warning "
                            style="text-transform: uppercase"
-                           href="<spring:url value="/news-feed/?jobtype_id=${jobtypes.id}" />">
+                           href="<spring:url value="/news-feed/${pageContext.request.userPrincipal.name}/?jobtype_id=${jobtypes.id}" />">
                             <h5 class="text-warning text-center" >${jobtypes.name}</h5></a>
                     </li>
                 </c:forEach>
