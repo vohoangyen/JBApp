@@ -7,6 +7,7 @@ package com.lttt.config;
 
 import com.lttt.jobboard.validator.PassValidator;
 import com.lttt.jobboard.validator.WebAppValidator;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.context.MessageSource;
@@ -33,12 +34,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.lttt.jobboard")
 public class WebConfig implements WebMvcConfigurer {
-    
-     @Override
+
+    @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
-    
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
@@ -46,40 +47,40 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/js/**")
                 .addResourceLocations("/resources/js/");
         registry.addResourceHandler("/css/**")
-                .addResourceLocations("/resources/css/");        
+                .addResourceLocations("/resources/css/");
     }
-    
+
     @Bean
     public MessageSource messageSource() {
-        ResourceBundleMessageSource resource 
+        ResourceBundleMessageSource resource
                 = new ResourceBundleMessageSource();
         resource.setBasename("messages");
 
         return resource;
     }
-    
+
     @Bean
     public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver resolver 
+        CommonsMultipartResolver resolver
                 = new CommonsMultipartResolver();
         resolver.setDefaultEncoding("UTF-8");
 
         return resolver;
     }
-    
+
     @Bean(name = "validator")
     public LocalValidatorFactoryBean validator() {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
-        
+
         return bean;
     }
 
     @Override
     public Validator getValidator() {
-       return validator();
+        return validator();
     }
-    
+
     @Bean
     public WebAppValidator userValidator() {
         Set<Validator> springValidators = new HashSet<>();
@@ -91,4 +92,10 @@ public class WebConfig implements WebMvcConfigurer {
         return validator;
     }
     
+    @Bean
+    public SimpleDateFormat simpleDateFormat() {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        return f;
+    }
+
 }

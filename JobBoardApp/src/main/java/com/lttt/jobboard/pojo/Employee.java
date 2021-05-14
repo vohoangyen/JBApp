@@ -51,9 +51,9 @@ public class Employee implements Serializable {
 
     @Column(name = "cv")
     private String cv;
-    
+
     @Transient
-    private MultipartFile cvFile;   
+    private MultipartFile cvFile;
 
     @Column(name = "phone")
     private String phone;

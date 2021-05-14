@@ -33,41 +33,40 @@ import org.springframework.ui.Model;
 @Controller
 @ControllerAdvice
 public class PostController {
-    
+
     @Autowired
     private EmployerService employerService;
-    
+
     @Autowired
     private PostService postService;
-    
+
     @Autowired
     private MajorService majorService;
 
     @Autowired
     private AreaService areaService;
-    
+
     @Autowired
     private PositionService positionService;
-    
+
     @Autowired
     private JobTypesService jobTypesService;
-    
-       
-     @GetMapping(value = "/post/{username}")
+
+    @GetMapping(value = "/post/{username}")
     public ModelAndView post(@PathVariable(value = "username") String username) {
         ModelAndView view = new ModelAndView();
         view.setViewName("post");
-        view.addObject("employers", employerService.getAllEmployer(username)); 
-        
+        view.addObject("employers", employerService.getAllEmployer(username));
+
         view.addObject("jobtypes", jobTypesService.getJobTypes(""));
         view.addObject("majors", majorService.getMajors());
         view.addObject("areas", areaService.getAreas());
         view.addObject("positions", positionService.getPositions(""));
-        
+
         view.addObject("addPost", new Post());
-        return view;       
+        return view;
     }
-    
+
     @PostMapping(value = "/post/{username}")
     public String addPostProcess(Model model,
             @ModelAttribute(value = "addPost") @Valid Post addPost,
@@ -77,11 +76,11 @@ public class PostController {
             model.addAttribute("jobtypes", jobTypesService.getJobTypes(""));
             model.addAttribute("majors", majorService.getMajors());
             model.addAttribute("positions", positionService.getPositions(""));
-            return "post";           
-        }        
-        
+            return "post";
+        }
+
         postService.addPost(addPost);
-        
+
         return "redirect:/";
     }
 }

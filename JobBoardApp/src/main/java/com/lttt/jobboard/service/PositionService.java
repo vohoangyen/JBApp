@@ -13,6 +13,7 @@ import java.util.List;
  * @author Admin
  */
 public interface PositionService {
+
     List<Position> getPositions(String kw);
 //    List<Position> getPositionsByMajor(int id);
 }

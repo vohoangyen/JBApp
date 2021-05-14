@@ -18,7 +18,7 @@
 
 <div class="container-infomation" style="padding-top: 70px;">
     <div class="site-main-content" style="min-height: 80vh;">
-        <div class="row content-info" style="margin: 0;">
+        <div class="row content-info" style="margin-left: 0;">
             <div class="col-xs-12 col-md-2">
                 <div class="sitebar-left">
                     <div class="widget-infomation">
@@ -158,9 +158,9 @@
                                 <div class="form-group col-md-12">
                                     <label>Địa chỉ hiện tại</label>
                                     <form:input class="form-control border border-warning " 
-                                           type="text" required="true" path="address"
-                                           oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ!')"
-                                           oninput="setCustomValidity('')"/>
+                                                type="text" required="true" path="address"
+                                                oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ!')"
+                                                oninput="setCustomValidity('')"/>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-12 md-clearfix sm-clearfix fullname">
                                     <div class="cmb-th">
@@ -177,14 +177,14 @@
                                         </form:select>                                                    
                                     </div>
                                 </div> 
-                                    <div style="display: none;">
-                                        <form:hidden path="id" />
-                                        <form:hidden path="user.id" />
-                                        <!--<input type="number" value="${employerss.id}" name="">-->                                     
-                                    </div>
-<!--                                <div style="display: none;">
-                                    <input type="number" value="${employeess.id}" name="">                                     
-                                </div>-->
+                                <div style="display: none;">
+                                    <form:hidden path="id" />
+                                    <form:hidden path="user.id" />
+                                    <!--<input type="number" value="${employerss.id}" name="">-->                                     
+                                </div>
+                                <!--                                <div style="display: none;">
+                                                                    <input type="number" value="${employeess.id}" name="">                                     
+                                                                </div>-->
                             </div>
                             <div class="text-right">
                                 <input type="submit" class="btn btn-warning btn-add-info"  value="Cập nhật" />

@@ -133,7 +133,7 @@
                                             <form:options items="${areas}"  
                                                           itemLabel="name"
                                                           itemValue="id" />
-                                            
+
                                         </form:select>
                                     </div> 
                                 </div> 

@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/employer-update-info")
 public class EmployerUpdateInfoController {
+
     @RequestMapping("/")
-    public String EmployerUpdateInformation(){
+    public String EmployerUpdateInformation() {
         return "employer-update-info";
     }
 }

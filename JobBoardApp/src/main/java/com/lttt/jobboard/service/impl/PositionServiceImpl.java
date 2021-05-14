@@ -19,10 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional
-public class PositionServiceImpl implements PositionService{
+public class PositionServiceImpl implements PositionService {
+
     @Autowired
     private PositionRepository positionRepository;
-    
+
     @Override
     @Transactional
     public List<Position> getPositions(String kw) {
@@ -34,5 +35,4 @@ public class PositionServiceImpl implements PositionService{
 //    public List<Position> getPositionsByMajor(int id) {
 //        return positionRepository.getPositionsByMajor(id);
 //    }
-    
 }

@@ -12,7 +12,7 @@
 
 <div class="container-infomation" style="padding-top: 70px;">
     <div class="site-main-content" style="min-height: 80vh;">
-        <div class="row content-info">
+        <div class="row content-info" style="margin-left:  0;">
             <div class="col-xs-12 col-md-2">
                 <div class="sitebar-left">
                     <div class="widget-infomation">
@@ -36,9 +36,9 @@
                                         </c:when>
                                         <c:when test="${empty employees}">
                                             <a href="<spring:url value="/add-info-employee/${pageContext.request.userPrincipal.name}" />">
-                                                    <i class="fas fa-edit"></i>
-                                                    Cập nhật thông tin
-                                                </a>
+                                                <i class="fas fa-edit"></i>
+                                                Cập nhật thông tin
+                                            </a>
                                         </c:when>
                                     </c:choose>
 

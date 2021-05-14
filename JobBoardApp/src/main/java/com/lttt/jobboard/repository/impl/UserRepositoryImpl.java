@@ -23,11 +23,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Dy
  */
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     @Override
     public void addUser(User user) {
         Session session = sessionFactory.getCurrentSession();
@@ -44,13 +44,14 @@ public class UserRepositoryImpl implements UserRepository{
         Root<User> root = cr.from(User.class);
 
         CriteriaQuery<User> query = cr.select(root);
-        if (!username.isEmpty())
+        if (!username.isEmpty()) {
             query.where(builder.equal(root.get("username"), username));
+        }
 
         users = session.createQuery(query).getResultList();
-        
+
         return users;
-        
+
 //        List<User> users;
 //        Session session = sessionFactory.getCurrentSession();
 //
@@ -75,5 +76,4 @@ public class UserRepositoryImpl implements UserRepository{
 //    public List<Object[]> getAllUsers(String username) {
 //
 //    }
-    
 }

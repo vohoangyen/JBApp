@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/list-post")
 public class ListPostController {
+
     @RequestMapping("/")
-    public String ListPost(){
+    public String ListPost() {
         return "list-post";
     }
 }

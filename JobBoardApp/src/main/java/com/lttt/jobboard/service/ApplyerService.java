@@ -13,6 +13,8 @@ import java.util.List;
  * @author Dy
  */
 public interface ApplyerService {
+
     List<Object[]> getEmployeeByPostId(int postId);
+
     void addApply(Apply a, String rootDir);
 }

@@ -23,7 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Entity
 @Table(name = "employer")
-public class Employer implements Serializable{
+public class Employer implements Serializable {
+
     @Id
     @Column(name = "employer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,28 +32,28 @@ public class Employer implements Serializable{
 
     @Column(name = "company_name")
     private String companyName;
-    
+
     @Column(name = "logo")
     private String logo;
-    
+
     @Transient
     private MultipartFile logoFile;
-    
+
     @Column(name = "description")
     private String description;
-    
+
     @Column(name = "scale")
     private String scale;
-    
+
     @Column(name = "phone")
     private String phone;
-    
+
     @Column(name = "email")
     private String email;
-    
+
     @Column(name = "address")
     private String address;
-    
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

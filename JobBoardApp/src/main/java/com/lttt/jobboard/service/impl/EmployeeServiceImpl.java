@@ -24,13 +24,13 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service
 @Transactional
-public class EmployeeServiceImpl implements EmployeeService{
-   @Autowired
+public class EmployeeServiceImpl implements EmployeeService {
+
+    @Autowired
     private EmployeeRepository employeeRepository;
-   
+
 //    @Autowired
 //    private SimpleDateFormat simpleDateFormat;
-   
     @Override
     @Transactional(readOnly = true)
     public boolean addOrUpdateEmployee(Employee e) {
@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService{
                 System.err.println(ex.getMessage());
             }
         }
-        
+
     }
 
     @Override
@@ -89,13 +89,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     @Transactional
     public List<Object[]> getEmployeeAreaMajor(int areaId, int majorId) {
-        return employeeRepository.getEmployeeAreaMajor(areaId,majorId);
+        return employeeRepository.getEmployeeAreaMajor(areaId, majorId);
     }
 
     @Override
     @Transactional
     public List<Object[]> getAllEmployee() {
-         return employeeRepository.getAllEmployee();
+        return employeeRepository.getAllEmployee();
     }
-    
+
 }

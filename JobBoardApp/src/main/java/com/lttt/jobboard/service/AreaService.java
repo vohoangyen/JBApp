@@ -14,6 +14,8 @@ import java.util.List;
  * @author Admin
  */
 public interface AreaService {
+
     List<Area> getAreas();
+
     List<Post> getPostsByArea(int areaId);
 }

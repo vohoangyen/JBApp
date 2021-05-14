@@ -26,8 +26,9 @@ public interface EmployeeRepository {
     void updateEmployee(Employee employee);
 
     void addEmployee(Employee employee);
-    
+
     List<Object[]> getEmployeeAreaMajor(int areaId, int majorId);
+
     List<Object[]> getAllEmployee();
 
 }

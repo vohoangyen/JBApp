@@ -22,10 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
  * @author Dy
  */
 @Service
-public class EmployerServiceImpl implements EmployerService{
-   @Autowired
+public class EmployerServiceImpl implements EmployerService {
+
+    @Autowired
     private EmployerRepository employerRepository;
-   
+
     @Override
     @Transactional(readOnly = true)
     public List<Object[]> getAllEmployer(String username) {
@@ -35,7 +36,7 @@ public class EmployerServiceImpl implements EmployerService{
     @Override
     @Transactional(readOnly = true)
     public List<Object[]> getPostsEmployer(String username) {
-       return employerRepository.getPostsEmployer(username);
+        return employerRepository.getPostsEmployer(username);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class EmployerServiceImpl implements EmployerService{
     @Override
     @Transactional
     public void AddOrUpdateEmployer(Employer employer, String rootDir) {
-         MultipartFile img = employer.getLogoFile();
+        MultipartFile img = employer.getLogoFile();
         if (img != null && !img.isEmpty()) {
             employer.setLogo("/images/imgFile/" + img.getOriginalFilename());
             try {
@@ -79,5 +80,11 @@ public class EmployerServiceImpl implements EmployerService{
     public Employer getEmployerId(int id) {
         return employerRepository.getEmployerId(id);
     }
-    
+
+    @Override
+    @Transactional
+    public List<Employer> getEmployerKw(String kw) {
+        return employerRepository.getEmployerKw(kw);
+    }
+
 }

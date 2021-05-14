@@ -20,29 +20,50 @@
                 </div>
             </div>
             <div class="elm-nav col-md-5">
-                <nav class="navbar navbar-expand-sm" style="padding-left: 60px">
+                <nav class="navbar navbar-expand-sm" style="padding-left: 10px">
                     <ul class="navbar-nav nav-container text-center">
                         <li id="elm-home" class="nav-item">
                             <a class="nav-link" href="<c:url value="/"/>">HOME</a>
                         </li>
-                        <li id="elm-category" class="nav-item">
+                        <li id="elm-nf" class="nav-item">
                             <a class="nav-link" href="<c:url value="/news-feed/"/>">NEWS FEED</a>
+                        </li>
+                        <li id="elm-category" class="nav-item">
+                            <a class="nav-link" href="<c:url value="/list-company/"/>">COMPANIES</a>
                         </li>
                         <sec:authorize access="isAuthenticated()">   
                             <sec:authorize access="hasRole('ROLE_EMPLOYER')">
                                 <li id="elm-post" class="nav-item">
                                     <a class="nav-link" href="<spring:url value="/post/${pageContext.request.userPrincipal.name}" />">POST</a>
-                                </li>      
+                                </li> 
+
                             </sec:authorize>
                             <sec:authorize access="hasRole('ROLE_EMPLOYEE')">
+                                <li id="elm-nf" class="nav-item">
+                                    <a class="nav-link" href="<c:url value="/news-feed/${pageContext.request.userPrincipal.name}"/>">NEWS FEED</a>
+                                </li>
                                 <li id="elm-post" class="nav-item" style="display: none;">
                                     <a class="nav-link" href="<c:url value="/post/"/>">POST</a>
-                                </li>         
+                                </li> 
+                                <script>
+                                    document.getElementById("elm-nf").style.display = "none";
+                                </script>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                <li id="elm-post" class="nav-item" style="padding-left: 100px">
+                                    <a class="nav-link" href="<spring:url value="/statis/" />">
+                                        THỐNG KÊ
+                                    </a>
+                                </li>   
+                                <script>
+                                    document.getElementById("elm-home").style.display = "none";
+                                    document.getElementById("elm-nf").style.display = "none";
+                                    document.getElementById("elm-category").style.display = "none";
+                                </script>
                             </sec:authorize>
                         </sec:authorize>
-<!--                        <li id="elm-post" class="nav-item">
-                            <a class="nav-link" href="<c:url value="/post/"/>">POST</a>
-                        </li>-->
+
+
                     </ul>
                 </nav>
             </div>
@@ -86,6 +107,13 @@
                                 </a>                            
                             </div>
                         </div>           
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <li id="elm-post" class="nav-item" style="list-style: none; padding-left: 30px; float: right; padding-top: 10px">
+                            <a class="nav-link" href="<spring:url value="/logout" />">
+                                <i class="fa fa-sign-out"></i> LOG OUT
+                            </a>
+                        </li>         
                     </sec:authorize>
                 </sec:authorize>
             </div>

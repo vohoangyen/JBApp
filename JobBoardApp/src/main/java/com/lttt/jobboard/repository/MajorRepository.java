@@ -13,5 +13,6 @@ import java.util.List;
  * @author Admin
  */
 public interface MajorRepository {
+
     List<Major> getMajors();
 }

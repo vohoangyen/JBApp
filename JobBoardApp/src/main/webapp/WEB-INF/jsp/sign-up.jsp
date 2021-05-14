@@ -35,30 +35,30 @@
                         <div class="form-group">
                             <label>Tên đăng nhập</label>
                             <form:input class="form-control border border-warning "
-                                   type="text" maxlength="25" placeholder="abc"
-                                   required="true"
-                                   oninvalid="this.setCustomValidity('Vui lòng nhập tên đăng nhập!')"
-                                   oninput="setCustomValidity('')"
-                                   path="username"
-                                   name="username"/>
+                                        type="text" maxlength="25" placeholder="abc"
+                                        required="true"
+                                        oninvalid="this.setCustomValidity('Vui lòng nhập tên đăng nhập!')"
+                                        oninput="setCustomValidity('')"
+                                        path="username"
+                                        name="username"/>
                         </div>
                         <div class="form-group">
                             <label>Mật khẩu</label>
                             <form:input class="form-control border border-warning" 
-                                   type="password" maxlength="20" placeholder="******"
-                                   required="true"
-                                   oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu!')"
-                                   oninput="setCustomValidity('')"
-                                   path="password" name="password"/>
+                                        type="password" maxlength="20" placeholder="******"
+                                        required="true"
+                                        oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu!')"
+                                        oninput="setCustomValidity('')"
+                                        path="password" name="password"/>
                         </div>
                         <div class="form-group">
                             <label>Confirm mật khẩu</label>
                             <form:input class="form-control border border-warning" 
-                                   type="password" maxlength="20" placeholder="******"
-                                   required="true"
-                                   oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu!')"
-                                   oninput="setCustomValidity('')"
-                                   path="confirmPassword" />
+                                        type="password" maxlength="20" placeholder="******"
+                                        required="true"
+                                        oninvalid="this.setCustomValidity('Vui lòng nhập mật khẩu!')"
+                                        oninput="setCustomValidity('')"
+                                        path="confirmPassword" />
                         </div>
                         <div class="form-group">
                             <label>Vị trí</label>

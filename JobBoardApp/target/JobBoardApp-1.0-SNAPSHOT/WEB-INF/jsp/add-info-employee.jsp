@@ -40,8 +40,8 @@
                                 </li>                                
                                 <li class="aligned-left">
                                     <a href="<c:url value="/logout"/>">
-                                    <i class="fa fa-sign-out"></i>
-                                    Đăng xuất
+                                        <i class="fa fa-sign-out"></i>
+                                        Đăng xuất
                                     </a>
                                 </li>
                             </ul>

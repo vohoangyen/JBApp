@@ -31,13 +31,14 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Admin
  */
 @Repository
-public class JobTypesRepositoryImpl implements JobTypesRepository{
+public class JobTypesRepositoryImpl implements JobTypesRepository {
+
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     @Autowired
     private LocalSessionFactoryBean sessionsFactory;
-    
+
     @Override
     @Transactional
     public List<JobTypes> getJobTypes(String kw) {
@@ -48,11 +49,12 @@ public class JobTypesRepositoryImpl implements JobTypesRepository{
         Root<JobTypes> root = cr.from(JobTypes.class);
 
         CriteriaQuery query = cr.select(root);
-        if (!kw.isEmpty())
-            query = query.where(builder.like(root.get("name").as(String.class),  
+        if (!kw.isEmpty()) {
+            query = query.where(builder.like(root.get("name").as(String.class),
                     "%" + kw + "%"));
+        }
 
-        jobtypes = session.createQuery(query).getResultList();        
+        jobtypes = session.createQuery(query).getResultList();
         return jobtypes;
     }
 
@@ -61,23 +63,24 @@ public class JobTypesRepositoryImpl implements JobTypesRepository{
         Session session = this.sessionsFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
-        
+
         Root areaRoot = query.from(Area.class);
         Root jobTypesRoot = query.from(JobTypes.class);
-        Root positionRoot = query.from(Position.class);        
+        Root positionRoot = query.from(Position.class);
         Root majorRoot = query.from(Major.class);
         Root employerRoot = query.from(Employer.class);
         Root postRoot = query.from(Post.class);
-            
+
         query = query.where(builder.and(
-            builder.equal(postRoot.get("area"),areaRoot.get("id")),
-            builder.equal(postRoot.get("jobTypes"),jobtypeId),
-            builder.equal(postRoot.get("position"), positionRoot.get("id")),
-            builder.equal(postRoot.get("major"),majorRoot.get("id")),
-            builder.equal(postRoot.get("employer"),employerRoot.get("id"))
-            ));
+                builder.equal(postRoot.get("area"), areaRoot.get("id")),
+                builder.equal(postRoot.get("jobTypes"), jobTypesRoot.get("id")),
+                builder.equal(postRoot.get("position"), positionRoot.get("id")),
+                builder.equal(postRoot.get("major"), majorRoot.get("id")),
+                builder.equal(postRoot.get("employer"), employerRoot.get("id")),
+                builder.equal(postRoot.get("jobTypes"), jobtypeId)
+        ));
         query.multiselect(postRoot.get("id"),
-                postRoot.get("salary").as(BigDecimal.class),                    
+                postRoot.get("salary").as(BigDecimal.class),
                 employerRoot.get("companyName").as(String.class),
                 employerRoot.get("logo").as(String.class),
                 employerRoot.get("address").as(String.class),
@@ -88,7 +91,7 @@ public class JobTypesRepositoryImpl implements JobTypesRepository{
         );
 
         query.groupBy(postRoot.get("id"),
-                postRoot.get("salary").as(BigDecimal.class),                    
+                postRoot.get("salary").as(BigDecimal.class),
                 employerRoot.get("companyName").as(String.class),
                 employerRoot.get("logo").as(String.class),
                 employerRoot.get("address").as(String.class),
@@ -97,9 +100,9 @@ public class JobTypesRepositoryImpl implements JobTypesRepository{
                 positionRoot.get("name").as(String.class),
                 employerRoot.get("id").as(String.class)
         );
-        
+
         Query q = session.createQuery(query);
         return q.getResultList();
     }
-    
+
 }

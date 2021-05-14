@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/post-detail")
 public class PostDetailController {
+
     @RequestMapping("/")
-    public String PostDetail(){
+    public String PostDetail() {
         return "post-detail";
     }
 }

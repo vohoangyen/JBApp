@@ -19,6 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "major")
 public class Major implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

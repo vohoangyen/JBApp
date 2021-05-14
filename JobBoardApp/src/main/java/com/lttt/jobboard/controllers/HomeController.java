@@ -11,6 +11,7 @@ import com.lttt.jobboard.pojo.User;
 import com.lttt.jobboard.service.ApplyerService;
 import com.lttt.jobboard.service.AreaService;
 import com.lttt.jobboard.service.EmployeeService;
+import com.lttt.jobboard.service.EmployerService;
 import com.lttt.jobboard.service.MajorService;
 import com.lttt.jobboard.service.PostService;
 import com.lttt.jobboard.service.UserService;
@@ -54,88 +55,35 @@ public class HomeController {
 
     @Autowired
     private EmployeeService employeeService;
+    
+    @Autowired
+    private EmployerService employerService;
 
     @Autowired
     private MajorService majorService;
-    
-        @Autowired
+
+    @Autowired
     private ApplyerService applyerService;
-//    @RequestMapping("/")
-//    public String index(Model model, @RequestParam(value = "kw", defaultValue = "") String kw,
-//            @RequestParam(name = "keyw", required = false) String keyw,
-//            @RequestParam(name = "fromSalary", required = false) BigDecimal fromSalary,
-//            @RequestParam(name = "toSalary", required = false) BigDecimal toSalary,
-//            @RequestParam(name = "areaid", required = false) String areaId) {
-//        
-//        model.addAttribute("areas", areaService.getAreas()); 
-//        model.addAttribute("posts", postService.getPosts(kw));
-//
-//        
-////        if(!kw.isEmpty() && fromSalary == null && toSalary == null){
-////            model.addAttribute("posts", postService.getPosts(kw));
-////        }else if(kw.isEmpty() && fromSalary != null && toSalary != null){
-////            model.addAttribute("posts", postService.getPostsBySalary(fromSalary,toSalary)); 
-////        }else if(!kw.isEmpty() && fromSalary != null && toSalary != null){            
-////            model.addAttribute("posts", postService.getPostsBySalaryKw(kw,fromSalary,toSalary)); 
-////        }else if(kw.isEmpty() && areaId != null){
-////            model.addAttribute("posts",this.postService.getPostsArea(kw,Integer.parseInt(areaId))); 
-////        }
-//        
-//        return "index";
-//    }
-        
-        
-//    @RequestMapping(value = "/")
-//    public ModelAndView index(@RequestParam(value = "kw", defaultValue = "") String kw,
-//            @RequestParam(value = "keyw", defaultValue = "") String keyw,
-//            @RequestParam(value = "fromSalary", defaultValue = "") BigDecimal fromSalary,
-//            @RequestParam(value = "toSalary", defaultValue = "") BigDecimal toSalary,
-//            @RequestParam(name = "areaid", defaultValue = "") String areaId) {
-//        ModelAndView view = new ModelAndView();
-//        view.setViewName("index");  
-//        view.addObject("areas", areaService.getAreas()); 
-////        view.addObject("posts", postService.getPosts(kw));
-//        view.addObject("posts", postService.getPost());
-//        
-////        if(!kw.isEmpty() && fromSalary == null && toSalary == null){
-////            view.addObject("posts", postService.getPostsKw(kw));
-////        }else if(kw.isEmpty() && fromSalary != null && toSalary != null){
-////            view.addObject("posts", postService.getPostsSalary(fromSalary,toSalary)); 
-////        }else if(!kw.isEmpty() && fromSalary != null && toSalary != null){            
-////            view.addObject("posts", postService.getAllPosts(kw,fromSalary,toSalary)); 
-////        }
-//        return view;
-//    }
-    
-        
-    
+
     @RequestMapping(value = "/")
-    public ModelAndView index(@RequestParam(value = "areaId",defaultValue = "") String areaId,
+    public ModelAndView index(@RequestParam(value = "areaId", defaultValue = "") String areaId,
             @RequestParam(value = "majorId", defaultValue = "") String majorId,
             @RequestParam(value = "fromSalary", defaultValue = "") BigDecimal fromSalary,
             @RequestParam(value = "toSalary", defaultValue = "") BigDecimal toSalary) {
         ModelAndView view = new ModelAndView();
-        view.setViewName("index");  
-        view.addObject("areas", areaService.getAreas()); 
+        view.setViewName("index");
+        view.addObject("areas", areaService.getAreas());
         view.addObject("posts", postService.getPost());
         view.addObject("majors", majorService.getMajors());
 
-        if(!areaId.isEmpty() && !majorId.isEmpty() && fromSalary == null && toSalary == null){
-            view.addObject("posts", postService.getPostsAreaMajor(Integer.parseInt(areaId),Integer.parseInt(majorId)));
-        }else if(!areaId.isEmpty() && !majorId.isEmpty() && fromSalary != null && toSalary != null){
-            view.addObject("posts", postService.getAllPosts(Integer.parseInt(areaId),Integer.parseInt(majorId),fromSalary,toSalary));
+        if (!areaId.isEmpty() && !majorId.isEmpty() && fromSalary == null && toSalary == null) {
+            view.addObject("posts", postService.getPostsAreaMajor(Integer.parseInt(areaId), Integer.parseInt(majorId)));
+        } else if (!areaId.isEmpty() && !majorId.isEmpty() && fromSalary != null && toSalary != null) {
+            view.addObject("posts", postService.getAllPosts(Integer.parseInt(areaId), Integer.parseInt(majorId), fromSalary, toSalary));
         }
-                
 
-//        if(areaId > 0 && fromSalary == null && toSalary == null){
-//            
-//        }
-//        else if(Integer.parseInt(areaId) > 0 && fromSalary != null && toSalary != null){            
-//            view.addObject("posts", postService.getAllPosts(kw,fromSalary,toSalary)); 
-//        }
         return view;
     }
-
 
     @GetMapping(value = "/posts/{post_id}")
     public ModelAndView detail(@PathVariable(value = "post_id") int postId) {
@@ -145,7 +93,7 @@ public class HomeController {
 
         return view;
     }
-    
+
     @GetMapping(value = "/posts/{post_id}/{username}")
     public ModelAndView apply(
             @PathVariable(value = "post_id") int postId,
@@ -163,14 +111,35 @@ public class HomeController {
     @PostMapping(value = "/posts/{post_id}/{username}")
     public String addApplyer(Model model,
             @ModelAttribute(value = "addApplyer") @Valid Apply addApplyer,
-           
             BindingResult result, HttpServletRequest request) {
-        
-        
+
         String rootDir = request.getSession().getServletContext().getRealPath("/");
-        
+
         applyerService.addApply(addApplyer, rootDir);
 
         return "redirect:/";
-    }   
+    }
+
+    @RequestMapping(value = "/list-company")
+    public ModelAndView index(@RequestParam(value = "company", defaultValue = "") String company) {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("list-company");
+        
+        view.addObject("companies", employerService.getEmployer());
+        if(!company.isEmpty()){
+            view.addObject("companies", employerService.getEmployerKw(company));
+        }
+        return view;
+    }
+    
+    @GetMapping(value = "/company/{employer_id}")
+    public ModelAndView companyDetail(@PathVariable(value = "employer_id") int employerId) {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("company-detail");
+//        view.addObject("post", postService.getPostId(postId));
+        view.addObject("employer", postService.getPostsInfoEmployer(employerId));
+        view.addObject("employers", this.employerService.getEmployerId(employerId));
+
+        return view;
+    }
 }

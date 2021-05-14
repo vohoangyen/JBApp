@@ -21,30 +21,31 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 @EnableWebSecurity
 @ComponentScan(basePackages = "com.lttt")
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private UserDetailsService userDetailsService;
-      
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-      return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-      auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin().loginPage("/sign-in").usernameParameter("username").passwordParameter("password");
         http.formLogin().defaultSuccessUrl("/").failureUrl("/sign-in?error");
-        http.logout().logoutSuccessUrl("/sign-in");
+        http.logout().logoutSuccessUrl("/");
         http.exceptionHandling().accessDeniedPage("/sign-in?accessDenied");
         http.authorizeRequests().antMatchers("/").permitAll()
-            .antMatchers("/post").access("hasRole('ROLE_EMPLOYER')")  
-            .antMatchers("/employer-info").access("hasRole('ROLE_EMPLOYER')")
-            .antMatchers("/employee-info").access("hasRole('ROLE_EMPLOYEE')");
+                .antMatchers("/post").access("hasRole('ROLE_EMPLOYER')")
+                .antMatchers("/employer-info").access("hasRole('ROLE_EMPLOYER')")
+                .antMatchers("/employee-info").access("hasRole('ROLE_EMPLOYEE')");
 //            .antMatchers("/**/pay").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
         http.csrf().disable();
     }

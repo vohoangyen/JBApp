@@ -22,10 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Admin
  */
 @Repository
-public class MajorRepositoryImpl implements MajorRepository{
+public class MajorRepositoryImpl implements MajorRepository {
+
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     @Override
     @Transactional
     public List<Major> getMajors() {
@@ -40,8 +41,8 @@ public class MajorRepositoryImpl implements MajorRepository{
 //            query = query.where(builder.like(root.get("name").as(String.class),  
 //                    "%" + kw + "%"));
 
-        majors = session.createQuery(query).getResultList();        
+        majors = session.createQuery(query).getResultList();
         return majors;
     }
-    
+
 }

@@ -13,13 +13,19 @@ import java.util.List;
  * @author Dy
  */
 public interface EmployerService {
+
     List<Object[]> getAllEmployer(String username);
+
     List<Object[]> getPostsEmployer(String username);
+
     List<Employer> getEmployer();
     
+    List<Employer> getEmployerKw(String kw);
+
     Employer getEmployerId(int id);
-    
-    void addEmployer(Employer employer,String rootDir);
-    void AddOrUpdateEmployer(Employer employer,String rootDir);
+
+    void addEmployer(Employer employer, String rootDir);
+
+    void AddOrUpdateEmployer(Employer employer, String rootDir);
 //    boolean addOrUpdateEmployee(Employer employer,String rootDir);
 }

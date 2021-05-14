@@ -42,6 +42,12 @@ public interface PostService {
     List<Object[]> getPostDate(Date fromDate, Date toDate);
 
     List<Object[]> getPostsByAny(int areaId, int majorId, int s_jobtypeId, BigDecimal fromSalary, BigDecimal toSalary);
-    
+
     List<Object[]> getPostsBySelected(int areaId, int majorId, int s_jobtypeId);
+
+    List<Object[]> getPostsByCompanyName(String companyName);
+
+    List<Object[]> getPostsSuggestByMajor(int majorSuggestId);
+    
+    List<Object[]> getPostsInfoEmployer(int employerId);
 }

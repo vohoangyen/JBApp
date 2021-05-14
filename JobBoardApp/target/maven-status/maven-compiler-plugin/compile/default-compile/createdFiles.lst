@@ -1,12 +1,15 @@
 com\lttt\jobboard\repository\PostRepository.class
 com\lttt\jobboard\pojo\JobTypes.class
 com\lttt\jobboard\repository\AreaRepository.class
+com\lttt\jobboard\repository\impl\StatisRepositoryImpl.class
 com\lttt\jobboard\controllers\EmployeeInfoController.class
 com\lttt\jobboard\repository\EmployeeRepository.class
 com\lttt\jobboard\repository\ApplyerRepository.class
 com\lttt\config\TilesConfig.class
 com\lttt\jobboard\pojo\Apply.class
 com\lttt\jobboard\service\impl\EmployeeServiceImpl.class
+com\lttt\jobboard\service\impl\StatisServiceImpl.class
+com\lttt\jobboard\repository\StatisRepository.class
 com\lttt\jobboard\service\impl\ApplyerServiceImpl.class
 com\lttt\jobboard\pojo\User.class
 com\lttt\jobboard\service\EmployeeService.class
@@ -19,6 +22,7 @@ com\lttt\jobboard\repository\impl\ApplyerRepositoryImpl.class
 com\lttt\jobboard\repository\impl\MajorRepositoryImpl.class
 com\lttt\jobboard\repository\impl\EmployeeRepositoryImpl.class
 com\lttt\jobboard\service\JobTypesService.class
+com\lttt\jobboard\controllers\StatisController.class
 com\lttt\jobboard\controllers\ListApplyerController.class
 com\lttt\jobboard\controllers\SearchApplyerController.class
 com\lttt\jobboard\pojo\Position.class
@@ -32,6 +36,7 @@ com\lttt\config\HibernateConfig.class
 com\lttt\jobboard\repository\impl\UserRepositoryImpl.class
 com\lttt\jobboard\repository\impl\JobTypesRepositoryImpl.class
 com\lttt\jobboard\controllers\NewsFeedController.class
+com\lttt\jobboard\service\StatisService.class
 com\lttt\config\SecurityWebApplicationInitializer.class
 com\lttt\jobboard\controllers\ApplyController.class
 com\lttt\jobboard\service\PositionService.class

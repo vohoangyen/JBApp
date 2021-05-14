@@ -71,10 +71,10 @@ function btnIntern() {
 
 function displayRequest() {
     var req = document.getElementById('requestContent').value,
-        listNote = document.getElementById('list'), 
-        liNote = document.createElement("LI"),
-        txtNote = document.createTextNode(req);
-    
+            listNote = document.getElementById('list'),
+            liNote = document.createElement("LI"),
+            txtNote = document.createTextNode(req);
+
     liNote.appendChild(txtNote);
     listNote.appendChild(liNote);
 }

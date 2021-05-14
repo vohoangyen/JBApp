@@ -9,8 +9,8 @@ and open the template in the editor.
 */
 
 .post-area {
-   
-    position: absolute;
+
+    /*position: fixed;*/
     width: 1300px;
     height: max-content;
     padding: 15px;
@@ -21,4 +21,3 @@ and open the template in the editor.
     border-bottom: 1.5px solid darkorange;
     padding-top: 15px; 
 }
- 

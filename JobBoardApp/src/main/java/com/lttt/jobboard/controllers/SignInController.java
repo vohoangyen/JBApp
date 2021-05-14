@@ -5,7 +5,6 @@
  */
 package com.lttt.jobboard.controllers;
 
-
 import com.lttt.jobboard.pojo.User;
 import com.lttt.jobboard.service.UserService;
 import com.lttt.jobboard.validator.WebAppValidator;
@@ -26,40 +25,41 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class SignInController {
-        
+
     @Autowired
     private UserService userService;
     @Autowired
     private WebAppValidator userValidator;
-    
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.setValidator(userValidator);
     }
-    
+
     @GetMapping(value = "/sign-in")
     public String loginView(Model model) {
         model.addAttribute("user", new User());
 
         return "sign-in";
     }
-    
+
     @GetMapping(value = "/sign-up")
     public String registerView(Model model) {
         model.addAttribute("user", new User());
-        
+
         return "sign-up";
     }
-    
+
     @PostMapping(value = "/sign-up")
-    public String registerProcess(@ModelAttribute(name = "user") @Valid User user, 
+    public String registerProcess(@ModelAttribute(name = "user") @Valid User user,
             BindingResult result) {
-        if (result.hasErrors()) 
+        if (result.hasErrors()) {
             return "sign-up";
-        
+        }
+
         userService.addUser(user);
-        
+
         return "redirect:/sign-in";
     }
-    
+
 }

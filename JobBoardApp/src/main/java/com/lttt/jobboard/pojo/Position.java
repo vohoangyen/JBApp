@@ -23,14 +23,15 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "position")
 public class Position implements Serializable {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     @Column(name = "name")
     private String name;
-    
+
     @ManyToOne
     @JoinColumn(name = "major_id")
     private Major major;

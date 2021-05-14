@@ -13,10 +13,11 @@ import java.util.List;
  * @author Dy
  */
 public interface UserRepository {
-    void addUser(User user);
-    List<User> getUsers(String username);
-    
-//    List<Object[]> getAllUsers(String username);
 
+    void addUser(User user);
+
+    List<User> getUsers(String username);
+
+//    List<Object[]> getAllUsers(String username);
 //    public List<User> getUsers();
 }

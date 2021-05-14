@@ -25,10 +25,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Dy
  */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
-    
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public void addUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        
+
         userRepository.addUser(user);
     }
 
@@ -44,14 +45,15 @@ public class UserServiceImpl implements UserService{
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<User> users = userRepository.getUsers(username);
-        if (users.isEmpty())
+        if (users.isEmpty()) {
             throw new UsernameNotFoundException("Username không tồn tại!");
-        
+        }
+
         User u = users.get(0);
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(u.getRole()));
-        
-        return new org.springframework.security.core.userdetails.User(u.getUsername(), 
+
+        return new org.springframework.security.core.userdetails.User(u.getUsername(),
                 u.getPassword(), authorities);
     }
 
@@ -66,5 +68,4 @@ public class UserServiceImpl implements UserService{
 //    public List<User> getUsers(String username) {
 //        return userRepository.getUsers(username);
 //    }
-    
 }

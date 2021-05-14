@@ -26,19 +26,20 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 @Configuration
 @PropertySource("classpath:database.properties")
 class HibernateConfig {
+
     @Autowired
     private Environment env;
 
     @Bean
     public LocalSessionFactoryBean getSessionFactory() {
-        LocalSessionFactoryBean sessionFactory 
+        LocalSessionFactoryBean sessionFactory
                 = new LocalSessionFactoryBean();
-        sessionFactory.setPackagesToScan(new String[] {
+        sessionFactory.setPackagesToScan(new String[]{
             "com.lttt.jobboard.pojo"
         });
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setHibernateProperties(hibernateProperties());
-        
+
         return sessionFactory;
     }
 
@@ -67,16 +68,16 @@ class HibernateConfig {
         Properties props = new Properties();
         props.put(DIALECT, env.getProperty("hibernate.dialect"));
         props.put(SHOW_SQL, env.getProperty("hibernate.showSql"));
-        
+
         return props;
     }
-     
+
     @Bean
     public HibernateTransactionManager transactionManager() {
-        HibernateTransactionManager transactionManager 
-              = new HibernateTransactionManager();      
+        HibernateTransactionManager transactionManager
+                = new HibernateTransactionManager();
         transactionManager.setSessionFactory(getSessionFactory().getObject());
-        
+
         return transactionManager;
     }
 }

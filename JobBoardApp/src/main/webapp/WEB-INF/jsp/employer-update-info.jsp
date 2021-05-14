@@ -64,105 +64,105 @@
                         <spring:url value="/EmployerUpdateInfo/${employers.id}" var="action" />
                         <form:form action="${action}" modelAttribute="employers" method="post" enctype="multipart/form-data">
                             <form:errors path="*" element="div" 
-                 cssClass="alert alert-danger" />
+                                         cssClass="alert alert-danger" />
                             <%--<c:forEach items="${employer}" var="e">--%> 
-                                <%--<c:if test="${e.user.id == employerss.id}">--%>
-                                    <div class="row" style="display: flex;">
-                                        <div class="col-md-6">
-                                            <div class=form-group">
-                                                <label>Tên công ty/doanh nghiệp của bạn</label>
-                                                <form:input class="form-control border border-warning " 
-                                                            type="text" 
-                                                            required="true"
-                                                            oninvalid="this.setCustomValidity('Vui lòng nhập tên công ty của bạn!')"
-                                                            oninput="setCustomValidity('')"
-                                                            path="companyName"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class=form-group">
-                                                <label>Logo</label>
-                                                <form:input class="form-control border border-warning " 
-                                                            type="file" required="true"
-                                                            style="padding: 3px"
-                                                            accept=".png, .jpg, .gif"
-                                                            oninvalid="this.setCustomValidity('Vui lòng chọn logo cho công ty của bạn!')"
-                                                            oninput="setCustomValidity('')" path="logoFile"/>
-                                            </div>
-                                        </div>    
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <form:input class="form-control border border-warning " 
-                                                            type="email" required="true" 
-                                                            oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ email!')"
-                                                            oninput="setCustomValidity('')"
-                                                            path="email"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Số điện thoại</label>
-                                                <form:input class="form-control border border-warning " 
-                                                            maxlength="10" required="true"
-                                                            oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại!')"
-                                                            oninput="setCustomValidity('')"
-                                                            path="phone"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <label>Quy mô (nhân viên)</label>
-                                                <form:input class="form-control border border-warning " 
-                                                            maxlength="10" type="text" required="true" 
-                                                            oninvalid="this.setCustomValidity('Vui lòng nhập số quy mô công ty!')"
-                                                            oninput="setCustomValidity('')"
-                                                            path="scale"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <div class="form-group">
-                                                <label>Địa chỉ</label>
-                                                <form:input class="form-control border border-warning "
-                                                            type="text" maxlength="200" required="true"
-                                                            oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ!')"
-                                                            oninput="setCustomValidity('')"
-                                                            path="address"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 ">
-                                            <div class="form-group">
-                                                <label>Thành phố</label>
-                                                <form:select path="area.id" class="form-control border border-warning">
-                                                    <c:forEach items="${areas}" var="a">
-                                                        <c:if test="${a.id == employers.area.id}">
-                                                            <option selected value="${a.id}">${a.name}</option>
-                                                        </c:if>
-                                                        <c:if test="${a.id != employers.area.id}">
-                                                            <option value="${a.id}">${a.name}</option>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </form:select>
-                                            </div> 
-                                        </div> 
-                                        <div class="col-md-12">
-                                            <div class=form-group">
-                                                <label>Mô tả vắn tắt</label>
-                                                <form:textarea class="form-control border border-warning " required="true"
-                                                          oninvalid="this.setCustomValidity('Bạn cần nhập một vài mô tả cơ bản về CTY!')"
-                                                          oninput="setCustomValidity('')" rows="10" path="description"></form:textarea>
-                                            </div>
-                                        </div>
-                                        <div style="display: none;">
-                                            <form:hidden path="id" />
-                                            <form:hidden path="user.id" />
-                                            <!--<input type="number" value="${employerss.id}" name="">-->                                     
+                            <%--<c:if test="${e.user.id == employerss.id}">--%>
+                            <div class="row" style="display: flex;">
+                                <div class="col-md-6">
+                                    <div class=form-group">
+                                        <label>Tên công ty/doanh nghiệp của bạn</label>
+                                        <form:input class="form-control border border-warning " 
+                                                    type="text" 
+                                                    required="true"
+                                                    oninvalid="this.setCustomValidity('Vui lòng nhập tên công ty của bạn!')"
+                                                    oninput="setCustomValidity('')"
+                                                    path="companyName"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class=form-group">
+                                        <label>Logo</label>
+                                        <form:input class="form-control border border-warning " 
+                                                    type="file" required="true"
+                                                    style="padding: 3px"
+                                                    accept=".png, .jpg, .gif"
+                                                    oninvalid="this.setCustomValidity('Vui lòng chọn logo cho công ty của bạn!')"
+                                                    oninput="setCustomValidity('')" path="logoFile"/>
+                                    </div>
+                                </div>    
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <form:input class="form-control border border-warning " 
+                                                    type="email" required="true" 
+                                                    oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ email!')"
+                                                    oninput="setCustomValidity('')"
+                                                    path="email"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Số điện thoại</label>
+                                        <form:input class="form-control border border-warning " 
+                                                    maxlength="10" required="true"
+                                                    oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại!')"
+                                                    oninput="setCustomValidity('')"
+                                                    path="phone"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Quy mô (nhân viên)</label>
+                                        <form:input class="form-control border border-warning " 
+                                                    maxlength="10" type="text" required="true" 
+                                                    oninvalid="this.setCustomValidity('Vui lòng nhập số quy mô công ty!')"
+                                                    oninput="setCustomValidity('')"
+                                                    path="scale"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label>Địa chỉ</label>
+                                        <form:input class="form-control border border-warning "
+                                                    type="text" maxlength="200" required="true"
+                                                    oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ!')"
+                                                    oninput="setCustomValidity('')"
+                                                    path="address"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 ">
+                                    <div class="form-group">
+                                        <label>Thành phố</label>
+                                        <form:select path="area.id" class="form-control border border-warning">
+                                            <c:forEach items="${areas}" var="a">
+                                                <c:if test="${a.id == employers.area.id}">
+                                                    <option selected value="${a.id}">${a.name}</option>
+                                                </c:if>
+                                                <c:if test="${a.id != employers.area.id}">
+                                                    <option value="${a.id}">${a.name}</option>
+                                                </c:if>
+                                            </c:forEach>
+                                        </form:select>
+                                    </div> 
+                                </div> 
+                                <div class="col-md-12">
+                                    <div class=form-group">
+                                        <label>Mô tả vắn tắt</label>
+                                        <form:textarea class="form-control border border-warning " required="true"
+                                                       oninvalid="this.setCustomValidity('Bạn cần nhập một vài mô tả cơ bản về CTY!')"
+                                                       oninput="setCustomValidity('')" rows="10" path="description"></form:textarea>
                                         </div>
                                     </div>
-                                    <div class="text-right" style="margin-top: 20px;">
-                                        <input type="submit" class="btn btn-warning btn-add-info "  value="Cập nhật" />
-                                    </div>
-                                <%--</c:if>--%>
+                                    <div style="display: none;">
+                                    <form:hidden path="id" />
+                                    <form:hidden path="user.id" />
+                                    <!--<input type="number" value="${employerss.id}" name="">-->                                     
+                                </div>
+                            </div>
+                            <div class="text-right" style="margin-top: 20px;">
+                                <input type="submit" class="btn btn-warning btn-add-info "  value="Cập nhật" />
+                            </div>
+                            <%--</c:if>--%>
                             <%--</c:forEach>--%>
                         </form:form>
                         <%--</c:when>--%>

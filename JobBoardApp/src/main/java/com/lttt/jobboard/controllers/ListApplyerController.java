@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/list-applyer")
 public class ListApplyerController {
+
     @RequestMapping("/")
-    public String ListApplyer(){
+    public String ListApplyer() {
         return "list-applyer";
     }
 }

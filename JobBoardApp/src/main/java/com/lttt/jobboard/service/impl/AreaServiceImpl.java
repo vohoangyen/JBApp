@@ -19,11 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Admin
  */
 @Service
-public class AreaServiceImpl implements AreaService{
+public class AreaServiceImpl implements AreaService {
 
     @Autowired
     private AreaRepository areaRepository;
-    
+
     @Override
     @Transactional(readOnly = true)
     public List<Area> getAreas() {
@@ -34,6 +34,5 @@ public class AreaServiceImpl implements AreaService{
     public List<Post> getPostsByArea(int id) {
         return this.areaRepository.getPostsByArea(id);
     }
-    
-    
+
 }

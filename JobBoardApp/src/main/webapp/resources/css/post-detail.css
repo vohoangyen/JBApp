@@ -60,7 +60,7 @@ and open the template in the editor.
     border: 1px solid #eaeff5;
     padding: 0 25px 25px;
     border-radius: 6px;
-    
+
     position: relative;
     background: transparent;
 }
@@ -70,6 +70,17 @@ and open the template in the editor.
     position: relative;
     border-bottom: 1px solid #eaeff5;
     margin: 0;
+}
+
+.widget-descript{
+    font-size: 15px;
+    font-weight: 400;
+    color: #677782;
+    display: flex;
+}
+.widget-descript i{
+    color: #FFD21E;
+    margin-right: 10px;
 }
 .job-detail{
     padding-top: 20px;
@@ -99,9 +110,9 @@ and open the template in the editor.
 }
 .widget-img{
     margin-top: 20px;    
-/*    margin-left: 20%;*/
+    /*    margin-left: 20%;*/
     text-align: center;
-/*    width: 80%;*/
+    /*    width: 80%;*/
 }
 .widget-img img{
     max-width: 45%;
@@ -145,7 +156,7 @@ and open the template in the editor.
 .widget-apply{
     width: 100%;
     position: relative;
-    
+
     /*padding: 20px 20px 20px;*/
     border-radius: 10px;
     background: #ffc107;
@@ -183,7 +194,7 @@ and open the template in the editor.
 }
 .apllyer-item{
     border-bottom: 1px solid #eaeff5;
-    
+
     position: relative;
     z-index: 1;
     transition: all 0.35s ease-in-out 0s;
@@ -244,7 +255,7 @@ and open the template in the editor.
 .btn-see{
     padding: 12px 20px;
     border-radius: 50px;
-    
+
     background-color: #FFD21E;
     color: #000000;
     font-size: 13px;
@@ -273,7 +284,7 @@ and open the template in the editor.
 .fullname .cmb-th{
     width: 100%;
     padding: 0 0 8px;
-    
+
     color: #222;
     float: left;
     font-weight: 600;
@@ -282,7 +293,7 @@ and open the template in the editor.
 .fullname .cmb-th label{
     display: block;
     padding: 5px 0;
-    
+
     color: #677782;
     font-weight: 500;
     margin: 0;

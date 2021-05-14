@@ -32,45 +32,46 @@ import org.springframework.stereotype.Repository;
  * @author Dy
  */
 @Repository
-public class ApplyerRepositoryImpl implements ApplyerRepository{
+public class ApplyerRepositoryImpl implements ApplyerRepository {
+
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
     @Autowired
-    private SessionFactory sessionFactorys; 
+    private SessionFactory sessionFactorys;
 
     @Override
     public List<Object[]> getEmployeeByPostId(int postId) {
-         Session session = this.sessionFactory.getObject().getCurrentSession();
+        Session session = this.sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
-        
-        Root employeeRoot = query.from(Employee.class);
-        Root applyRoot = query.from(Apply.class);        
-        Root postRoot = query.from(Post.class);
-        
-       query = query.where(builder.and(
-                builder.equal(employeeRoot.get("id"),applyRoot.get("employeeId")),
-                builder.equal(postRoot.get("id"),applyRoot.get("postId")),
-                builder.equal(postRoot.get("id"),postId)
-                ));
-            query.multiselect(postRoot.get("id"),
-                    employeeRoot.get("firstName").as(String.class),                    
-                    employeeRoot.get("lastName").as(String.class),
-                    employeeRoot.get("email").as(String.class),
-                    applyRoot.get("cv").as(String.class),
-                    applyRoot.get("appyDate").as(Date.class),
-                    employeeRoot.get("id") 
-            );
 
-            query.groupBy(postRoot.get("id"),
-                    employeeRoot.get("firstName").as(String.class),                    
-                    employeeRoot.get("lastName").as(String.class),
-                    employeeRoot.get("email").as(String.class),
-                    employeeRoot.get("cv").as(String.class),
-                    applyRoot.get("appyDate").as(Date.class),
-                    employeeRoot.get("id") 
-            );
-        
+        Root employeeRoot = query.from(Employee.class);
+        Root applyRoot = query.from(Apply.class);
+        Root postRoot = query.from(Post.class);
+
+        query = query.where(builder.and(
+                builder.equal(employeeRoot.get("id"), applyRoot.get("employeeId")),
+                builder.equal(postRoot.get("id"), applyRoot.get("postId")),
+                builder.equal(postRoot.get("id"), postId)
+        ));
+        query.multiselect(postRoot.get("id"),
+                employeeRoot.get("firstName").as(String.class),
+                employeeRoot.get("lastName").as(String.class),
+                employeeRoot.get("email").as(String.class),
+                applyRoot.get("cv").as(String.class),
+                applyRoot.get("appyDate").as(Date.class),
+                employeeRoot.get("id")
+        );
+
+        query.groupBy(postRoot.get("id"),
+                employeeRoot.get("firstName").as(String.class),
+                employeeRoot.get("lastName").as(String.class),
+                employeeRoot.get("email").as(String.class),
+                employeeRoot.get("cv").as(String.class),
+                applyRoot.get("appyDate").as(Date.class),
+                employeeRoot.get("id")
+        );
+
         Query q = session.createQuery(query);
         return q.getResultList();
     }
@@ -80,5 +81,5 @@ public class ApplyerRepositoryImpl implements ApplyerRepository{
         Session session = sessionFactorys.getCurrentSession();
         session.save(a);
     }
-    
+
 }

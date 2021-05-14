@@ -5,7 +5,6 @@
  */
 package com.lttt.jobboard.repository;
 
-
 import com.lttt.jobboard.pojo.Position;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import java.util.List;
  * @author Admin
  */
 public interface PositionRepository {
-     List<Position> getPositions(String kw);
+
+    List<Position> getPositions(String kw);
 //     List<Position> getPositionsByMajor(int id);
 }

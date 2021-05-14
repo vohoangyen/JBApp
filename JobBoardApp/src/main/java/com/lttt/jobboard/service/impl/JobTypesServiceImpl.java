@@ -18,10 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Admin
  */
 @Service
-public class JobTypesServiceImpl implements JobTypesService{
+public class JobTypesServiceImpl implements JobTypesService {
+
     @Autowired
     private JobTypesRepository jobTypesRepository;
-    
+
     @Override
     public List<JobTypes> getJobTypes(String kw) {
         return this.jobTypesRepository.getJobTypes(kw);
@@ -30,6 +31,6 @@ public class JobTypesServiceImpl implements JobTypesService{
     @Override
     @Transactional
     public List<Object[]> getPostsByJobtypeId(int jobtypeId) {
-           return this.jobTypesRepository.getPostsByJobtypeId(jobtypeId);
+        return this.jobTypesRepository.getPostsByJobtypeId(jobtypeId);
     }
 }

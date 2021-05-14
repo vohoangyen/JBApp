@@ -24,24 +24,27 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Entity
 @Table(name = "apply")
-public class Apply implements Serializable{
+public class Apply implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+   
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employeeId;
-    
+
     @Column(name = "apply_date")
     private Date appyDate;
-    
+
     @Column(name = "cv")
     private String cv;
-    
+
     @Transient
-    private MultipartFile cvFile; 
+    private MultipartFile cvFile;
     {
         appyDate = new Date();
     }
-    
+
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post postId;
@@ -114,5 +117,19 @@ public class Apply implements Serializable{
      */
     public void setCvFile(MultipartFile cvFile) {
         this.cvFile = cvFile;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -21,11 +21,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "job_types")
 public class JobTypes implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    
+
     @OneToMany(mappedBy = "jobTypes")
     private List<Post> posts;
 

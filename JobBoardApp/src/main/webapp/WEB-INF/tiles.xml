@@ -13,6 +13,7 @@
         <put-attribute name="title" value="Home" />
         <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/index.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
     </definition>
     <definition name="sign-in" template="/WEB-INF/jsp/sign-in.jsp">
         <put-attribute name="title" value="Sign In" />
@@ -89,5 +90,25 @@
         <put-attribute name="title" value="Post" />
         <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
         <put-attribute name="content" value="/WEB-INF/jsp/post.jsp" />
+    </definition>
+    <definition name="list-company" extends="baseLayout">
+        <put-attribute name="title" value="List Companies" />
+        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/list-company.jsp" />
+    </definition>
+    <definition name="company-detail" extends="baseLayout">
+        <put-attribute name="title" value="Company Detail" />
+        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/company-detail.jsp" />
+    </definition>
+    <definition name="news-feed-suggest" extends="baseLayout">
+        <put-attribute name="title" value="News feed" />
+        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/news-feed-suggest.jsp" />
+    </definition>
+    <definition name="statis" extends="baseLayout">
+        <put-attribute name="title" value="Thống kê báo cáo" />
+        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+        <put-attribute name="content" value="/WEB-INF/jsp/statis.jsp" />
     </definition>
 </tiles-definitions>

@@ -22,7 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Service
 @Transactional
-public class ApplyerServiceImpl implements ApplyerService{
+public class ApplyerServiceImpl implements ApplyerService {
+
     @Autowired
     private ApplyerRepository applyerRepository;
 
@@ -43,7 +44,7 @@ public class ApplyerServiceImpl implements ApplyerService{
             } catch (IOException | IllegalStateException ex) {
                 System.err.println(ex.getMessage());
             }
-        }       
+        }
     }
-    
+
 }

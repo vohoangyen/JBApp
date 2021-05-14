@@ -26,7 +26,6 @@ import javax.validation.constraints.Size;
 public class User implements Serializable {
 
 //    private static final long serialVersionUID = 3L;
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -28,14 +28,14 @@
                     <h1 class="text-center title">Chào mừng bạn đến với</h1>
                     <h1 class="text-center title">Job Boards</h1>
                     <c:if test="${param.error != null}">
-                    <div class="alert alert-danger" style="padding-bottom: 0 !important;margin-bottom: 0 !important;">
-                        <p><spring:message code="user.login.error1" /></p>
-                    </div>    
+                        <div class="alert alert-danger" style="padding-bottom: 0 !important;margin-bottom: 0 !important;">
+                            <p><spring:message code="user.login.error1" /></p>
+                        </div>    
                     </c:if>
                     <c:if test="${param.accessDenied != null}">
-                    <div class="alert alert-danger">
-                        <p><spring:message code="user.login.error2" /></p>
-                    </div>    
+                        <div class="alert alert-danger">
+                            <p><spring:message code="user.login.error2" /></p>
+                        </div>    
                     </c:if>
                     <spring:url value="/sign-in" var="action" />
                     <form action="${action}" method="post" class="frm">

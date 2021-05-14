@@ -15,7 +15,7 @@ import org.springframework.validation.Validator;
  * @author Dy
  */
 @Component
-public class PassValidator implements Validator{
+public class PassValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -25,9 +25,10 @@ public class PassValidator implements Validator{
     @Override
     public void validate(Object target, Errors errors) {
         User u = (User) target;
-        
-        if (!u.getPassword().trim().equals(u.getConfirmPassword().trim()))
+
+        if (!u.getPassword().trim().equals(u.getConfirmPassword().trim())) {
             errors.rejectValue("password", "user.password.error.notMatchMsg");
+        }
     }
-    
+
 }

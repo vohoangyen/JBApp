@@ -13,12 +13,20 @@ import java.util.List;
  * @author Dy
  */
 public interface EmployerRepository {
+
     List<Object[]> getAllEmployer(String username);
+
     List<Object[]> getPostsEmployer(String username);
 //    boolean addOrUpdateEmployee(Employer employer);
+
     List<Employer> getEmployer();
-    Employer getEmployerId(int id);
     
+    List<Employer> getEmployerKw(String kw);
+
+    Employer getEmployerId(int id);
+
     void addEmployer(Employer employer);
+
     void AddOrUpdateEmployer(Employer employer);
+    
 }

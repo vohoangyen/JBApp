@@ -13,6 +13,8 @@ import java.util.List;
  * @author Admin
  */
 public interface JobTypesService {
+
     List<JobTypes> getJobTypes(String kw);
+
     List<Object[]> getPostsByJobtypeId(int id);
 }

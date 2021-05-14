@@ -56,7 +56,7 @@ public class EmployerInfoController {
 
     @Autowired
     private PostService postService;
-    
+
     @Autowired
     private ApplyerService applyerService;
 
@@ -95,62 +95,60 @@ public class EmployerInfoController {
         return "redirect:/employer-info/{username}";
     }
 
-
     @GetMapping(value = "/EmployerUpdateInfo/{employer_id}")
     public ModelAndView employerUpdateInfo(@PathVariable(value = "employer_id") int employer_id) {
         ModelAndView view = new ModelAndView();
-        view.setViewName("employer-update-info");       
+        view.setViewName("employer-update-info");
 //        view.addObject("employerss", userService.getUserByUsername(username));
         view.addObject("areas", areaService.getAreas());
         view.addObject("employer", employerService.getEmployer());
-        if(employer_id > 0){
-            view.addObject("employers",this.employerService.getEmployerId(employer_id));  
+        if (employer_id > 0) {
+            view.addObject("employers", this.employerService.getEmployerId(employer_id));
         }
 //        else{
 //            view.addObject("employers",new Employer());
 //        }
 //        view.addObject("employers",this.employerService.getEmployerId(employer_id));  
 //        view.addObject("employers",new Employer());  
-        
+
 //        view.addObject("employers", this.employerService.getAllEmployer(username));       
-        return view;       
+        return view;
     }
-    
-    
+
     @PostMapping(value = "/EmployerUpdateInfo/{employer_id}")
     public String updateEmployerProcess(Model model,
             @ModelAttribute(value = "employers") @Valid Employer addEmployer,
             BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
             model.addAttribute("areas", areaService.getAreas());
-            return "employer-update-info";           
-        }       
+            return "employer-update-info";
+        }
         String rootDir = request.getSession()
-                .getServletContext().getRealPath("/");  
-        
-        employerService.AddOrUpdateEmployer(addEmployer,rootDir);
+                .getServletContext().getRealPath("/");
+
+        employerService.AddOrUpdateEmployer(addEmployer, rootDir);
         return "redirect:/";
     }
 
-        @GetMapping(value = "/ListPost/{username}")
-        public ModelAndView listPost(@PathVariable(value = "username") String username,
-         @RequestParam(value = "kw", defaultValue = "") String kw) {
+    @GetMapping(value = "/ListPost/{username}")
+    public ModelAndView listPost(@PathVariable(value = "username") String username,
+            @RequestParam(value = "kw", defaultValue = "") String kw) {
         ModelAndView view = new ModelAndView();
-            view.setViewName("list-post");
-            view.addObject("employerss", userService.getUserByUsername(username));
-            view.addObject("employers", employerService.getAllEmployer(username));
-            view.addObject("listpost", employerService.getPostsEmployer(username));
-            return view;
-        }
+        view.setViewName("list-post");
+        view.addObject("employerss", userService.getUserByUsername(username));
+        view.addObject("employers", employerService.getAllEmployer(username));
+        view.addObject("listpost", employerService.getPostsEmployer(username));
+        return view;
+    }
 
-        @GetMapping(value = "/listApplyers/{post_id}")
-        public ModelAndView listApplyers(@PathVariable(value = "post_id")int postId) {
+    @GetMapping(value = "/listApplyers/{post_id}")
+    public ModelAndView listApplyers(@PathVariable(value = "post_id") int postId) {
         ModelAndView view = new ModelAndView();
-            view.setViewName("list-applyer");
-            view.addObject("post", postService.getPostId(postId));
-            view.addObject("applyers",applyerService.getEmployeeByPostId(postId));
-            return view;
-        }
+        view.setViewName("list-applyer");
+        view.addObject("post", postService.getPostId(postId));
+        view.addObject("applyers", applyerService.getEmployeeByPostId(postId));
+        return view;
+    }
 
 //        @GetMapping(value = "/search-applyer/{username}")
 //        public ModelAndView searchApplyers(@PathVariable(value = "username") String username, 
@@ -169,38 +167,35 @@ public class EmployerInfoController {
 //
 //            return view;
 //        }
-        
-        @RequestMapping(value = "/search-applyer")
-        public ModelAndView searchApplyers(@RequestParam(value = "areaId", defaultValue = "") String areaId,           
+    @RequestMapping(value = "/search-applyer")
+    public ModelAndView searchApplyers(@RequestParam(value = "areaId", defaultValue = "") String areaId,
             @RequestParam(value = "majorId", defaultValue = "") String majorId) {
         ModelAndView view = new ModelAndView();
-            view.setViewName("search-applyer");
-            view.addObject("employees", employeeService.getAllEmployee());
-            view.addObject("majors", majorService.getMajors());
-            view.addObject("areas", areaService.getAreas());
+        view.setViewName("search-applyer");
+        view.addObject("employees", employeeService.getAllEmployee());
+        view.addObject("majors", majorService.getMajors());
+        view.addObject("areas", areaService.getAreas());
 //            view.addObject("employees", employeeService.getEmployee());
 //            view.addObject("employers", employerService.getAllEmployer(username));
-            if(!areaId.isEmpty() && !majorId.isEmpty()){
-                view.addObject("employees", employeeService.getEmployeeAreaMajor(Integer.parseInt(areaId),Integer.parseInt(majorId)));
-            }
-
-            return view;
+        if (!areaId.isEmpty() && !majorId.isEmpty()) {
+            view.addObject("employees", employeeService.getEmployeeAreaMajor(Integer.parseInt(areaId), Integer.parseInt(majorId)));
         }
 
-        @GetMapping(value = "/info-applyers/{employee_id}")
-        public ModelAndView infoApplyers
-        (@PathVariable(value = "employee_id")
-        int employeeId) {
-        ModelAndView view = new ModelAndView();
-            view.setViewName("info-applyer");
-            view.addObject("employee", employeeService.getEmployeeId(employeeId));
-            return view;
-        }
-
-        @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-        public String deletePost(@PathVariable("id")int id) {
-            postService.deletePost(id);
-            return "list-post";
-        }
-
+        return view;
     }
+
+    @GetMapping(value = "/info-applyers/{employee_id}")
+    public ModelAndView infoApplyers(@PathVariable(value = "employee_id") int employeeId) {
+        ModelAndView view = new ModelAndView();
+        view.setViewName("info-applyer");
+        view.addObject("employee", employeeService.getEmployeeId(employeeId));
+        return view;
+    }
+
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public String deletePost(@PathVariable("id") int id) {
+        postService.deletePost(id);
+        return "list-post";
+    }
+
+}

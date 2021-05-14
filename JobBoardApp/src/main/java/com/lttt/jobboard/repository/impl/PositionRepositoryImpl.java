@@ -58,5 +58,4 @@ public class PositionRepositoryImpl implements PositionRepository {
 //        }
 //        return posts;
 //    }
-
 }

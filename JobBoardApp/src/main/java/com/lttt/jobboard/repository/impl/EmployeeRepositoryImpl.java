@@ -35,13 +35,14 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Dy
  */
 @Repository
-public class EmployeeRepositoryImpl implements EmployeeRepository{
+public class EmployeeRepositoryImpl implements EmployeeRepository {
+
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
-    
+
     @Autowired
-    private SessionFactory sessionFactorys; 
-    
+    private SessionFactory sessionFactorys;
+
     public boolean addOrUpdateEmployee(Employee employee) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         try {
@@ -64,24 +65,24 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
         Session session = this.sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
-        
+
         Root areaRoot = query.from(Area.class);
-        Root employeeRoot = query.from(Employee.class);       
+        Root employeeRoot = query.from(Employee.class);
         Root majorRoot = query.from(Major.class);
         Root userRoot = query.from(User.class);
-        
+
         if (!username.isEmpty()) {
 //            query.where(builder.equal(userRoot.get("username"), username));
-            
+
             query = query.where(builder.and(
-            builder.equal(areaRoot.get("id"),employeeRoot.get("area")),
-            builder.equal(majorRoot.get("id"),employeeRoot.get("major")),
-            builder.equal(userRoot.get("id"),employeeRoot.get("user")),
-            builder.equal(userRoot.get("username"), username)
+                    builder.equal(areaRoot.get("id"), employeeRoot.get("area")),
+                    builder.equal(majorRoot.get("id"), employeeRoot.get("major")),
+                    builder.equal(userRoot.get("id"), employeeRoot.get("user")),
+                    builder.equal(userRoot.get("username"), username)
             ));
-            
+
             query.multiselect(employeeRoot.get("id"),
-                    employeeRoot.get("firstName").as(String.class),                    
+                    employeeRoot.get("firstName").as(String.class),
                     employeeRoot.get("lastName").as(String.class),
                     employeeRoot.get("birthday").as(Date.class),
                     employeeRoot.get("gender").as(String.class),
@@ -94,11 +95,12 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
                     areaRoot.get("name").as(String.class),
                     userRoot.get("id"),
                     userRoot.get("username").as(String.class),
-                    majorRoot.get("name").as(String.class)
+                    majorRoot.get("name").as(String.class),
+                    majorRoot.get("id").as(String.class)
             );
 
             query.groupBy(employeeRoot.get("id"),
-                    employeeRoot.get("firstName").as(String.class),                    
+                    employeeRoot.get("firstName").as(String.class),
                     employeeRoot.get("lastName").as(String.class),
                     employeeRoot.get("birthday").as(Date.class),
                     employeeRoot.get("gender").as(String.class),
@@ -107,14 +109,13 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
                     employeeRoot.get("email").as(String.class),
                     employeeRoot.get("address").as(String.class),
                     employeeRoot.get("experience").as(String.class),
-
                     areaRoot.get("name").as(String.class),
                     userRoot.get("id"),
                     userRoot.get("username").as(String.class),
                     majorRoot.get("name").as(String.class)
             );
         }
-        
+
         Query q = session.createQuery(query);
         return q.getResultList();
     }
@@ -135,7 +136,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
         CriteriaQuery<Employee> cr = builder.createQuery(Employee.class);
         Root<Employee> root = cr.from(Employee.class);
 
-        CriteriaQuery<Employee> query = cr.select(root);       
+        CriteriaQuery<Employee> query = cr.select(root);
         employees = session.createQuery(query).getResultList();
 
         return employees;
@@ -144,10 +145,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
     @Override
     public Employee getEmployeeId(int id) {
         Employee employee;
-        
+
         Session session = sessionFactorys.getCurrentSession();
         employee = session.get(Employee.class, id);
-        
+
         return employee;
     }
 
@@ -158,43 +159,41 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
     }
 
     @Override
-     @Transactional
+    @Transactional
     public List<Object[]> getEmployeeAreaMajor(int areaId, int majorId) {
         Session session = this.sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
-        
+
         Root areaRoot = query.from(Area.class);
-        Root usersRoot = query.from(User.class);  
+        Root usersRoot = query.from(User.class);
         Root majorRoot = query.from(Major.class);
         Root employeeRoot = query.from(Employee.class);
-                      
-        if (areaId > 0 && majorId > 0) {            
+
+        if (areaId > 0 && majorId > 0) {
             query = query.where(builder.and(
-                builder.equal(areaRoot.get("id"),employeeRoot.get("area")),
-                builder.equal(usersRoot.get("id"),employeeRoot.get("user")),
-                builder.equal(majorRoot.get("id"),employeeRoot.get("major")),
-                    
-                builder.equal(employeeRoot.get("area"), areaId),
-                builder.equal(employeeRoot.get("major"), majorId)
-                ));
+                    builder.equal(areaRoot.get("id"), employeeRoot.get("area")),
+                    builder.equal(usersRoot.get("id"), employeeRoot.get("user")),
+                    builder.equal(majorRoot.get("id"), employeeRoot.get("major")),
+                    builder.equal(employeeRoot.get("area"), areaId),
+                    builder.equal(employeeRoot.get("major"), majorId)
+            ));
             query.multiselect(employeeRoot.get("id"),
-                    employeeRoot.get("firstName").as(String.class),                    
+                    employeeRoot.get("firstName").as(String.class),
                     employeeRoot.get("lastName").as(String.class),
                     areaRoot.get("name").as(String.class),
                     majorRoot.get("name").as(String.class)
-
             );
 
             query.groupBy(employeeRoot.get("id"),
-                    employeeRoot.get("firstName").as(String.class),                    
-                    employeeRoot.get("lastName").as(String.class),     
+                    employeeRoot.get("firstName").as(String.class),
+                    employeeRoot.get("lastName").as(String.class),
                     areaRoot.get("name").as(String.class),
                     majorRoot.get("name").as(String.class)
             );
 
         }
-        
+
         Query q = session.createQuery(query);
         return q.getResultList();
     }
@@ -205,33 +204,31 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
         Session session = this.sessionFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
-        
+
         Root areaRoot = query.from(Area.class);
-        Root usersRoot = query.from(User.class);  
+        Root usersRoot = query.from(User.class);
         Root majorRoot = query.from(Major.class);
         Root employeeRoot = query.from(Employee.class);
-        
-        query = query.where(builder.and(
-            builder.equal(areaRoot.get("id"),employeeRoot.get("area")),
-            builder.equal(usersRoot.get("id"),employeeRoot.get("user")),
-            builder.equal(majorRoot.get("id"),employeeRoot.get("major"))
 
-            ));
+        query = query.where(builder.and(
+                builder.equal(areaRoot.get("id"), employeeRoot.get("area")),
+                builder.equal(usersRoot.get("id"), employeeRoot.get("user")),
+                builder.equal(majorRoot.get("id"), employeeRoot.get("major"))
+        ));
         query.multiselect(employeeRoot.get("id"),
-                employeeRoot.get("firstName").as(String.class),                    
+                employeeRoot.get("firstName").as(String.class),
                 employeeRoot.get("lastName").as(String.class),
                 areaRoot.get("name").as(String.class),
                 majorRoot.get("name").as(String.class)
-
         );
 
         query.groupBy(employeeRoot.get("id"),
-                employeeRoot.get("firstName").as(String.class),                    
+                employeeRoot.get("firstName").as(String.class),
                 employeeRoot.get("lastName").as(String.class),
                 areaRoot.get("name").as(String.class),
                 majorRoot.get("name").as(String.class)
         );
-            
+
         Query q = session.createQuery(query);
         return q.getResultList();
     }

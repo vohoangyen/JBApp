@@ -58,7 +58,7 @@ public class EmployeeUpdateInfoController {
         return view;
     }
 
-     @GetMapping(value = "/add-info-employee/{username}")
+    @GetMapping(value = "/add-info-employee/{username}")
     public ModelAndView employeeAddInfo(@PathVariable(value = "username") String username) {
         ModelAndView view = new ModelAndView();
         view.setViewName("add-info-employee");
@@ -66,7 +66,7 @@ public class EmployeeUpdateInfoController {
         view.addObject("employees", employeeService.getAllEmployee(username));
         view.addObject("majors", majorService.getMajors());
         view.addObject("areas", areaService.getAreas());
-        view.addObject("addEmployee", new Employee()); 
+        view.addObject("addEmployee", new Employee());
 
         return view;
     }
@@ -86,7 +86,7 @@ public class EmployeeUpdateInfoController {
         employeeService.addEmployee(addEmployee, rootDir);
         return "redirect:/EmployeeInfo/{username}";
     }
-    
+
     @GetMapping(value = "/EmployeeUpdateInfo/{employeeId}")
     public ModelAndView EmployeeUpdateInfo(@PathVariable(value = "employeeId") int employeeId,
             @RequestParam(value = "kw", defaultValue = "") String kw) {
@@ -96,14 +96,14 @@ public class EmployeeUpdateInfoController {
 //        view.addObject("employees", employeeService.getAllEmployee(employeeName));
         view.addObject("majors", majorService.getMajors());
         view.addObject("areas", areaService.getAreas());
-        if(employeeId > 0){
-            view.addObject("employees",this.employeeService.getEmployeeId(employeeId));  
+        if (employeeId > 0) {
+            view.addObject("employees", this.employeeService.getEmployeeId(employeeId));
         }
-        
+
 //        view.addObject("addEmployee", new Employee());         
         return view;
     }
-    
+
     @PostMapping(value = "/EmployeeUpdateInfo/{employeeId}")
     public String addEmployeeProcess(Model model,
             @ModelAttribute(value = "employees") @Valid Employee addEmployee,
@@ -115,9 +115,8 @@ public class EmployeeUpdateInfoController {
         }
         String rootDir = request.getSession()
                 .getServletContext().getRealPath("/");
-        
-        
-        employeeService.updateEmployee(addEmployee,rootDir);
+
+        employeeService.updateEmployee(addEmployee, rootDir);
         return "redirect:/";
     }
 

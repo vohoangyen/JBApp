@@ -27,10 +27,11 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Admin
  */
 @Repository
-public class AreaRepositoryImpl implements AreaRepository{
+public class AreaRepositoryImpl implements AreaRepository {
+
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     @Override
     @Transactional
     public List<Area> getAreas() {
@@ -45,15 +46,15 @@ public class AreaRepositoryImpl implements AreaRepository{
 //            query = query.where(builder.like(root.get("name").as(String.class),  
 //                    "%" + kw + "%"));
 
-        areas = session.createQuery(query).getResultList();        
+        areas = session.createQuery(query).getResultList();
         return areas;
     }
 
     @Override
     public List<Post> getPostsByArea(int areaId) {
         List<Post> posts = null;
-        Session session = sessionFactory.getCurrentSession(); 
-        
+        Session session = sessionFactory.getCurrentSession();
+
         Area areas = session.get(Area.class, areaId);
         if (areas != null) {
             Hibernate.initialize(areas.getPosts());
@@ -61,5 +62,5 @@ public class AreaRepositoryImpl implements AreaRepository{
         }
         return posts;
     }
-    
+
 }

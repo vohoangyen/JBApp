@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/post-detail/apply")
 public class ApplyController {
+
     @RequestMapping("/")
-    public String NewsFeed(){
+    public String NewsFeed() {
         return "apply";
     }
 }

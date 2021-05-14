@@ -21,16 +21,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "area")
 public class Area implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    
+
     @Override
     public String toString() {
         return String.valueOf(getId());
     }
-    
+
     @OneToMany(mappedBy = "area")
     private List<Post> posts;
 
@@ -76,5 +77,4 @@ public class Area implements Serializable {
         this.posts = posts;
     }
 
-    
 }

@@ -45,7 +45,7 @@
                         </div>                   
                         <div class="form-group form-group-salary-from">
                             <div class="form-group-inner inner">
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <i class="fas fa-dollar-sign"></i>
                                 <input name="fromSalary" value="${fromSalary}" type="number" min="0" class="form-control form-search" placeholder="Salary From">
                             </div>
                         </div>
