@@ -96,7 +96,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                     userRoot.get("id"),
                     userRoot.get("username").as(String.class),
                     majorRoot.get("name").as(String.class),
-                    majorRoot.get("id").as(String.class)
+                    majorRoot.get("id").as(String.class),
+                    areaRoot.get("id").as(String.class)
             );
 
             query.groupBy(employeeRoot.get("id"),

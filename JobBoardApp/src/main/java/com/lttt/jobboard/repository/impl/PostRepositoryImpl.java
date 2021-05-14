@@ -534,7 +534,6 @@ public class PostRepositoryImpl implements PostRepository {
                     builder.equal(positionRoot.get("id"), postRoot.get("position")),
                     builder.equal(majorRoot.get("id"), postRoot.get("major")),
                     builder.equal(employerRoot.get("id"), postRoot.get("employer")),
-                    //builder.lower.like(employerRoot.get("companyName").as(String.class), pattern.toLowerCase())
                     builder.like(builder.lower(employerRoot.get("companyName").as(String.class)), pattern.toLowerCase())
             ));
             query.multiselect(postRoot.get("id"),
@@ -658,6 +657,55 @@ public class PostRepositoryImpl implements PostRepository {
                     positionRoot.get("name").as(String.class)
             );
         }
+        Query q = session.createQuery(query);
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Object[]> getPostsSuggestByArea(int areaSuggestId, int majorSuggestId) {
+                Session session = this.sessionsFactory.getObject().getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+
+        Root areaRoot = query.from(Area.class);
+        Root jobTypesRoot = query.from(JobTypes.class);
+        Root positionRoot = query.from(Position.class);
+        Root majorRoot = query.from(Major.class);
+        Root employerRoot = query.from(Employer.class);
+        Root postRoot = query.from(Post.class);
+
+        if (areaSuggestId > 0) {
+            query = query.where(builder.and(
+                    builder.equal(areaRoot.get("id"), postRoot.get("area")),
+                    builder.equal(jobTypesRoot.get("id"), postRoot.get("jobTypes")),
+                    builder.equal(positionRoot.get("id"), postRoot.get("position")),
+                    builder.equal(majorRoot.get("id"), postRoot.get("major")),
+                    builder.equal(employerRoot.get("id"), postRoot.get("employer")),
+                    builder.equal(areaRoot.get("id"), areaSuggestId),
+                    builder.equal(majorRoot.get("id"), majorSuggestId)
+            ));
+            query.multiselect(postRoot.get("id"),
+                    postRoot.get("salary").as(BigDecimal.class),
+                    employerRoot.get("companyName").as(String.class),
+                    employerRoot.get("logo").as(String.class),
+                    employerRoot.get("address").as(String.class),
+                    areaRoot.get("name").as(String.class),
+                    jobTypesRoot.get("name").as(String.class),
+                    positionRoot.get("name").as(String.class)
+            );
+
+            query.groupBy(postRoot.get("id"),
+                    postRoot.get("salary").as(BigDecimal.class),
+                    employerRoot.get("companyName").as(String.class),
+                    employerRoot.get("logo").as(String.class),
+                    employerRoot.get("address").as(String.class),
+                    areaRoot.get("name").as(String.class),
+                    jobTypesRoot.get("name").as(String.class),
+                    positionRoot.get("name").as(String.class)
+            );
+
+        }
+
         Query q = session.createQuery(query);
         return q.getResultList();
     }

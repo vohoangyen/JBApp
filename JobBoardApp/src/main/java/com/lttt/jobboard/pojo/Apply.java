@@ -34,7 +34,7 @@ public class Apply implements Serializable {
     private Employee employeeId;
 
     @Column(name = "apply_date")
-    private Date appyDate;
+    private Date applyDate;
 
     @Column(name = "cv")
     private String cv;
@@ -42,7 +42,7 @@ public class Apply implements Serializable {
     @Transient
     private MultipartFile cvFile;
     {
-        appyDate = new Date();
+        applyDate = new Date();
     }
 
     @ManyToOne
@@ -67,14 +67,14 @@ public class Apply implements Serializable {
      * @return the appyDate
      */
     public Date getAppyDate() {
-        return appyDate;
+        return applyDate;
     }
 
     /**
      * @param appyDate the appyDate to set
      */
     public void setAppyDate(Date appyDate) {
-        this.appyDate = appyDate;
+        this.applyDate = appyDate;
     }
 
     /**

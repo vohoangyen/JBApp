@@ -49,5 +49,7 @@ public interface PostService {
 
     List<Object[]> getPostsSuggestByMajor(int majorSuggestId);
     
+    List<Object[]> getPostsSuggestByArea(int areaSuggestId,int majorSuggestId);
+    
     List<Object[]> getPostsInfoEmployer(int employerId);
 }

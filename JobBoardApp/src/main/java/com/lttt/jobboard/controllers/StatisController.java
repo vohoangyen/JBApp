@@ -25,28 +25,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @ControllerAdvice
 public class StatisController {
+
     @Autowired
     private StatisService statisService;
-    
+
     @Autowired
     private SimpleDateFormat simpleDateFormat;
-    
+
     @RequestMapping("/statis")
     public String Statis(Model model,
-            @RequestParam(name = "fromDate", required = false) String fromDate, 
-            @RequestParam(name="toDate", required = false) String toDate){
-        
+            @RequestParam(name = "fromDate", defaultValue = "") String fromDate,
+            @RequestParam(name = "toDate", defaultValue = "") String toDate) {
+
         Date fr = null, to = null;
-        try{
+        try {
             fr = this.simpleDateFormat.parse(fromDate);
             to = this.simpleDateFormat.parse(toDate);
-        } catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
-        List<Object[]> statises = this.statisService.countPost(fr, to);
+
+        List<Object[]> statises = this.statisService.countEmployeesApplyPost(fr, to);
         model.addAttribute("statis", statises);
-        
+
         return "statis";
     }
 }

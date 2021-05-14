@@ -94,7 +94,8 @@ public class NewsFeedController {
             @RequestParam(value = "fromSalary", defaultValue = "") BigDecimal fromSalary,
             @RequestParam(value = "toSalary", defaultValue = "") BigDecimal toSalary,
             @RequestParam(value = "companyName", defaultValue = "") String companyName,
-            @RequestParam(value = "majorSuggestId", defaultValue = "") String majorSuggestId) {
+            @RequestParam(value = "majorSuggestId", defaultValue = "") String majorSuggestId,
+            @RequestParam(value = "areaSuggestId", defaultValue = "") String areaSuggestId) {
 
         ModelAndView view = new ModelAndView();
         view.setViewName("news-feed-suggest");
@@ -108,15 +109,25 @@ public class NewsFeedController {
         } else if (!jobtypeId.isEmpty()) {
             view.addObject("posts", jobTypesService.getPostsByJobtypeId(Integer.parseInt(jobtypeId)));
         }
-        
-        if (majorSuggestId.isEmpty()) {
-            view.addObject("posts", postService.getPost());
-        } else if (!majorSuggestId.isEmpty()) {
-            view.addObject("posts", postService.getPostsSuggestByMajor(Integer.parseInt(majorSuggestId)));
-        }
 
+//        if (majorSuggestId.isEmpty()) {
+//            view.addObject("posts", postService.getPost());
+//        } else if (!majorSuggestId.isEmpty()) {
+//            view.addObject("posts", postService.getPostsSuggestByMajor(Integer.parseInt(majorSuggestId)));
+//        }
+//
+//        if (areaSuggestId.isEmpty()) {
+//            view.addObject("posts", postService.getPost());
+//        } else if (!areaSuggestId.isEmpty()) {
+//            view.addObject("posts", postService.getPostsSuggestByArea(Integer.parseInt(areaSuggestId), Integer.parseInt(majorSuggestId)));
+//        }
+        
         if (!companyName.isEmpty()) {
             view.addObject("posts", postService.getPostsByCompanyName(companyName));
+        } else if (!majorSuggestId.isEmpty()) {
+            view.addObject("posts", postService.getPostsSuggestByMajor(Integer.parseInt(majorSuggestId)));
+        } else if (!areaSuggestId.isEmpty()) {
+            view.addObject("posts", postService.getPostsSuggestByArea(Integer.parseInt(areaSuggestId), Integer.parseInt(majorSuggestId)));
         } else if (!areaId.isEmpty() && !majorId.isEmpty() && !s_jobtypeId.isEmpty() && fromSalary != null && toSalary != null) {
             view.addObject("posts", postService.getPostsByAny(
                     Integer.parseInt(areaId),
@@ -133,14 +144,4 @@ public class NewsFeedController {
         return view;
     }
 
-//    @GetMapping(value = "/news-feed/{username}/suggest")
-//    public ModelAndView suggest(@RequestParam(value = "majorSuggestId", defaultValue = "") String majorSuggestId,
-//             @PathVariable(value = "username") String username) {
-//        ModelAndView view = new ModelAndView();
-//        view.addObject("employees", employeeService.getAllEmployee(username));
-//        view.setViewName("news-feed-suggest");
-//        view.addObject("posts", postService.getPost());
-//        //view.addObject("posts", postService.getPostsSuggestByMajor(Integer.parseInt(majorSuggestId)));
-//        return view;
-//    }
 }

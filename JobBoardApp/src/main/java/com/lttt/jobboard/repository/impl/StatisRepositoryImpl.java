@@ -20,14 +20,15 @@ import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -42,37 +43,35 @@ public class StatisRepositoryImpl implements StatisRepository {
     @Autowired
     private LocalSessionFactoryBean sessionsFactory;
 
-    @Transactional
     @Override
-    public List<Object[]> countPost(Date fromDate, Date toDate) {
+    @Transactional
+    public List<Object[]> countEmployeesApplyPost(Date fromDate, Date toDate) {
         Session session = this.sessionsFactory.getObject().getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
 
         Root applyRoot = query.from(Apply.class);
         Root postRoot = query.from(Post.class);
-        Root employeeRoot = query.from(Employee.class);
+        Root employerRoot = query.from(Employer.class);
+        Root positionRoot = query.from(Position.class);
 
         query = query.where(builder.and(
-                builder.equal(postRoot.get("id"), applyRoot.get("postId"))
-//                builder.equal(employeeRoot.get("id"), applyRoot.get("employeeId"))
-                
+                builder.equal(postRoot.get("id"), applyRoot.get("postId")),
+                builder.equal(postRoot.get("employer"),employerRoot.get("id")),
+                builder.equal(postRoot.get("position"),positionRoot.get("id"))
         ));
+
         query.multiselect(postRoot.get("id"),
-                postRoot.get("createPost").as(Date.class),
-//                applyRoot.get("employeeId"),
-                builder.count(postRoot.get("id")),
-                builder.count(applyRoot.get("id"))
+                postRoot.get("createPost").as(Date.class),  
+                builder.count(applyRoot.get("employeeId")),
+                employerRoot.get("companyName").as(String.class),
+                positionRoot.get("name").as(String.class)
         );
-
-        query.groupBy(postRoot.get("id"),
-                postRoot.get("createPost").as(Date.class)
-//                applyRoot.get("employeeId")
-        );
-
+        query.groupBy(postRoot.get("id"));
+        
         if (fromDate != null && toDate != null) {
-            Predicate p1 = builder.greaterThanOrEqualTo(postRoot.get("createdDate").as(Date.class), fromDate);
-            Predicate p2 = builder.lessThanOrEqualTo(postRoot.get("createdDate").as(Date.class), toDate);
+            Predicate p1 = builder.greaterThanOrEqualTo(postRoot.get("createPost").as(Date.class), fromDate);
+            Predicate p2 = builder.lessThanOrEqualTo(postRoot.get("createPost").as(Date.class), toDate);
             query = query.having(p1, p2);
         }
 

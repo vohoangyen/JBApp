@@ -13,7 +13,8 @@
 <link href="<c:url value="/resources/css/post-detail.css"/>" rel="stylesheet"/>
 <link href="<c:url value="/resources/css/employee-update-info.css"/>" rel="stylesheet"/>
 
-<div class="container" style="padding-top: 70px;font-weight: 400;">
+<div class="container" style="padding-top: 90px;font-weight: 400;">
+    <h2 class="text-center text-warning" style="position: relative">Company Information</h2>
     <div class="detail-version">
         <div class="content-area container">
             <div class="site-main content">

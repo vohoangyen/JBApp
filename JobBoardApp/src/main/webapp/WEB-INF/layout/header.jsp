@@ -25,12 +25,13 @@
                         <li id="elm-home" class="nav-item">
                             <a class="nav-link" href="<c:url value="/"/>">HOME</a>
                         </li>
+                        <li id="elm-comp" class="nav-item">
+                            <a class="nav-link" href="<c:url value="/list-company/"/>">COMPANIES</a>
+                        </li>
                         <li id="elm-nf" class="nav-item">
                             <a class="nav-link" href="<c:url value="/news-feed/"/>">NEWS FEED</a>
                         </li>
-                        <li id="elm-category" class="nav-item">
-                            <a class="nav-link" href="<c:url value="/list-company/"/>">COMPANIES</a>
-                        </li>
+                        
                         <sec:authorize access="isAuthenticated()">   
                             <sec:authorize access="hasRole('ROLE_EMPLOYER')">
                                 <li id="elm-post" class="nav-item">
@@ -50,7 +51,7 @@
                                 </script>
                             </sec:authorize>
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <li id="elm-post" class="nav-item" style="padding-left: 100px">
+                                <li id="elm-post" class="nav-item" style="padding-left: 130px">
                                     <a class="nav-link" href="<spring:url value="/statis/" />">
                                         THỐNG KÊ
                                     </a>
@@ -58,11 +59,10 @@
                                 <script>
                                     document.getElementById("elm-home").style.display = "none";
                                     document.getElementById("elm-nf").style.display = "none";
-                                    document.getElementById("elm-category").style.display = "none";
+                                    document.getElementById("elm-comp").style.display = "none";
                                 </script>
                             </sec:authorize>
                         </sec:authorize>
-
 
                     </ul>
                 </nav>
@@ -109,11 +109,12 @@
                         </div>           
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <li id="elm-post" class="nav-item" style="list-style: none; padding-left: 30px; float: right; padding-top: 10px">
-                            <a class="nav-link" href="<spring:url value="/logout" />">
+                        <li id="elm-post" class="nav-item" style="list-style: none; padding-left: 30px; float: right; padding-top: 10px; ">
+                            <a class="nav-link" href="<spring:url value="/logout" />" style="color: #ffc107">
                                 <i class="fa fa-sign-out"></i> LOG OUT
                             </a>
-                        </li>         
+                        </li>
+
                     </sec:authorize>
                 </sec:authorize>
             </div>

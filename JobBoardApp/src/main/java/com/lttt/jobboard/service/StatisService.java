@@ -14,5 +14,5 @@ import java.util.List;
  * @author Dy
  */
 public interface StatisService {
-     List<Object[]> countPost(Date fromDate, Date toDate);
+     List<Object[]> countEmployeesApplyPost(Date fromDate, Date toDate);
 }

@@ -127,5 +127,11 @@ public class PostServiceImpl implements PostService {
     public List<Object[]> getPostsInfoEmployer(int id) {
         return this.postRepository.getPostsInfoEmployer(id);
     }
+
+    @Override
+    @Transactional
+    public List<Object[]> getPostsSuggestByArea(int areaSuggestId, int majorSuggestId) {
+        return this.postRepository.getPostsSuggestByArea(areaSuggestId, majorSuggestId);
+    }
     
 }

@@ -12,19 +12,22 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
+ *  
  * @author Dy
  */
 @Service
-public class StatisServiceImpl implements StatisService{
-   @Autowired
+public class StatisServiceImpl implements StatisService {
+
+    @Autowired
     private StatisRepository statisRepository;
-  
+
+
     @Override
-    public List<Object[]> countPost(Date fromDate, Date toDate) {
-        return this.statisRepository.countPost(fromDate, toDate);
+    public List<Object[]> countEmployeesApplyPost(Date fromDate, Date toDate) {
+        return this.statisRepository.countEmployeesApplyPost(fromDate, toDate);
     }
-    
+
 }

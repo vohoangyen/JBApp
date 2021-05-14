@@ -44,40 +44,48 @@
             <!-- LEFT-LIST-CARDS-BY-JOB-TYPES -->  
             <!-- RECENT -->
             <div id="recentArea">
-                <c:forEach items="${posts}" var="post">
-                    <div class="card mb-4">
-                        <div class="row no-gutters ">
-                            <div class="col-md-3">
-                                <a href="<spring:url value="/posts/${post[0]}" />">
-                                    <img src="<spring:url value="${post[3]}" />"
-                                         class="card-img" alt="..."
-                                         style="padding: 10px;"/>
-                                </a>
-
-                            </div>
-                            <div class="col-md-9">
-                                <div class="card-body">
-                                    <a href="<spring:url value="/posts/${post[0]}"/>" class="card-body-name">
-                                        ${post[2]}
-                                    </a>                 
-                                    <div class="card-text" style="padding-top: 10px;">
-                                        <img class="card-sub-item subcard-img" src="<c:url value="/resources/images/iconPosition01.png"/>" alt="alt"/>
-                                        <a href="<spring:url value="/posts/${post[0]}"/>" class="card-sub-item">${post[7]} - ${post[6]}</a>
+                <c:choose>
+                    <c:when test="${not empty posts}">
+                        <c:forEach items="${posts}" var="post">
+                            <div class="card mb-4">
+                                <div class="row no-gutters ">
+                                    <div class="col-md-3">
+                                        <a href="<spring:url value="/posts/${post[0]}" />">
+                                            <img src="<spring:url value="${post[3]}" />"
+                                                 class="card-img" alt="..."
+                                                 style="padding: 10px;"/>
+                                        </a>
                                     </div>
-                                    <div class="card-text">
-                                        <img class="card-sub-item subcard-img" src="<c:url value="/resources/images/iconAddress03.png"/>" alt="alt"/>
-                                        <p class="card-sub-item ">${post[4]}, ${post[5]}</p>
-                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="card-body">
+                                            <a href="<spring:url value="/posts/${post[0]}"/>" class="card-body-name">
+                                                ${post[2]}
+                                            </a>                 
+                                            <div class="card-text" style="padding-top: 10px;">
+                                                <img class="card-sub-item subcard-img" src="<c:url value="/resources/images/iconPosition01.png"/>" alt="alt"/>
+                                                <a href="<spring:url value="/posts/${post[0]}"/>" class="card-sub-item">${post[7]} - ${post[6]}</a>
+                                            </div>
+                                            <div class="card-text">
+                                                <img class="card-sub-item subcard-img" src="<c:url value="/resources/images/iconAddress03.png"/>" alt="alt"/>
+                                                <p class="card-sub-item ">${post[4]}, ${post[5]}</p>
+                                            </div>
 
-                                    <div class="card-text">
-                                        <img class="card-sub-item subcard-img" src="<c:url value="/resources/images/iconSalary02.png"/>" alt="alt"/>
-                                        <p class="card-sub-item"><fmt:formatNumber type="number" value="${post[1]}" /> VNĐ</p>
+                                            <div class="card-text">
+                                                <img class="card-sub-item subcard-img" src="<c:url value="/resources/images/iconSalary02.png"/>" alt="alt"/>
+                                                <p class="card-sub-item"><fmt:formatNumber type="number" value="${post[1]}" /> VNĐ</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </c:forEach>     
+                    </c:when>
+                    <c:when test="${empty posts}">
+                        <div class="text-center">
+                            <h6 style="font-weight: bold;"><i>Không tìm thấy bài post phù hợp!</i></h6>
                         </div>
-                    </div>
-                </c:forEach>     
+                    </c:when>      
+                </c:choose>
             </div>              
         </div>  
 
