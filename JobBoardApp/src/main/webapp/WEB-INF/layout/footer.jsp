@@ -40,6 +40,7 @@
                 <ul class="footer-links">
                     <li><a href="<spring:url value="/" />">Home</a></li>
                     <li><a href="<spring:url value="/news-feed/" />">News feed</a></li>
+                    <li><a href="<spring:url value="/list-company/" />">Companies</a></li>
                     <li><a href="<spring:url value="/sign-in/" />">Log In</a></li>
                     <li><a href="<spring:url value="/sign-up/" />">Register</a></li>
                 </ul>

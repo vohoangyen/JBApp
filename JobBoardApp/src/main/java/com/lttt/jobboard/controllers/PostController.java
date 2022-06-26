@@ -81,6 +81,6 @@ public class PostController {
 
         postService.addPost(addPost);
 
-        return "redirect:/";
+        return "redirect:/ListPost/{username}";
     }
 }

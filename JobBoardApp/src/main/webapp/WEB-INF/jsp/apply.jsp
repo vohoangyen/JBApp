@@ -62,7 +62,7 @@
                                             oninvalid="this.setCustomValidity('Vui lòng chọn file CV của bạn!')"
                                             oninput="setCustomValidity('')" required="true" path="cvFile" />
                                 <label id="files01" style="display: none;margin-top: 10px;">Dung lượng file phải nhỏ hơn 1 MB</label>
-                                <label style="display: block;margin-top: 10px;">Hỗ trợ định dạng .doc .docx .pdf dưới 1 MB</label>
+                                <label style="display: none;margin-top: 10px;">Hỗ trợ định dạng .doc .docx .pdf dưới 1 MB</label>
                             </div>
                         </div>
                     </div>

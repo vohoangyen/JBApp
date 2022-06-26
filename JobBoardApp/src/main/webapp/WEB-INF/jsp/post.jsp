@@ -63,7 +63,7 @@
                             <label>Ngày bắt đầu tuyển</label>
                             <form:input class="form-control border border-warning " 
                                         type="date" required="true"                                                       
-                                        oninvalid="this.setCustomValidity('Vui lòng chọn năm sinh!')"
+                                        oninvalid="this.setCustomValidity('Vui lòng chọn ngày ứng tuyển!')"
                                         oninput="setCustomValidity('')"
                                         path="createPost"/>
 
@@ -72,7 +72,7 @@
                             <label>Hạn chót ứng tuyển</label>
                             <form:input class="form-control border border-warning " 
                                         type="date" required="true"                                                       
-                                        oninvalid="this.setCustomValidity('Vui lòng chọn năm sinh!')"
+                                        oninvalid="this.setCustomValidity('Vui lòng chọn hạn chót ứng tuyển!')"
                                         oninput="setCustomValidity('')"
                                         path="finishPost"/>
                         </div>

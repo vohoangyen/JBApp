@@ -127,7 +127,7 @@ public class EmployerInfoController {
                 .getServletContext().getRealPath("/");
 
         employerService.AddOrUpdateEmployer(addEmployer, rootDir);
-        return "redirect:/";
+        return "redirect:/employer-info/{username}";
     }
 
     @GetMapping(value = "/ListPost/{username}")

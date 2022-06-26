@@ -15,7 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -34,7 +36,7 @@ public class Apply implements Serializable {
     private Employee employeeId;
 
     @Column(name = "apply_date")
-    private Date applyDate;
+    private Date appyDate;
 
     @Column(name = "cv")
     private String cv;
@@ -42,7 +44,7 @@ public class Apply implements Serializable {
     @Transient
     private MultipartFile cvFile;
     {
-        applyDate = new Date();
+        appyDate = new Date();
     }
 
     @ManyToOne
@@ -67,14 +69,14 @@ public class Apply implements Serializable {
      * @return the appyDate
      */
     public Date getAppyDate() {
-        return applyDate;
+        return appyDate;
     }
 
     /**
      * @param appyDate the appyDate to set
      */
     public void setAppyDate(Date appyDate) {
-        this.applyDate = appyDate;
+        this.appyDate = appyDate;
     }
 
     /**

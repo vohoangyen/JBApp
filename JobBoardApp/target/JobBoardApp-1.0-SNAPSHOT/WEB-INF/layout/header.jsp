@@ -91,7 +91,7 @@
                             <div class="elm-sign-in">
                                 <a href="<spring:url value="/employer-info/${pageContext.request.userPrincipal.name}" />" style="color: black;font-weight: 400;">
                                     <i class="fa fa-user" style="margin-right: 10px;"></i>
-                                    <spring:message code="message.welcome" />, 
+                                    
                                     <sec:authentication property="principal.username" />                                     
                                 </a>                            
                             </div>
@@ -102,7 +102,7 @@
                             <div class="elm-sign-in">
                                 <a href="<spring:url value="/EmployeeInfo/${pageContext.request.userPrincipal.name}" />" style="color: black;font-weight: 400;">
                                     <i class="fa fa-user" style="margin-right: 10px;"></i>
-                                    <spring:message code="message.welcome" />, 
+                                    
                                     <sec:authentication property="principal.username" /> 
                                 </a>                            
                             </div>
